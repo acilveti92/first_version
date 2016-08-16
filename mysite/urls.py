@@ -17,16 +17,29 @@ from django.conf.urls import patterns, url, include
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
+from rest_framework import routers
+
+from mysite.myapp import views as myapp_views
+
 admin.autodiscover()
+
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'lines', myapp_views.LineViewSet)
+
 
 urlpatterns = patterns('',
     # This is going to be our home view.
     # We'll uncomment it later
-url(r'^$', 'mysite.myapp.views.home', name='home'),
+    url(r'^$', 'mysite.myapp.views.home', name='home'),
+    url(r'^api/v1/', include(router.urls)),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
