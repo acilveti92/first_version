@@ -28,6 +28,7 @@ admin.autodiscover()
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'lines', myapp_views.LineViewSet)
+router.register(r'words', myapp_views.WordViewSet)
 
 
 urlpatterns = patterns('',
@@ -35,6 +36,7 @@ urlpatterns = patterns('',
     # We'll uncomment it later
     url(r'^$', 'mysite.myapp.views.home', name='home'),
     url(r'^api/v1/', include(router.urls)),
+    url(r'^hello/', 'mysite.myapp.views.hello'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
@@ -110,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SITE_ID = 11
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -132,3 +134,8 @@ STATIC_URL = '/static/'
 
 # Tell Django where to serve static content (css, javascript, etc)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
+}
