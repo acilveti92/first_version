@@ -22,6 +22,8 @@ from rest_framework import routers
 
 from mysite.myapp import views as myapp_views
 
+#from . import views
+
 admin.autodiscover()
 
 
@@ -43,5 +45,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^register/$', myapp_views.UserFormView.as_view(), name='register')
 )

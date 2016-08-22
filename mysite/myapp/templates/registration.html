@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+<head>
+  <title>REGISTRATION MOTHERFUCKER</title>
+  </head>
+  <body>
+    <h1>My Python Anywhere hosted Django app</h1>
+    <p>Well, since it's already {{ right_now.minute }} past {{ right_now.hour }} UTC,
+    that is as far as we are going to take you in this tutorial.</p>
+    <p>What you do next is up to you...</p>
+    <p class="clickable">
+hello, I want a lemonade
+</p>
+
+<ul>
+{% for line in lines %}
+ <li style="color:{% cycle 'black' 'blue' 'green' %}"> {{ line.text }}</li>
+{% endfor %}
+</ul>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script type='text/javascript' src="{% static 'js/clickable.js' %}"></script>
+
+  </body>
+</html>
