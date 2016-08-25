@@ -17,16 +17,37 @@
         console.log(str);
 
 
-         $.ajax({
+        var datoajax = {palabra:str.toLowerCase()};
+        console.log(datoajax);
+
+
+        /* $.ajax({
             url: '/api/v1/words/?english_text=' + str.toLowerCase(),
             type: 'get', // This is the default though, you don't actually need to always mention it
-            success: function(data) {
+            /*success: function(data) {
                 console.log(data);
                 if (data.length > 0) {
                     clicked.html(clicked.html().replace(str, data[0].spanish_text));
                 } else {
                     alert('The word "' + str + '" is not in the translations database');
                 }
+
+            },
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });*/
+        $.ajax({
+            url: '/wordajax/' ,
+            type: 'GET', // This is the default though, you don't actually need to always mention it
+            data: datoajax,
+            success: function(data) {
+
+                    console.log(data);
+                    console.log(data[0].spanish_text);
+                    var replacement = data[0].spanish_text;
+                    clicked.html(clicked.html().replace(str, replacement));
+                    console.log(replacement);
 
             },
             failure: function(data) {
@@ -40,5 +61,3 @@
        // $(this).html($(this).html().replace(str, replacement));
 
        });
-
-

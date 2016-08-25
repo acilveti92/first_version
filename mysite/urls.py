@@ -18,6 +18,8 @@ from django.conf.urls import patterns, url, include
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
+from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework import routers
 
 from mysite.myapp import views as myapp_views
@@ -47,5 +49,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'^register/$', myapp_views.UserFormView.as_view(), name='register')
+    url(r'^register/$', myapp_views.UserFormView.as_view(), name='register'),
+
+    url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword')
 )

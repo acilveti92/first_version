@@ -5,18 +5,22 @@ from datetime import datetime
 
 #from django.shortcuts import render
 
-from rest_framework import serializers, viewsets
-
+from rest_framework import serializers, viewsets, request, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from django.http import HttpResponse
 
-from django.shortcuts import render, redirect  #from tutorial  Beginner
+from django.shortcuts import render, redirect, get_object_or_404  #from tutorial  Beginner
 from django.contrib.auth import authenticate, login  #from tutorial  Beginner
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View  #from tutorial  Beginner
 from .forms import UserForm  #from tutorial  Beginner
 
 
 # Imports must either be relative, like this, or have the full path
 from .models import Line, Word
+from .serializers import WordSerializer
 
 
 def home(request):
@@ -33,11 +37,11 @@ class LineSerializer(serializers.HyperlinkedModelSerializer):
         model = Line
         exclude = []
 
-
-class WordSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Word
-        exclude = []
+#DESCOMENTARLO
+#class WordSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = Word
+#        exclude = []
 
 
 # ViewSets define the view behavior.
@@ -86,4 +90,17 @@ class UserFormView(View):
 
             return render(request,self.template_name,{'form':form})
 
+
+class wordajax(APIView):
+#IT ONLY WORKS WITH GET, WITH POST 403 ERROR
+    def get(self, request):
+
+        datos= request.query_params
+        datos=datos.copy()
+        print(datos['palabra'])
+        words = Word.objects.filter(english_text=datos['palabra'])
+        print(words)
+        serializer = WordSerializer(words, many = True)
+
+        return Response(serializer.data)
 
