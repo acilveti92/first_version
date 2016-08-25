@@ -17,6 +17,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View  #from tutorial  Beginner
 from .forms import UserForm  #from tutorial  Beginner
 
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+
 
 # Imports must either be relative, like this, or have the full path
 from .models import Line, Word
@@ -101,6 +104,15 @@ class wordajax(APIView):
         words = Word.objects.filter(english_text=datos['palabra'])
         print(words)
         serializer = WordSerializer(words, many = True)
+
+        session_key = request.session._session_key
+        print(request.session._session_key)
+
+        session = Session.objects.get(session_key=session_key)
+        uid = session.get_decoded().get('_auth_user_id')
+        user = User.objects.get(pk=uid)
+
+        print ('usuario es' + user.username)
 
         return Response(serializer.data)
 
