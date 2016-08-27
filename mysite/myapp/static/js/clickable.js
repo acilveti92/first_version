@@ -44,8 +44,8 @@
             success: function(data) {
 
                     console.log(data);
-                    console.log(data[0].spanish_text);
-                    var replacement = data[0].spanish_text;
+                    console.log(data.spanish_text);
+                    var replacement = data.spanish_text;
                     clicked.html(clicked.html().replace(str, replacement));
                     console.log(replacement);
 
