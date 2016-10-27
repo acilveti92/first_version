@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <title>iOS Cookies</title>
+
+    <meta name="viewport" content="width=600;" />
+
+    <style type="text/css">
+      body {
+        font-family: Helvetica Neue, sans-serif;
+        font-size: 90%;
+        width: 600px;
+      }
+
+      .done {
+        text-decoration: line-through;
+      }
+
+      #pickANumber {
+        list-style: none;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      #pickANumber li {
+        float: left;
+        padding: 8px 14px;
+        margin-right: 1em;
+        font-size: 15pt;
+      }
+
+      .selected {
+        border: 1px solid #F00;
+        -webkit-border-radius: 22px;
+        border-radius: 22px;
+      }
+
+      small {
+        -webkit-text-size-adjust: none;
+        font-size: 16px;
+        font-style: italic;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function cookieGet(key) {
+        if (!document.cookie) { return null; }
+        var regex = new RegExp(key+"=(.+?)(;|$)");
+        var matches = document.cookie.match(regex);
+        if (!matches) { return null; }
+        return unescape(matches[1]);
+      }
+
+      function cookieSet(key, value, d) {
+        if (!d) {
+          d = new Date();
+          d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
+        }
+        var parts = [key+"="+escape(value)];
+        parts.push("expires="+d.toGMTString());
+        parts.push("path=/");
+        document.cookie = parts.join(";");
+        return value;
+      }
+
+      if (window.navigator.standalone) {
+        cookieSet("standalone", "1");
+      } else {
+        cookieSet("safari", "1");
+      }
+    </script>
+
+  </head>
+  <body>
+    <h1>Cookies vs iOS Standalone web apps</h1>
+
+    <h2>The tests</h2>
+
+    <p>Part 1: A list of things</p>
+    <ul>
+      <li id="MobSaf">Run in Safari mode</li>
+      <li id="Standalone">Run in Standalone mode</li>
+    </ul>
+
+    <p><small>
+      When page is run in a given mode, a 30-day cookie for that mode will be
+      set to "true". The relevant line will be crossed out if the
+      cookie is true.
+    </small></p>
+
+    <script type="text/javascript">
+      if (cookieGet('safari')) {
+        document.getElementById('MobSaf').className = "done";
+      }
+      if (cookieGet('standalone')) {
+        document.getElementById('Standalone').className = "done";
+      }
+
+    </script>
+
+    <br />
+    <br />
+
+
+    <p>Part 2: Pick a number</p>
+    <ul id="pickANumber">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+
+    <p><small>
+      When you pick a number, it is circled and a cookie is set
+      to that number. When the page is loaded, the number in the cookie is circled.
+    </small></p>
+
+
+    <script type="text/javascript">
+      var list = document.getElementById("pickANumber");
+      lis = list.getElementsByTagName('li');
+      var fn = function () {
+        for (var i = 0; i < lis.length; ++i) {
+          lis[i].className = "";
+        }
+        this.className = "selected";
+        cookieSet("pick", this.innerHTML);
+      }
+
+      var selVal = cookieGet("pick");
+      for (var i = 0; i < lis.length; ++i) {
+        var li = lis[i];
+        li.onclick = fn;
+        if (li.innerHTML == selVal) {
+          li.className = "selected";
+        }
+      }
+    </script>
+
+  </body>
+</html>
