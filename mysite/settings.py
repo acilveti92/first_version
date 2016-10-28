@@ -135,6 +135,10 @@ STATIC_URL = '/static/'
 # Tell Django where to serve static content (css, javascript, etc)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'monocle'),
+    )
+
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)

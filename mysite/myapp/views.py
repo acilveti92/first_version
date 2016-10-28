@@ -20,6 +20,9 @@ from .forms import UserForm  #from tutorial  Beginner
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
+import ebooklib
+from ebooklib import epub
+
 
 # Imports must either be relative, like this, or have the full path
 from .models import Line, Word, WordsUse
@@ -30,7 +33,15 @@ def home(request):
     return render(request, 'home.html', {'right_now':datetime.utcnow(), "lines" : Line.objects.all()})
 
 
+def example(request):
+    return render(request, 'index.html')
+
+
 def hello(request):
+
+    book = epub.read_epub('mysite/mysite/myapp/test.epub')
+    print('THE BOOK IS THIS!!!!')
+    print(book)
     return HttpResponse('Hello World!')
 
 

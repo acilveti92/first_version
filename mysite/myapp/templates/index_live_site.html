@@ -9,32 +9,44 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>The Velveteen Rabbit - Monocle</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'tests.css' %}" />
+
+    <!-- MONOCLE CORE -->
+    <script type="text/javascript" src="{% static 'src/core/monocle.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/compat/env.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/compat/css.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/compat/stubs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/compat/browser.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/events.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/factory.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/styles.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/reader.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/book.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/component.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/core/place.js' %}"></script>
+
+    <!-- MONOCLE FLIPPERS -->
+    <script type="text/javascript" src="{% static 'src/controls/panel.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/panels/twopane.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/panels/eink.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/dimensions/columns.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/flippers/slider.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/flippers/instant.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/dimensions/vert.js' %}"></script>
+    <script type="text/javascript" src="{% static 'src/flippers/legacy.js' %}"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static 'styles/monocore.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'tests.css' %}" />
 
-
-    <link rel="stylesheet" type="text/css" href="{% static 'monocore.css' %}" />
-
-
-    <link rel="stylesheet" type="text/css" href="{% static 'monococtrl.css' %}" />
     <style type="text/css">
-
       #rabbit {
-        width: 300px;
-        height: 420px;
-        border: 1px solid #000;
-        background-color: #CCC;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     </style>
 
-    <script type="text/javascript" src="{% static 'src/monocore.js' %}"></script>
-
-
-    <script type="text/javascript" src="{% static 'monoctrl.js' %}"></script>
-
-
-    <script type="text/javascript" src="{% static 'monocore.js' %}"></script>
     <script type="text/javascript">
       Monocle.DEBUG = true;
 
@@ -42,51 +54,55 @@
       Monocle.Events.listen(
         window,
         'load',
-        function () { window.reader = Monocle.Reader('rabbit'); }
+        function () {
+          window.reader = Monocle.Reader('rabbit');
+          Monocle.Events.listen(
+            window,
+            'resize',
+            function () { window.reader.resized() }
+          );
+        }
       );
     </script>
 
   </head>
 
-  <body class="narrow">
-    <a href="../../index.html" class="backToGuide">&larr; Back to Guide</a>
-    <h1>The Velveteen Rabbit</h1>
-    <p>An example of the very simplest implementation of Monocle.</p>
+  <body>
 
     <div id="rabbit">
 
       <style>
-      p {
-        line-height: 130%;
-      }
-      img {
-        max-width: 98%;
-        max-height: 98%;
-        -webkit-column-break-before: always;
-      }
-      .dedication {
-        text-align: center;
-        font-style: italic;
-        margin: 16em 0 10em;
-      }
-      .center {
-        text-align: center;
-      }
-      h1, h2, h3 {
-        text-align: center;
-      }
-      h1 small {
-        font-size: 85%;
-        font-variant: small-caps;
-      }
-      h2 {
-        margin-bottom: 3em;
-        font-weight: normal;
-      }
-      h2 small {
-        font-size: 85%;
-        font-style: italic;
-      }
+        p {
+          line-height: 130%;
+        }
+        img {
+          max-width: 98%;
+          max-height: 98%;
+          -webkit-column-break-before: always;
+        }
+        .dedication {
+          text-align: center;
+          font-style: italic;
+          margin: 16em 0 10em;
+        }
+        .center {
+          text-align: center;
+        }
+        h1, h2, h3 {
+          text-align: center;
+        }
+        h1 small {
+          font-size: 85%;
+          font-variant: small-caps;
+        }
+        h2 {
+          margin-bottom: 3em;
+          font-weight: normal;
+        }
+        h2 small {
+          font-size: 85%;
+          font-style: italic;
+        }
       </style>
 
 
@@ -396,4 +412,4 @@
     </div>
 
   </body>
-</html>
+</html
