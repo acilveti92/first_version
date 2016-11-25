@@ -36,6 +36,9 @@ def home(request):
 def example(request):
     return render(request, 'index.html')
 
+def example2(request):
+    return render(request, 'index2.html')
+
 
 def hello(request):
 

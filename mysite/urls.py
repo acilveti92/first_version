@@ -42,6 +42,8 @@ urlpatterns = patterns('',
     url(r'^api/v1/', include(router.urls)),
     url(r'^hello/', 'mysite.myapp.views.hello'),
     url(r'^example/', 'mysite.myapp.views.example'),
+    url(r'^example2/', 'mysite.myapp.views.example2'),
+
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
