@@ -1,130 +1,52 @@
 {% load static %}
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Panels test</title>
-    <!--<link rel="stylesheet" type="text/css" href="{% static 'prueba/test.css' %}" />-->
+<head>
+  <title>My Python Anywhere hosted Django app</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/style/monocore.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'dist/style/monocore.css' %}" />
 
-    <style type="text/css">
+      <style type="text/css">
       .readerInfo {
         width: 300px;
         float: left;
         padding-right: 20px;
       }
+
       .reader {
+          /*
+          width: 800px;
+          height: 500px;
+          */
+
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
       }
+
       #part1, #part2 {
         display: none;
       }
     </style>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-    <script type='text/javascript' src="{% static 'js/clickable.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/script/monocore.js' %}"></script>
-    <script type="text/javascript">
-
-      Monocle.DEBUG = true;
-      var bookData = Monocle.bookDataFromIds(['part1', 'part2']);
-      // Initialize the reader element.
-      Monocle.Events.listen(
-        window,
-        'load',
-        function () {
-
-
-          /*window.reader2 = Monocle.Reader(
-            'marginal',
-            bookData,
-            { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant }
-          );*/
-
-          window.reader2 = Monocle.Reader(
-            'marginal',
-            bookData,
-            { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant }
-          );
-
-
-
-    }
-      );
-    </script>
-
-    <script type="text/javascript">
-
-
-     // Monocle.DEBUG = true;
-      //var bookData = Monocle.bookDataFromIds(['part1', 'part2']);
-      // Initialize the reader element.
-      /*
-      Monocle.Events.listen(
-        window,
-        'load',
-        function () {
-
-          // MARGINAL
-          /*
-          window.reader2 = Monocle.Reader(
-            'marginal',
-            bookData,
-            { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant }
-          );
-          */
-          /*
-          // I-MODE
-          window.reader3 = Monocle.Reader(
-            'imode',
-            bookData,
-            { panels: Monocle.Panels.IMode }
-          );
-          // EINK
-          window.reader3 = Monocle.Reader(
-            'eInk',
-            bookData,
-            { panels: Monocle.Panels.eInk, flipper: Monocle.Flippers.Instant }
-          );
-          // MAGIC
-          window.reader4 = Monocle.Reader(
-            'magic',
-            bookData,
-            { panels: Monocle.Panels.Magic }
-          );
-          */
-        //}
-     // );
-    </script>
-
   </head>
 
   <body>
-    <a href="../index.html" class="backToGuide">&larr; Back to Guide</a>
-
+    <h1>My Python Anywhere hosted Django app</h1>
+    <p>Well, since it's already {{ right_now.minute }} past {{ right_now.hour }} UTC,
+    that is as far as we are going to take you in this tutorial.</p>
+    <p>What you do next is up to you...</p>
     <p class="clickable">
 hello, I want a lemonade
 </p>
 
-
-
     <div class="readerInfo">
       <h2>Marginal</h2>
-      <!--div class="reader" id="marginal"></div-->
+      <div class="reader" id="marginal"></div>
       <p>
         Two panels, the same width as the page margins.
       </p>
     </div>
-
-
-
-
-
-
 
 <div id="part1">
   <h2>The Haunted House</h2>
@@ -295,6 +217,38 @@ hello, I want a lemonade
 
 </div>
 
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script type='text/javascript' src="{% static 'js/clickable.js' %}"></script>
+  <script type="text/javascript" src="{% static 'dist/script/monocore.js' %}"></script>
+  <script type="text/javascript">
 
-</body>
+      Monocle.DEBUG = true;
+      var bookData = Monocle.bookDataFromIds(['part1', 'part2']);
+      // Initialize the reader element.
+      Monocle.Events.listen(
+        window,
+        'load',
+        function () {
+
+
+          /*window.reader2 = Monocle.Reader(
+            'marginal',
+            bookData,
+            { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant }
+          );*/
+
+          window.reader2 = Monocle.Reader(
+            'marginal',
+            bookData,
+            { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant }
+          );
+
+
+
+    }
+      );
+    </script>
+
+
+  </body>
 </html>

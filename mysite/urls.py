@@ -45,6 +45,7 @@ urlpatterns = patterns('',
     url(r'^example2/', 'mysite.myapp.views.example2'),
 
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
+    url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

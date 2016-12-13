@@ -1,4 +1,7 @@
-    $(".clickable").click(function(e){
+console.log('clickable');
+
+    $(".clickable").mouseup(function(e){
+        console.log('click');
         var clicked = $(this);
 
          s = window.getSelection();
