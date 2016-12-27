@@ -1,5 +1,7 @@
 console.log('clickable');
 
+$(document).ready(function() {
+
     $(".clickable").mouseup(function(e){
         console.log('click');
         var clicked = $(this);
@@ -64,3 +66,4 @@ console.log('clickable');
        // $(this).html($(this).html().replace(str, replacement));
 
        });
+});
