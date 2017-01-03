@@ -1,6 +1,31 @@
 console.log('clickable');
 
-    $(".clickable").mouseup(function(e){
+//htmlreplace('a', 'r');
+
+function htmlreplace(a, b, element) {
+    if (!element) element = document.body;
+    var nodes = element.childNodes;
+    for (var n=0; n<nodes.length; n++) {
+        if (nodes[n].nodeType == Node.TEXT_NODE) {
+            var r = new RegExp('\\b' + a + '\\b', 'gi');
+
+            nodes[n].textContent = nodes[n].textContent.replace(r , b);
+        } else {
+            htmlreplace(a, b, nodes[n]);
+        }
+    }
+}
+
+
+
+
+
+
+
+    /*
+    //$(".clickable").mouseup(function(e){
+    $(":header, p").mouseup(function(e){
+
         console.log('click');
         var clicked = $(this);
 
@@ -40,7 +65,7 @@ console.log('clickable');
                 alert('Got an error dude');
             }
         });*/
-        $.ajax({
+        /*$.ajax({
             url: '/wordajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: datoajax,
@@ -56,11 +81,47 @@ console.log('clickable');
             failure: function(data) {
                 alert('Got an error dude');
             }
-        });
+        });*/
 
 
         //alert(str);
        //var replacement = 'apple';
        // $(this).html($(this).html().replace(str, replacement));
 
-       });
+       //});
+
+
+       var url      = window.location.href;
+	   console.log(url);
+
+       var urlsendajax = {urlsend:url};
+
+       $.ajax({
+            url: '/wordajax/' ,
+            type: 'GET', // This is the default though, you don't actually need to always mention it
+            data: urlsendajax,
+            success: function(data) {
+
+
+                    console.log("success ajax");
+                    console.log(data);
+
+
+                    len=Object.keys(data).length;
+                    console.log("lenght is");
+                    console.log(len);
+
+                    Object.keys(data).length;
+
+
+                    for (i = 0; i < len; i++) {
+                        console.log(i);
+                        console.log(data[i]);
+                        htmlreplace(data[i].english_text, data[i].spanish_text);
+                        }
+
+            },
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });

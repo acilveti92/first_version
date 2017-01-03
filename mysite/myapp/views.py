@@ -26,17 +26,23 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordsUse
-from .serializers import WordSerializer
+from .models import Line, Word, WordsUse, WordAjax
+from .serializers import WordSerializer, WordAjaxSerializer
 
 from bs4 import BeautifulSoup   #for html handling
 from bs4 import NavigableString
 
 import re
 
+import urllib.request
+
 
 def home(request):
-    loadwords(request)  #calling a function
+
+
+
+
+  #  loadwords(request)  #calling a function
 
     soup = BeautifulSoup(open('/home/acilveti92/mysite/mysite/myapp/templates/home.html'))
 
@@ -166,8 +172,104 @@ def home(request):
     return HttpResponse(template.render(context))
 
 
+
 def example(request):
-    return render(request, 'index.html')
+    url="https://es.wikipedia.org/wiki/Parten%C3%B3n"
+    page = urllib.request.urlopen(url)
+
+    soup = BeautifulSoup(page.read())
+
+    print("------------------------------------------------url---------------------------------------")
+    print(soup.prettify())
+    print("------------------------------------------------url---------------------------------------")
+
+
+    print(soup.prettify())
+
+    print("empieza el texto")
+    print(soup.get_text())
+    text = soup.get_text()
+    print("acaba el texto")
+
+    splittext=text.split()
+    print(splittext)
+
+
+
+
+
+    print(len(splittext))
+    print("here comes the boom")
+    print(splittext[0])
+#now there should be made a duplicate avoider algorithm to make faster the replacement
+
+    #first filter non alfanumeric letters
+    simpletext=set(splittext)   #deletes duplicates items
+    print("comparation")
+    print(len(splittext))
+    print(len(simpletext))
+    #print(splittext)
+    #print(simpletext)
+
+
+
+    # Remove all strings that contain non-alphanumeric characters
+    # \w means a word character (i.e. alphanumeric or underscore)
+    # | means or
+    # $ means end of string
+    word_matcher = re.compile("(?=.*\w)^(\w|'|-)+$")
+
+    unique_words = []
+    for word in simpletext:
+        # Check if word contains non-alphanumeric characters
+        matches = word_matcher.match(word)
+        if matches:
+            unique_words.append(word)
+
+
+
+    for i in range(0,len(splittext)):
+        print(splittext[i])
+        print(i)
+        #a auxiliary list should be made in order to delete duplications
+
+        words = Word.objects.filter(english_text=splittext[i])  #there should be something to avoid the error because of the lack of word
+        if len(words) is 0:
+            #if it is really a word, add to the database and translate it
+            print("tock")
+        else:
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            print("tock")
+            if len(word_data) is 1:
+                # there should be a function to count every apparition of the word, instead of doing one by one
+
+
+                word_data=word_data[0]
+                word_data.translation_active = True
+                word_data.aparitions += 1
+
+                word_data.save()
+                editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
+
+
+
+            else:
+                if len(word_data) is 0:
+                    word_data = WordsUse(user = click_user, english_text = splittext[i], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+                else:
+                    print(" ERROR:there are more than one DB objects." + len(word_data))
+
+
+    #souphtml=soup.prettify()
+
+
+
+    template = Template(soup)
+    context = RequestContext(
+        request,
+        {'right_now':datetime.utcnow(), "lines" : Line.objects.all()}
+        )
+    return HttpResponse(template.render(context))
 
 def example2(request):
     return render(request, 'index2.html')
@@ -175,10 +277,9 @@ def example2(request):
 
 def hello(request):
 
-    book = epub.read_epub('mysite/mysite/myapp/test.epub')
-    print('THE BOOK IS THIS!!!!')
-    print(book)
-    return HttpResponse('Hello World!')
+
+
+    return render(request, 'home.html', {'right_now':datetime.utcnow(), "lines" : Line.objects.all()})
 
 
 # Serializers define the API representation.
@@ -245,14 +346,31 @@ class wordajax(APIView):
 #IT ONLY WORKS WITH GET, WITH POST 403 ERROR
     def get(self, request):
 
+        WordAjax.objects.all().delete() #initialize model
         datos= request.query_params
         datos=datos.copy()
-        print("the word is")
-        print(datos['palabra'])
-        words = Word.objects.get(english_text=datos['palabra'])
-        print("the object words is ")
-        print( words)
-        serializer = WordSerializer(words)
+        print("the url object is ********************************")
+        print(datos)
+        print(datos['urlsend'])
+        url = datos['urlsend']
+        print("the url  is ")
+        print( url)
+        url=url+"/"
+
+        print("the 2 url  is ")
+        print( url)
+        soup = BeautifulSoup(open('/stackoverflow.com/questions/10059554/inserting-characters-at-the-start-and-end-of-a-string/'))
+
+        print(soup.prettify())
+
+        print("empieza el texto")
+        print(soup.get_text())
+        text = soup.get_text()
+        print("acaba el texto")
+
+        splittext=text.split()
+        print(splittext)
+
 
         session_key = request.session._session_key
         print("the session key is")
@@ -263,51 +381,137 @@ class wordajax(APIView):
         click_user = User.objects.get(pk=uid)
         print("the user is")
         print(click_user)
-        word_data = WordsUse.objects.filter(user = click_user, english_text = words)    #english text has to be an object.
-        if len(word_data) is 1:
-            print("the get has returned the next object")
-            print(word_data[0])
-            word_data=word_data[0]
-            word_data.translation_active = True
-            word_data.click += 1
-        else:
-            if len(word_data) is 0:
-                word_data = WordsUse(user = click_user, english_text = words, translation_active = True, aparitions = 0, click = 1) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+
+        print(len(splittext))
+        print("here comes the boom")
+        print(splittext[0])
+#now there should be made a duplicate avoider algorithm to make faster the replacement
+
+    #first filter non alfanumeric letters
+        simpletext=set(splittext)   #deletes duplicates items
+        print("comparation")
+        print(len(splittext))
+        print(len(simpletext))
+        print(splittext)
+        print(simpletext)
+
+    # Remove all strings that contain non-alphanumeric characters
+    # \w means a word character (i.e. alphanumeric or underscore)
+    # | means or
+    # $ means end of string
+        word_matcher = re.compile("(?=.*\w)^(\w|'|-)+$")
+
+        unique_words = []
+        for word in simpletext:
+        # Check if word contains non-alphanumeric characters
+            matches = word_matcher.match(word)
+            if matches:
+                unique_words.append(word)
+
+        print("--------- únique words ---------")
+        print(unique_words)
+
+        soupstring = soup.string
+        print("print soupstring")
+        print(soupstring)
+
+        for tag in soup.find_all(string=re.compile(r"\b%s\b" % "want")):
+            print("this is the first tag with want")
+            print(tag)
+            fixed_text = tag.replace('want', 'I make it!')
+            fixed_string = NavigableString(fixed_text)
+            new_tag = soup.new_tag("b")
+            new_tag.string = tag
+
+            print(type(fixed_string))
+            print(type(tag))
+            print("this is the fixed text")
+            print(fixed_string)
+            print(type(tag.parent))
+            print(tag.parent)
+            tag2=tag.parent
+
+
+
+
+            tag2.string.replace_with(fixed_string)
+            print("now it has changed to that")
+            print(tag2.string)
+
+        for i in range(0,len(splittext)):
+            print(splittext[i])
+            print(i)
+        #a auxiliary list should be made in order to delete duplications
+            print("tick")
+            words = Word.objects.filter(english_text=splittext[i])  #there should be something to avoid the error because of the lack of word
+            if len(words) is 0:
+            #if it is really a word, add to the database and translate it
+                print(words)
+                print("tock")
             else:
-                print(" ERROR:there are more than one DB objects." + len(word_data))
+                print(words)
+                word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+                print("word_data")
+                print("tock")
+                if len(word_data) is 1:
+                # there should be a function to count every apparition of the word, instead of doing one by one
+                    print("the get has returned the next object")
+                    print(word_data[0])
 
+                    word_data=word_data[0]
+                    word_data.translation_active = True
+                    word_data.aparitions += 1
 
-        #pruebaword = WordsUse.objects.get(aparitions=0)
-
-        #pruebaword.user= click_user
-        #pruebaword.english_text= words
-        #pruebaword.translation_active=True
-        #pruebaword.aparitions=0
-        #pruebaword.click=0
-
-        #task to do:
-        #if-else statement for avoid repeatin word_data
-        #clean the code
-        #increment the click record
-        #switch of the translation
-        #in javascript change tehe code in the replace part.
-
-
-
-
-        print("the word_data object is")
-        print(word_data)
-        print("this is a test-2")
-        word_data.save()
+                    word_data.save()
+                    editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
+                    print("el tipo de soup es")
+                    print(type(soup))
+                    print(editor)
 
 
 
-        #word_data.clicked += 1
-        #word_data.save()
-        #print("the word_data object is")
-        #print(word_data)
-        #print("fin")
+                else:
+                    if len(word_data) is 0:
+                        word_data = WordsUse(user = click_user, english_text = splittext[i], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+                    else:
+                        print(" ERROR:there are more than one DB objects." + len(word_data))
 
+        #save the data with word_data.save?????
+        print("check")
+        words = Word.objects.get(english_text="want")
+        print("check2")
+        WordAjaxObject=WordAjax(english_text = words.english_text, spanish_text=words.spanish_text)
+        WordAjaxObject.save()
+
+        words = Word.objects.get(english_text="next")
+        WordAjaxObject=WordAjax(english_text = words.english_text, spanish_text=words.spanish_text)
+        WordAjaxObject.save()
+
+        #WordAjaxObject = WordAjax.objects.create(wordRef=words)
+        WordAjaxClass=WordAjax.objects.all()
+
+        print("check3")
+        #print(WordAjaxClass)
+       # WordAjaxObject.save(force_insert=True)
+        words = Word
+        print("the object  WordAjaxobject is ")
+        print( WordAjaxObject)
+
+        serializer = WordSerializer(simpletext)
+
+
+
+        serializer = WordAjaxSerializer(WordAjaxClass, many=True)
+
+
+        print("now comes de serializer")
+        print(serializer)
+
+
+        #serializer = WordSerializer(simpletext)
+        print("now comes the response")
+
+        #return HttpResponse("I want")
         return Response(serializer.data)
 
 def newpagewords(request):
@@ -358,10 +562,13 @@ def newpagewords(request):
     print("this is a test-1")
     return HttpResponse("I want")
 
-def loadwords(request):
+class loadwords(APIView):
+#IT ONLY WORKS WITH GET, WITH POST 403 ERROR
+    def get(self, request):
+        return HttpResponse("I want")
 
-    print("you are right")
-    return HttpResponse("you are right")
+
+
 
 
 

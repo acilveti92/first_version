@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^$', 'mysite.myapp.views.home', name='home'),
     url(r'^api/v1/', include(router.urls)),
     url(r'^hello/', 'mysite.myapp.views.hello'),
+    url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
     url(r'^example/', 'mysite.myapp.views.example'),
     url(r'^example2/', 'mysite.myapp.views.example2'),
 
