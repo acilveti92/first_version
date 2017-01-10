@@ -26,7 +26,7 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordsUse, WordAjax
+from .models import Line, Word, WordsUse, WordAjaxModel
 from .serializers import WordSerializer, WordAjaxSerializer
 
 from bs4 import BeautifulSoup   #for html handling
@@ -35,6 +35,7 @@ from bs4 import NavigableString
 import re
 
 import urllib.request
+
 
 
 def home(request):
@@ -342,45 +343,61 @@ class UserFormView(View):
             return render(request,self.template_name,{'form':form})
 
 
+
+
+
+
+
+
+
 class wordajax(APIView):
 #IT ONLY WORKS WITH GET, WITH POST 403 ERROR
     def get(self, request):
 
-        WordAjax.objects.all().delete() #initialize model
+        WordAjaxModel.objects.all().delete() #initialize model
         datos= request.query_params
         datos=datos.copy()
-        print("the url object is ********************************")
-        print(datos)
-        print(datos['urlsend'])
+
+
         url = datos['urlsend']
-        print("the url  is ")
-        print( url)
+
         url=url+"/"
+        print("buscaraqui")
+        print(url)
 
-        print("the 2 url  is ")
-        print( url)
-        soup = BeautifulSoup(open('/stackoverflow.com/questions/10059554/inserting-characters-at-the-start-and-end-of-a-string/'))
 
-        print(soup.prettify())
+
+        req = urllib.request.Request(url)
+        print("check ")
+        response = urllib.request.urlopen(req)
+        print("check ")
+        the_page = response.read()
+
+
+        #webread=urlopen('/acilveti92.pythonanywhere.com/hello/')
+        print("problem ")
+
+        soup = BeautifulSoup(the_page)
+
 
         print("empieza el texto")
-        print(soup.get_text())
+
         text = soup.get_text()
         print("acaba el texto")
 
         splittext=text.split()
-        print(splittext)
+
 
 
         session_key = request.session._session_key
-        print("the session key is")
-        print(request.session._session_key)
+        #print("the session key is")
+        #print(request.session._session_key)
 
         session = Session.objects.get(session_key=session_key)
         uid = session.get_decoded().get('_auth_user_id')
         click_user = User.objects.get(pk=uid)
-        print("the user is")
-        print(click_user)
+        #print("the user is")
+        #print(click_user)
 
         print(len(splittext))
         print("here comes the boom")
@@ -392,8 +409,7 @@ class wordajax(APIView):
         print("comparation")
         print(len(splittext))
         print(len(simpletext))
-        print(splittext)
-        print(simpletext)
+
 
     # Remove all strings that contain non-alphanumeric characters
     # \w means a word character (i.e. alphanumeric or underscore)
@@ -480,15 +496,15 @@ class wordajax(APIView):
         print("check")
         words = Word.objects.get(english_text="want")
         print("check2")
-        WordAjaxObject=WordAjax(english_text = words.english_text, spanish_text=words.spanish_text)
+        WordAjaxObject=WordAjaxModel(english_text = words.english_text, spanish_text=words.spanish_text)
         WordAjaxObject.save()
 
         words = Word.objects.get(english_text="next")
-        WordAjaxObject=WordAjax(english_text = words.english_text, spanish_text=words.spanish_text)
+        WordAjaxObject=WordAjaxModel(english_text = words.english_text, spanish_text=words.spanish_text)
         WordAjaxObject.save()
 
         #WordAjaxObject = WordAjax.objects.create(wordRef=words)
-        WordAjaxClass=WordAjax.objects.all()
+        WordAjaxClass=WordAjaxModel.objects.all()
 
         print("check3")
         #print(WordAjaxClass)

@@ -16,7 +16,7 @@ class Word(models.Model):                    # model - class    - table
         return '%s - %s' % (self.english_text, self.spanish_text)
 
 
-class WordAjax(models.Model):                    # model - class    - table
+class WordAjaxModel(models.Model):                    # model - class    - table
     english_text = models.CharField(max_length=255)
     spanish_text = models.CharField(max_length=255)
 
