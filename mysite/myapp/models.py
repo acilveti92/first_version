@@ -38,3 +38,11 @@ class WordsUse(models.Model):                    # model - class    - table
 
     def __str__(self):
         return '%s - %s- %s- %s- %s' % (self.user, self.english_text, self.translation_active, self.aparitions, self.click, )
+
+
+class PruebaExcel(models.Model):                    # model - class    - table
+    name = models.CharField(max_length=255)
+    number = models.IntegerField(default=0)
+
+    def __str__(self):
+        return '%s - %s' % (self.name, self.number)

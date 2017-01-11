@@ -26,7 +26,7 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordsUse, WordAjaxModel
+from .models import Line, Word, WordsUse, WordAjaxModel, PruebaExcel
 from .serializers import WordSerializer, WordAjaxSerializer
 
 from bs4 import BeautifulSoup   #for html handling
@@ -35,6 +35,10 @@ from bs4 import NavigableString
 import re
 
 import urllib.request
+
+
+
+import csv
 
 
 
@@ -277,8 +281,26 @@ def example2(request):
 
 
 def hello(request):
+    Word.objects.all().delete()
+    # Full path and name to your csv file
+    csv_filepathname="/home/acilveti92/mysite/mysite/myapp/ingles1000csv.csv"
+    # Full path to your django project directory
+    your_djangoproject_home="/home/acilveti92/mysite/mysite/myapp/"
 
 
+    with open(csv_filepathname) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            pruebaexcel = Word(english_text = row[0], spanish_text = row[1])
+            #pruebaexcel=pruebaexcel[0]
+            #pruebaexcel.name = row[0]
+            #pruebaexcel.number = row[1]
+            pruebaexcel.save()
+            print(" pruebaexcel")
+            print(pruebaexcel)
+
+            # creates a tuple of the new object or
+            # current object and a boolean of if it was created
 
     return render(request, 'home.html', {'right_now':datetime.utcnow(), "lines" : Line.objects.all()})
 
