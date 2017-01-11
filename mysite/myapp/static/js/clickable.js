@@ -100,7 +100,13 @@ function htmlreplace(a, b, element) {
             url: '/wordajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: urlsendajax,
-            success: function(data) {
+            success: change,
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });
+
+        function change(data) {
 
 
                     console.log("success ajax");
@@ -119,9 +125,8 @@ function htmlreplace(a, b, element) {
                         console.log(data[i]);
                         htmlreplace(data[i].english_text, data[i].spanish_text);
                         }
-
-            },
-            failure: function(data) {
+        function fail(data) {
                 alert('Got an error dude');
             }
-        });
+
+            }

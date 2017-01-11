@@ -428,23 +428,23 @@ class wordajax(APIView):
         print(unique_words)
 
         soupstring = soup.string
-        print("print soupstring")
-        print(soupstring)
+        #print("print soupstring")
+        #print(soupstring)
 
         for tag in soup.find_all(string=re.compile(r"\b%s\b" % "want")):
-            print("this is the first tag with want")
-            print(tag)
+            #print("this is the first tag with want")
+            #print(tag)
             fixed_text = tag.replace('want', 'I make it!')
             fixed_string = NavigableString(fixed_text)
             new_tag = soup.new_tag("b")
             new_tag.string = tag
 
-            print(type(fixed_string))
-            print(type(tag))
-            print("this is the fixed text")
-            print(fixed_string)
-            print(type(tag.parent))
-            print(tag.parent)
+            #print(type(fixed_string))
+            #print(type(tag))
+            #print("this is the fixed text")
+            #print(fixed_string)
+            #print(type(tag.parent))
+            #print(tag.parent)
             tag2=tag.parent
 
 
@@ -452,27 +452,27 @@ class wordajax(APIView):
 
             tag2.string.replace_with(fixed_string)
             print("now it has changed to that")
-            print(tag2.string)
+            #print(tag2.string)
 
         for i in range(0,len(splittext)):
-            print(splittext[i])
-            print(i)
+            #print(splittext[i])
+            #print(i)
         #a auxiliary list should be made in order to delete duplications
-            print("tick")
+            #print("tick")
             words = Word.objects.filter(english_text=splittext[i])  #there should be something to avoid the error because of the lack of word
             if len(words) is 0:
             #if it is really a word, add to the database and translate it
-                print(words)
+             #   print(words)
                 print("tock")
             else:
-                print(words)
+              #  print(words)
                 word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-                print("word_data")
-                print("tock")
+               # print("word_data")
+                #print("tock")
                 if len(word_data) is 1:
                 # there should be a function to count every apparition of the word, instead of doing one by one
-                    print("the get has returned the next object")
-                    print(word_data[0])
+                    #print("the get has returned the next object")
+                    #print(word_data[0])
 
                     word_data=word_data[0]
                     word_data.translation_active = True
@@ -480,9 +480,9 @@ class wordajax(APIView):
 
                     word_data.save()
                     editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
-                    print("el tipo de soup es")
-                    print(type(soup))
-                    print(editor)
+                    #print("el tipo de soup es")
+                    #print(type(soup))
+                    #print(editor)
 
 
 
