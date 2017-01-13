@@ -123,7 +123,10 @@ function htmlreplace(a, b, element) {
                     for (i = 0; i < len; i++) {
                         console.log(i);
                         console.log(data[i]);
-                        htmlreplace(data[i].english_text, data[i].spanish_text);
+                        Spanish=data[i].spanish_text;
+                        SpanishBold=Spanish.bold()
+                        replacement = data[i].english_text + "·" + SpanishBold;
+                        htmlreplace(data[i].english_text, replacement);
                         }
         function fail(data) {
                 alert('Got an error dude');

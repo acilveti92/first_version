@@ -32,12 +32,13 @@ class WordsUse(models.Model):                    # model - class    - table
     translation_active = models.BooleanField(default=False)
     aparitions = models.IntegerField(default=0)
     click = models.IntegerField(default=0)
+    translation_launch = models.IntegerField(default=0)
 
 
 
 
     def __str__(self):
-        return '%s - %s- %s- %s- %s' % (self.user, self.english_text, self.translation_active, self.aparitions, self.click, )
+        return '%s - %s- %s- %s- %s- %s' % (self.user, self.english_text, self.translation_active, self.aparitions, self.click, self.translation_launch )
 
 
 class PruebaExcel(models.Model):                    # model - class    - table
