@@ -182,28 +182,48 @@ def home(request):
 
 def example(request):
     url="https://es.wikipedia.org/wiki/Parten%C3%B3n"
-    page = urllib.request.urlopen(url)
 
-    soup = BeautifulSoup(page.read())
+    req = urllib.request.Request(url)
+    print("check ")
+    response = urllib.request.urlopen(req)
+    print("check ")
+    the_page = response.read()
 
-    print("------------------------------------------------url---------------------------------------")
-    print(soup.prettify())
-    print("------------------------------------------------url---------------------------------------")
 
+    #webread=urlopen('/acilveti92.pythonanywhere.com/hello/')
+    print("problem ")
 
-    print(soup.prettify())
+    soup = BeautifulSoup(the_page)
+
+    texts = soup.get_text()
+    text = soup.get_text()
+    splittext=texts.split()
+    simpletext=set(splittext)   #deletes after seeing words reduction
+    print("comparation")
+    print(len(splittext))
+    print(len(simpletext))
+
+    print("extract now")
+
+    for elem in soup.find_all(['script', 'style']):
+        elem.extract()
 
     print("empieza el texto")
-    print(soup.get_text())
-    text = soup.get_text()
+
+    texts = soup.get_text()
     print("acaba el texto")
 
-    splittext=text.split()
-    print(splittext)
+    splittext=texts.split()
 
+    session_key = request.session._session_key
+    #print("the session key is")
+    #print(request.session._session_key)
 
-
-
+    session = Session.objects.get(session_key=session_key)
+    uid = session.get_decoded().get('_auth_user_id')
+    click_user = User.objects.get(pk=uid)
+    #print("the user is")
+    #print(click_user)
 
     print(len(splittext))
     print("here comes the boom")
@@ -215,68 +235,9 @@ def example(request):
     print("comparation")
     print(len(splittext))
     print(len(simpletext))
-    #print(splittext)
-    #print(simpletext)
+    WordNumber=len(simpletext)
 
-
-
-    # Remove all strings that contain non-alphanumeric characters
-    # \w means a word character (i.e. alphanumeric or underscore)
-    # | means or
-    # $ means end of string
-    word_matcher = re.compile("(?=.*\w)^(\w|'|-)+$")
-
-    unique_words = []
-    for word in simpletext:
-        # Check if word contains non-alphanumeric characters
-        matches = word_matcher.match(word)
-        if matches:
-            unique_words.append(word)
-
-
-
-    for i in range(0,len(splittext)):
-        print(splittext[i])
-        print(i)
-        #a auxiliary list should be made in order to delete duplications
-
-        words = Word.objects.filter(english_text=splittext[i])  #there should be something to avoid the error because of the lack of word
-        if len(words) is 0:
-            #if it is really a word, add to the database and translate it
-            print("tock")
-        else:
-            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-            print("tock")
-            if len(word_data) is 1:
-                # there should be a function to count every apparition of the word, instead of doing one by one
-
-
-                word_data=word_data[0]
-                word_data.translation_active = True
-                word_data.aparitions += 1
-
-                word_data.save()
-                editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
-
-
-
-            else:
-                if len(word_data) is 0:
-                    word_data = WordsUse(user = click_user, english_text = splittext[i], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
-                else:
-                    print(" ERROR:there are more than one DB objects." + len(word_data))
-
-
-    #souphtml=soup.prettify()
-
-
-
-    template = Template(soup)
-    context = RequestContext(
-        request,
-        {'right_now':datetime.utcnow(), "lines" : Line.objects.all()}
-        )
-    return HttpResponse(template.render(context))
+    return HttpResponse(text)
 
 def example2(request):
     return render(request, 'index2.html')
@@ -384,12 +345,31 @@ class wordajax(APIView):
         soup = BeautifulSoup(the_page)
 
 
+        texts = soup.get_text()
+        splittext=texts.split()
+        simpletext=set(splittext)   #deletes after seeing words reduction
+        print("comparation")
+        print(len(splittext))
+        print(len(simpletext))
+
+
+
+
+        print("extract now")
+
+        for elem in soup.find_all(['style', 'script', '[document]', 'head', 'title']):
+            elem.extract()
+
+
         print("empieza el texto")
 
-        text = soup.get_text()
+        texts = soup.get_text()
         print("acaba el texto")
 
-        splittext=text.split()
+
+
+
+        splittext=texts.split()
 
 
 
@@ -513,7 +493,10 @@ class wordajax(APIView):
                         if word_data.translation_active is True:
                             repeat = False
                             for j in range(0,3):
-                                if splittext[i] is TranslationArray[j]: # only to send different word, and not the same more than once
+                                print("why is not repeating")
+                                print(splittext[i])
+                                print(TranslationArray[j])
+                                if splittext[i] == TranslationArray[j]: # only to send different word, and not the same more than once. dont use is to compare strings
                                     repeat = True
                                     print("Repetition")
                             if repeat is False:
@@ -529,6 +512,7 @@ class wordajax(APIView):
                                 if word_data.aparitions > 10:  # when it has been showed more than 10 times, the translation will switch off to pass to other words. Reactivate with a click
                                     word_data.translation_active = False
                                     print("cccc")
+                    word_data.save()
                     print("fin c")
 
                 else:   # there is a word translation, but not a especific word use for the user
@@ -573,7 +557,7 @@ class wordajax(APIView):
        # WordAjaxObject.save(force_insert=True)
         words = Word
         print("the object  WordAjaxobject is ")
-        print( WordAjaxObject)
+        print( WordAjaxClass)
 
         serializer = WordSerializer(simpletext)
 
