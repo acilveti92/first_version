@@ -42,6 +42,8 @@ import csv
 
 from collections import Counter
 
+from mysite.myapp.task import celerytest
+
 
 
 def home(request):
@@ -245,6 +247,7 @@ def example2(request):
 
 def hello(request):
 
+
     return render(request, 'home.html', {'right_now':datetime.utcnow(), "lines" : Line.objects.all()})
 
 
@@ -330,6 +333,8 @@ class wordajax(APIView):
         print("buscaraqui")
         print(url)
 
+        #celerytest.delay(2,2)
+
 
 
         req = urllib.request.Request(url)
@@ -343,17 +348,6 @@ class wordajax(APIView):
         print("problem ")
 
         soup = BeautifulSoup(the_page)
-
-
-        texts = soup.get_text()
-        splittext=texts.split()
-        simpletext=set(splittext)   #deletes after seeing words reduction
-        print("comparation")
-        print(len(splittext))
-        print(len(simpletext))
-
-
-
 
         print("extract now")
 
@@ -389,7 +383,7 @@ class wordajax(APIView):
 #now there should be made a duplicate avoider algorithm to make faster the replacement
 
     #first filter non alfanumeric letters
-        simpletext=set(splittext)   #deletes duplicates items
+        simpletext=set(splittext)   #deletes duplicates items .REPLACE with counter
         print("comparation")
         print(len(splittext))
         print(len(simpletext))
@@ -416,13 +410,15 @@ class wordajax(APIView):
         #print("print soupstring")
         #print(soupstring)
 
-        WordCount = Counter(simpletext) #to count apparitions in the web
+        WordCount = Counter(splittext) #to count apparitions in the web
         print("collections.Counter(simpletext)")
-        #print(WordCount)
+        print(WordCount)
 
         WordCountOrder=WordCount.most_common(WordNumber)
         print("WordCountOrderWordCount")
-        #print(WordCountOrder)
+        print(WordCountOrder)
+
+        print(WordCountOrder)
 
 
 
@@ -454,79 +450,62 @@ class wordajax(APIView):
         TranslationArray=["z","z","z","z"]
         PositionArray=0 #position of TranslationArray
 
-        for i in range(0,len(splittext)):   # the word translation should be create
+        for i in range(0,len(WordCountOrder)):   # the word translation should be create
             #print(splittext[i])
             #print(i)
         #a auxiliary list should be made in order to delete duplications
             #print("tick")
-            words = Word.objects.filter(english_text__iexact= splittext[i])  #there should be something to avoid the error because of the lack of word
-            print(len(words))
+            words = Word.objects.filter(spanish_text__iexact= WordCountOrder[i][0])  #there should be something to avoid the error because of the lack of word
+
             if len(words) is 0:
             #if it is really a word, add to the database and translate it
-                print(splittext[i])
-                print("there is no translation avaiable")
+                #print(splittext[i])
+                pass
             else:   # there are some operations concerning the correct existence of the word
-                print("a match in the db.the next line")
-                print(splittext[i])
                 word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-                print("a ")
-               # print("word_data")
-                #print("tock")
                 if len(word_data) is 1:
                 # there should be a function to count every apparition of the word, instead of doing one by one
-                    #print("the get has returned the next object")
-                    #print(word_data[0])
-
                     word_data=word_data[0]
                     #word_data.translation_active = True
-                    word_data.aparitions += 1
-
+                    word_data.aparitions += WordCountOrder[i][1]
                     word_data.save()
                     editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
-                    #print("el tipo de soup es")
-                    #print(type(soup))
-                    #print(editor)
 
-                    print("c")
                     if n > 0:  # to control number of words
-                        print("cc")
                         if word_data.translation_active is True:
                             repeat = False
                             for j in range(0,3):
-                                print("why is not repeating")
-                                print(splittext[i])
-                                print(TranslationArray[j])
-                                if splittext[i] == TranslationArray[j]: # only to send different word, and not the same more than once. dont use is to compare strings
+
+                                if WordCountOrder[i][0] == TranslationArray[j]: # only to send different word, and not the same more than once. dont use is to compare strings
                                     repeat = True
-                                    print("Repetition")
+
                             if repeat is False:
-                                print("ccc")
-                                TranslationArray[PositionArray]=splittext[i]
+                                if PositionArray is 2:
+                                    print("translation array completed")
+                                TranslationArray[PositionArray]=WordCountOrder[i][0]
                                 PositionArray=PositionArray + 1
-                                print("TranslationArray  entering words")
-                                print(TranslationArray)
+
                                 #aparitions=translation frequency. For the mother language-> foreign language mode
 
                                 word_data.translation_launch = word_data.translation_launch + 1
                                 n=n-1
-                                if word_data.aparitions > 10:  # when it has been showed more than 10 times, the translation will switch off to pass to other words. Reactivate with a click
+                                if word_data.translation_launch > 10:  # when it has been showed more than 10 times, the translation will switch off to pass to other words. Reactivate with a click
                                     word_data.translation_active = False
-                                    print("cccc")
+
                     word_data.save()
-                    print("fin c")
+
 
                 else:   # there is a word translation, but not a especific word use for the user
-                    print(" aa ")
+
                     if len(word_data) is 0:
-                        print(" aaa ")
-                        print(words)
+
 
                         #it crashes, because
                         word_data = WordsUse(user = click_user, english_text = words[0], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
                         word_data.save()
-                        print(" bbb ")
+
                     else: # there are more than one db objects
-                        print(" aaaa ")
+
                         print(" ERROR:there are more than one DB objects." + len(word_data))
 
 
@@ -538,7 +517,7 @@ class wordajax(APIView):
 
 
         for i in range(0, PositionArray):
-            words = Word.objects.filter(english_text__iexact=TranslationArray[i])  #case insesitive search
+            words = Word.objects.filter(spanish_text__iexact=TranslationArray[i])  #case insesitive search
             print("translationarray object")
             print(words)
             WordAjaxObject=WordAjaxModel(english_text = words[0].english_text, spanish_text=words[0].spanish_text)

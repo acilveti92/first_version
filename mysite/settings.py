@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import djcelery
+
+
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,7 +48,14 @@ INSTALLED_APPS = [
     # 'django.contrib.admindocs',
     'rest_framework',
     'mysite.myapp',
+    'djcelery',
+    'kombu.transport.django', #for celery development broker
 ]
+
+djcelery.setup_loader()
+BROKER_URL = 'django://'
+
+
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
