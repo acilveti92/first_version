@@ -1,31 +1,6 @@
 console.log('clickable');
 
-//htmlreplace('a', 'r');
-
-function htmlreplace(a, b, element) {
-    if (!element) element = document.body;
-    var nodes = element.childNodes;
-    for (var n=0; n<nodes.length; n++) {
-        if (nodes[n].nodeType == Node.TEXT_NODE) {
-            var r = new RegExp('\\b' + a + '\\b', 'gi');
-
-            nodes[n].textContent = nodes[n].textContent.replace(r , b);
-        } else {
-            htmlreplace(a, b, nodes[n]);
-        }
-    }
-}
-
-
-
-
-
-
-
-    /*
-    //$(".clickable").mouseup(function(e){
-    $(":header, p").mouseup(function(e){
-
+    $(".clickable").mouseup(function(e){
         console.log('click');
         var clicked = $(this);
 
@@ -59,13 +34,12 @@ function htmlreplace(a, b, element) {
                 } else {
                     alert('The word "' + str + '" is not in the translations database');
                 }
-
             },
             failure: function(data) {
                 alert('Got an error dude');
             }
         });*/
-        /*$.ajax({
+        $.ajax({
             url: '/wordajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: datoajax,
@@ -81,55 +55,11 @@ function htmlreplace(a, b, element) {
             failure: function(data) {
                 alert('Got an error dude');
             }
-        });*/
+        });
 
 
         //alert(str);
        //var replacement = 'apple';
        // $(this).html($(this).html().replace(str, replacement));
 
-       //});
-
-
-       var url      = window.location.href;
-	   console.log(url);
-
-       var urlsendajax = {urlsend:url};
-
-       $.ajax({
-            url: '/wordajax/' ,
-            type: 'GET', // This is the default though, you don't actually need to always mention it
-            data: urlsendajax,
-            success: change,
-            failure: function(data) {
-                alert('Got an error dude');
-            }
-        });
-
-        function change(data) {
-
-
-                    console.log("success ajax");
-                    console.log(data);
-
-
-                    len=Object.keys(data).length;
-                    console.log("lenght is");
-                    console.log(len);
-
-                    Object.keys(data).length;
-
-
-                    for (i = 0; i < len; i++) {
-                        console.log(i);
-                        console.log(data[i]);
-                        //Spanish=data[i].spanish_text;
-                        //SpanishBold=Spanish.bold()
-                        replacement = data[i].spanish_text + "·" + data[i].english_text;
-                        htmlreplace(data[i].spanish_text, replacement);
-                        }
-        function fail(data) {
-                alert('Got an error dude');
-            }
-
-            }
+       });

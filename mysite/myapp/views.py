@@ -246,7 +246,26 @@ def example2(request):
 
 
 def hello(request):
+    Word.objects.all().delete()
+    # Full path and name to your csv file
+    csv_filepathname="/home/acilveti92/mysite/mysite/myapp/ingles1000csv.csv"
+    # Full path to your django project directory
+    your_djangoproject_home="/home/acilveti92/mysite/mysite/myapp/"
 
+
+    with open(csv_filepathname, encoding = "ISO-8859-1") as f:
+        reader = csv.reader(f)
+        for row in reader:
+            pruebaexcel = Word(english_text = row[1], spanish_text = row[0])
+            #pruebaexcel=pruebaexcel[0]
+            #pruebaexcel.name = row[0]
+            #pruebaexcel.number = row[1]
+            pruebaexcel.save()
+            print(" pruebaexcel")
+            print(pruebaexcel)
+
+            # creates a tuple of the new object or
+            # current object and a boolean of if it was created
 
     return render(request, 'home.html', {'right_now':datetime.utcnow(), "lines" : Line.objects.all()})
 
@@ -326,10 +345,14 @@ class wordajax(APIView):
         datos= request.query_params
         datos=datos.copy()
 
+        print("datos")
+        print(datos)
+
+        print(datos['wordsback'])
 
         url = datos['urlsend']
 
-        url=url+"/"
+
         print("buscaraqui")
         print(url)
 
@@ -339,7 +362,7 @@ class wordajax(APIView):
 
         req = urllib.request.Request(url)
         print("check ")
-        response = urllib.request.urlopen(req)
+        response = urllib.request.urlopen(req)  # there are some problems and there should be fixed in the future
         print("check ")
         the_page = response.read()
 
@@ -368,13 +391,13 @@ class wordajax(APIView):
 
 
         session_key = request.session._session_key
-        #print("the session key is")
+        print("the session key is")
         #print(request.session._session_key)
 
         session = Session.objects.get(session_key=session_key)
         uid = session.get_decoded().get('_auth_user_id')
         click_user = User.objects.get(pk=uid)
-        #print("the user is")
+        print("the user is")
         #print(click_user)
 
         print(len(splittext))
@@ -424,89 +447,190 @@ class wordajax(APIView):
 
 
 
-        for tag in soup.find_all(string=re.compile(r"\b%s\b" % "want")):
-            #print("this is the first tag with want")
-            #print(tag)
-            fixed_text = tag.replace('want', 'I make it!')
-            fixed_string = NavigableString(fixed_text)
-            new_tag = soup.new_tag("b")
-            new_tag.string = tag
-
-            #print(type(fixed_string))
-            #print(type(tag))
-            #print("this is the fixed text")
-            #print(fixed_string)
-            #print(type(tag.parent))
-            #print(tag.parent)
-            tag2=tag.parent
 
 
 
-
-            tag2.string.replace_with(fixed_string)
-            print("now it has changed to that")
-            #print(tag2.string)
-        n=3 #number of word translation to be done. in the future it should be a flexible number
-        TranslationArray=["z","z","z","z"]
+        n=7 #number of word translation to be done. in the future it should be a flexible number
+        TranslationArray=["z","z","z","z","z"]
         PositionArray=0 #position of TranslationArray
+        TranslatedWordsNumber = 0
 
-        for i in range(0,len(WordCountOrder)):   # the word translation should be create
-            #print(splittext[i])
-            #print(i)
-        #a auxiliary list should be made in order to delete duplications
-            #print("tick")
-            words = Word.objects.filter(spanish_text__iexact= WordCountOrder[i][0])  #there should be something to avoid the error because of the lack of word
 
-            if len(words) is 0:
-            #if it is really a word, add to the database and translate it
-                #print(splittext[i])
-                pass
-            else:   # there are some operations concerning the correct existence of the word
-                word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-                if len(word_data) is 1:
-                # there should be a function to count every apparition of the word, instead of doing one by one
-                    word_data=word_data[0]
-                    #word_data.translation_active = True
-                    word_data.aparitions += WordCountOrder[i][1]
-                    word_data.save()
-                    editor = re.sub(r"\b%s\b" % "want" , "traduccion","prueba con want")
 
-                    if n > 0:  # to control number of words
-                        if word_data.translation_active is True:
-                            repeat = False
-                            for j in range(0,3):
+#first part of algorith, returning words
 
-                                if WordCountOrder[i][0] == TranslationArray[j]: # only to send different word, and not the same more than once. dont use is to compare strings
-                                    repeat = True
+
+        if(datos['wordsback'] == "true"):
+            for i in range(0,len(WordCountOrder)):   # the word translation should be create
+                words = Word.objects.filter(spanish_text__iexact= WordCountOrder[i][0])  #there should be something to avoid the error because of the lack of word
+                print(WordCountOrder[i][0])
+                print(words)
+                print(i)
+
+                if len(words) is 1:
+                    print("if len(words) is 1:")
+                    print(words)
+
+
+                    word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+                    if len(word_data) is 1:
+                        print("len(word_data) is 1:")
+                        print(words)
+                        word_data=word_data[0]
+                        print("check")
+
+                        if n > 0:  # to control number of words. problem, need to fix
+                            repeat = True
+                            if word_data.translation_active is True:
+                                repeat = False
+
+                                for j in range(0,4):
+
+                                    if WordCountOrder[i][0] == TranslationArray[j]: # only to send different word, and not the same more than once. dont use is to compare strings
+                                        repeat = True
 
                             if repeat is False:
-                                if PositionArray is 2:
-                                    print("translation array completed")
+
                                 TranslationArray[PositionArray]=WordCountOrder[i][0]
                                 PositionArray=PositionArray + 1
+                                print("metida en translationarray")
+                                print(TranslationArray)
+
 
                                 #aparitions=translation frequency. For the mother language-> foreign language mode
 
                                 word_data.translation_launch = word_data.translation_launch + 1
                                 n=n-1
+                                word_data.save()
+                                print("word_data in traslation array")
+                                print(word_data)
+                                TranslatedWordsNumber += WordCountOrder[i][1]
+                                TranslatedWordsPercentage = TranslatedWordsNumber/len(splittext)
+                                print("TranslatedWordsNumber")
+                                print(TranslatedWordsNumber)
+                                print("TranslatedWordsPercentage")
+                                print(TranslatedWordsPercentage)
+
+                                if TranslatedWordsPercentage > 0.05:
+                                    PositionArray = 5   # launch te response
+                                    print("launch!")
+
                                 if word_data.translation_launch > 10:  # when it has been showed more than 10 times, the translation will switch off to pass to other words. Reactivate with a click
                                     word_data.translation_active = False
+                                    print(word_data)
+                                    print("translation_active False")
+                                    word_data.save()
 
+                                if PositionArray is 5:
+                                    print("translation array completed")
+                                    #launch the response
+                                    for l in range(0, PositionArray):
+                                        words = Word.objects.filter(spanish_text__iexact=TranslationArray[l])  #case insesitive search
+                                        print("translationarray object")
+                                        print(words)
+                                        print(len(words))
+                                        if len(words) is 1:
+                                            WordAjaxObject=WordAjaxModel(english_text = words[0].english_text, spanish_text=words[0].spanish_text)
+                                            WordAjaxObject.save()
+
+
+                                        #save the data with word_data.save?????
+
+
+                                    #WordAjaxObject = WordAjax.objects.create(wordRef=words)
+                                    WordAjaxClass=WordAjaxModel.objects.all()
+
+                                    print("check3")
+                                    #print(WordAjaxClass)
+                                    #WordAjaxObject.save(force_insert=True)
+                                    words = Word
+                                    print("the object  WordAjaxobject is ")
+                                    print( WordAjaxClass)
+
+                                    serializer = WordSerializer(simpletext)
+
+
+
+                                    serializer = WordAjaxSerializer(WordAjaxClass, many=True)
+
+
+                                    print("now comes de serializer")
+                                    print(serializer)
+
+
+                                    #serializer = WordSerializer(simpletext)
+                                    print("now comes the response of the first part of the algorithm")
+
+                                    #return HttpResponse("I want")
+                                    return Response(serializer.data)
+                    else:   # there is a word translation, but not a especific word use for the user
+
+                        if len(word_data) is 0:
+
+
+                            #it crashes, because
+                            word_data = WordsUse(user = click_user, english_text = words[0], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+                            word_data.save()
+                    word_data.save()
+
+            print("translation array")
+            print(TranslationArray)
+
+
+
+
+
+#second part of algorithm, updatind db
+        for i in range(0,len(WordCountOrder)):   # the word translation should be create
+            print("new word")
+            print(WordCountOrder[i][0])
+            #print(i)
+        #a auxiliary list should be made in order to delete duplications
+            #print("tick")
+            words = Word.objects.filter(spanish_text__iexact= WordCountOrder[i][0])  #there should be something to avoid the error because of the lack of word
+            print("check")
+            if len(words) is 0:
+            #if it is really a word, add to the database and translate it
+                print("if len(words) is 0:")
+
+
+                pass
+            else:   # there are some operations concerning the correct existence of the word
+                word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+                print("check2")
+                if len(word_data) is 1:
+                    print("check3")
+                # there should be a function to count every apparition of the word, instead of doing one by one
+                    word_data=word_data[0]
+                    #word_data.translation_active = True
+                    word_data.aparitions += WordCountOrder[i][1]
                     word_data.save()
 
 
-                else:   # there is a word translation, but not a especific word use for the user
 
+
+
+
+                    #print("db update")
+                    #print(words[0])
+
+
+                else:   # there is a word translation, but not a especific word use for the user
+                    print("check4")
+                    print(len(word_data))
                     if len(word_data) is 0:
 
-
+                        print("db creation")
+                        print(words[0])
                         #it crashes, because
                         word_data = WordsUse(user = click_user, english_text = words[0], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
                         word_data.save()
 
+
                     else: # there are more than one db objects
 
-                        print(" ERROR:there are more than one DB objects." + len(word_data))
+                        print(" ERROR:there are more than one DB objects." )
+                        print(len(word_data))
 
 
 
@@ -516,44 +640,10 @@ class wordajax(APIView):
         print(TranslationArray)
 
 
-        for i in range(0, PositionArray):
-            words = Word.objects.filter(spanish_text__iexact=TranslationArray[i])  #case insesitive search
-            print("translationarray object")
-            print(words)
-            WordAjaxObject=WordAjaxModel(english_text = words[0].english_text, spanish_text=words[0].spanish_text)
-            print("check")
-            WordAjaxObject.save()
 
-
-        #save the data with word_data.save?????
-
-
-        #WordAjaxObject = WordAjax.objects.create(wordRef=words)
-        WordAjaxClass=WordAjaxModel.objects.all()
-
-        print("check3")
-        #print(WordAjaxClass)
-       # WordAjaxObject.save(force_insert=True)
-        words = Word
-        print("the object  WordAjaxobject is ")
-        print( WordAjaxClass)
-
-        serializer = WordSerializer(simpletext)
-
-
-
-        serializer = WordAjaxSerializer(WordAjaxClass, many=True)
-
-
-        print("now comes de serializer")
-        print(serializer)
-
-
-        #serializer = WordSerializer(simpletext)
-        print("now comes the response")
 
         #return HttpResponse("I want")
-        return Response(serializer.data)
+        return HttpResponse("updated completed")
 
 def newpagewords(request):
     test = "I want"
