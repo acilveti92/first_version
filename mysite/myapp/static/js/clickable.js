@@ -40,7 +40,7 @@ console.log('clickable');
             }
         });*/
         $.ajax({
-            url: '/wordajax/' ,
+            url: '/wordselectionajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: datoajax,
             success: function(data) {

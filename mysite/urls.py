@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
     url(r'^example/', 'mysite.myapp.views.example'),
     url(r'^example2/', 'mysite.myapp.views.example2'),
+    url(r'^test/', 'mysite.static.js.test.index'),
 
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
     url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
@@ -57,5 +58,6 @@ urlpatterns = patterns('',
 
     url(r'^register/$', myapp_views.UserFormView.as_view(), name='register'),
 
-    url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword')
+    url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword'),
+    url(r'^wordselectionajax/$', myapp_views.WordSelectionAjax.as_view(), name='wordselectionajax')
 )

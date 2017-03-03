@@ -28,18 +28,32 @@ class WordAjaxModel(models.Model):                    # model - class    - table
 
 
 class WordsUse(models.Model):                    # model - class    - table
-    user = models.ForeignKey(User)
-    english_text = models.ForeignKey(Word)
+    user = models.ForeignKey(User, null=True)
+    english_text = models.ForeignKey(Word, null=True)
     translation_active = models.BooleanField(default=False)
     aparitions = models.IntegerField(default=0)
     click = models.IntegerField(default=0)
     translation_launch = models.IntegerField(default=0)
 
 
+    UNKNOWN = 'UN'
+    STARTED = 'ST'
+    LIGHTKNOWN = 'LK'
+    HEAVYKNOWN = 'HK'
+    STATE_WORD_LEARNING = (
+        (UNKNOWN, 'Unknown'),
+        (STARTED, 'Started'),
+        (LIGHTKNOWN, 'Lightknown'),
+        (HEAVYKNOWN, 'Heavyknown'),
+        )
+
+    word_status = models.CharField(max_length=2, choices=STATE_WORD_LEARNING, default = 'UN')
+
+
 
 
     def __str__(self):
-        return '%s - %s- %s- %s- %s- %s' % (self.user, self.english_text, self.translation_active, self.aparitions, self.click, self.translation_launch )
+        return '%s - %s- %s- %s- %s- %s- %s' % ( self.user, self.english_text, self.word_status, self.translation_active, self.aparitions, self.click, self.translation_launch)
 
 
 class PruebaExcel(models.Model):                    # model - class    - table

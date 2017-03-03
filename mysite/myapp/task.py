@@ -27,7 +27,7 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordsUse, WordAjaxModel, PruebaExcel
+from .models import Line, Word, WordAjaxModel, PruebaExcel  , WordsUse
 from .serializers import WordSerializer, WordAjaxSerializer
 
 from bs4 import BeautifulSoup   #for html handling

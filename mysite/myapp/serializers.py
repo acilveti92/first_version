@@ -5,7 +5,7 @@ class WordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Word
-        fields = ('spanish_text',)
+        fields = ('spanish_text','english_text',)
 
 class WordAjaxSerializer(serializers.ModelSerializer):
 

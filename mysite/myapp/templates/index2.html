@@ -14,6 +14,7 @@
     <!--<link rel="stylesheet" type="text/css" href="{% static 'prueba/test.css' %}" />-->
 
     <link rel="stylesheet" type="text/css" href="{% static 'monocle/styles/monocore.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'monocle/styles/monoctrl.css' %}" />
 
     <style type="text/css">
       .readerInfo {
@@ -35,73 +36,82 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
     <script type='text/javascript' src="{% static 'js/clickable.js' %}"></script>
     <script type="text/javascript" src="{% static 'monocle/scripts/monocore.js' %}"></script>
+    <script type="text/javascript" src="{% static 'monocle/scripts/monoctrl.js' %}"></script>
     <script type="text/javascript">
-
-
-    (function () {
-        Monocle.DEBUG = true;
-        function textSelected(evt) {
-          console.log("Selection: "+evt.m.string);
-          var st = document.getElementById('statusSelect');
-          var sel = evt.m.string;
-          //st.innerHTML = sel;
-          //st.style.visibility = 'visible';
-          //copypaste
-          var datoajax = {palabra:sel.toLowerCase()};
-          console.log(datoajax);
-          $.ajax({
-            url: '/wordajax/' ,
-            type: 'GET', // This is the default though, you don't actually need to always mention it
-            data: datoajax,
-            success: function(data) {
-
-                    console.log(data);
-                    console.log(data.spanish_text);
-                    var replacement = data.spanish_text;
-                    clicked.html(clicked.html().replace(str, replacement));
-                    console.log(replacement);
-
-            },
-            failure: function(data) {
-                alert('Got an error dude');
-            }
-        });
-        }
-        function textDeselected(evt) {
-          console.log("Deselection.");
-          var st = document.getElementById('statusSelect');
-          st.style.visibility = 'hidden';
-        }
-
-
-
-
-
-
       Monocle.DEBUG = true;
+      var book_config = { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant };
       var bookData = Monocle.bookDataFromIds(['part1', 'part2']);
       // Initialize the reader element.
-      Monocle.Events.listen(
-        window,
-        'load',
-        function () {
-          /*window.reader2 = Monocle.Reader(
-            'marginal',
-            bookData,
-            { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant }
-          );*/
-          window.reader2 = Monocle.Reader(
-            'marginal',
-            bookData,
-            { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant },
-            function (rdr) {
-              rdr.listen('monocle:selection', textSelected);
-              rdr.listen('monocle:deselection', textDeselected);
+        Monocle.Events.listen(
+            window,
+            'load',
+            function () {
+                window.reader2 = Monocle.Reader(
+                'marginal',
+                bookData,
+                book_config,
+                function(reader2) {
+                    /* PAGE NUMBER RUNNING HEAD */
+                    var pageNumber = {
+                        runners: [],
+                        createControlElements: function (page) {
+                            var cntr = document.createElement('div');
+                            cntr.className = "pageNumber";
+                            var runner = document.createElement('div');
+                            runner.className = "runner";
+                            cntr.appendChild(runner);
+                            this.runners.push(runner);
+                            this.update(page);
+                            return cntr;
+                        },
+                    update: function (page, pageNumber) {
+                        if (pageNumber) {
+                        this.runners[page.m.pageIndex].innerHTML = pageNumber;
+                        }
+                    }
+                    }
+
+
+
+                reader2.addControl(pageNumber, 'page');
+                reader2.listen(
+                    'monocle:pagechange',
+                    function (evt) {
+                        pageNumber.update(evt.m.page, evt.m.pageNumber);
+                        var info = evt.m;
+                        var page_place = reader2.getPlace();
+                        console.log("page_place info");
+
+
+                        var position_percentage = page_place.percentAtTopOfPage();
+                        console.log(position_percentage);
+
+                        var page_percentage = page_place.pageSizePercentage();
+                        console.log(page_percentage);
+
+                        var datoajax = {position_percentage:position_percentage, page_percentage:page_percentage};
+
+                        console.log("datoajax");
+                        console.log(datoajax);
+
+                        $.ajax({
+                            url: '/wordajax/' ,
+                            type: 'GET', // This is the default though, you don't actually need to always mention it
+                            data: datoajax,
+                            success: function(data) {
+                                console.log("success");
+                                },
+                            failure: function(data) {
+                                alert('Got an error dude');
+                                }
+                        });
+                    }
+                );
+                }
+                );
             }
-          );
-    }
-      );
-    })();
+        );
+
     </script>
 
     <script type="text/javascript">

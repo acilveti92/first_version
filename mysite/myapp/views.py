@@ -26,7 +26,7 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordsUse, WordAjaxModel, PruebaExcel
+from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse
 from .serializers import WordSerializer, WordAjaxSerializer
 
 from bs4 import BeautifulSoup   #for html handling
@@ -246,7 +246,13 @@ def example2(request):
 
 
 def hello(request):
+
+    WordsUse.objects.all().delete()
+    print("deleted wordsuse")
+
     Word.objects.all().delete()
+    print("deleted words")
+
     # Full path and name to your csv file
     csv_filepathname="/home/acilveti92/mysite/mysite/myapp/ingles1000csv.csv"
     # Full path to your django project directory
@@ -389,7 +395,7 @@ class wordajax(APIView):
         splittext=texts.split()
 
 
-
+        #this should be another method
         session_key = request.session._session_key
         print("the session key is")
         #print(request.session._session_key)
@@ -697,6 +703,202 @@ class loadwords(APIView):
 #IT ONLY WORKS WITH GET, WITH POST 403 ERROR
     def get(self, request):
         return HttpResponse("I want")
+
+
+class WordSelectionAjax(APIView):
+#IT ONLY WORKS WITH GET, WITH POST 403 ERROR
+
+
+    function_swc_selection = {
+            'NE' : 0,
+            'EC' : 1,
+            'NU' : 2,
+            'DW' : 3
+        }
+
+
+
+
+
+
+
+    #AJAX input
+    def get(self, request):
+
+        datos= request.query_params
+        datos=datos.copy()
+        print(datos['palabra'])
+        words = Word.objects.filter(spanish_text=datos['palabra'])
+        print(Word.objects.filter(spanish_text=datos['palabra']))
+        serializer = WordSerializer(words, many = True)
+
+
+        print("self.getUser()")
+        user=self.getUser(request)
+        #check mode -> nativetonew /newtonative --> now only nativetonew
+
+        print(user)
+
+        self.updatedbSelection(words, user)
+
+        return Response(serializer.data)
+
+
+
+    def getUser(self,request_data):
+        session_key = request_data.session._session_key
+        print("the session key is")
+        #print(request.session._session_key)
+
+        session = Session.objects.get(session_key=session_key)
+        uid = session.get_decoded().get('_auth_user_id')
+        click_user = User.objects.get(pk=uid)
+        print("the user is")
+        #print(click_user)
+
+        return click_user
+
+
+
+
+    # checkWordvsDB. Check the presence of the word for a user in the db
+    # DEFINITIONS:
+    #-NON-EXISTENT(NE). There is no word in the db. it might be because is not need of translating(mother language) , is not a word or is a word but there is not any translation saved
+    #                   check if it is a word, and use google api for translation
+    #-EVERYTHING CORRECT(EC).
+    #-NOT IN USER(NU).There is a word translation, but not specifically assigned to the user
+    #-DUPLICATED WORDSUSE(DU).there are more than one db objects for the same user and word
+
+    def checkWordvsDB(self, words, click_user):
+
+        print("def checkWordvsDB(self, words, click_user):")
+
+        if len(words) is 0:
+
+            word_presence = "NE"
+            return word_presence
+
+        else:
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            if len(word_data) is 1:
+                word_presence="EC"
+                return word_presence
+
+            else:
+                if len(word_data) is 0:
+                    word_presence="NU"
+                    return word_presence
+
+
+                else:
+                    word_presence="DW"
+                    return word_presence
+
+
+    def updateSelectionNE(self, words, click_user):
+        #check if it is a word, and use google api for translation
+        print("updateSelectionNE")
+
+        return 0
+
+
+    def updateSelectionEC(self, words, click_user):
+        print("updateSelectionEC")
+        pass
+        return 0
+
+    def updateSelectionNU(self, words, click_user):
+        print("updateSelectionNU")
+        pass
+        return 0
+    def updateSelectionDW(self, words, click_user):
+        print("updateSelectionDW")
+        pass
+        return 0
+
+    def swcUpdatedbSelection(self, word_presence, words, click_user):
+
+        print("swcUpdatedbSelection(self, words, click_user):")
+
+        function_swc_selection = {
+            'NE' : self.updateSelectionNE,
+            'EC' : self.updateSelectionEC,
+            'NU' : self.updateSelectionNU,
+            'DW' : self.updateSelectionDW,
+        }
+
+        function_swc_selection[word_presence](words, click_user)
+
+        return
+
+    def updatedbSelection(self, words, click_user):
+
+        word_presence = self.checkWordvsDB(words,click_user)
+        self.swcUpdatedbSelection(word_presence, words, click_user)
+
+        print("def updatedbSelection(self, words):")
+        if len(words) is 0:
+            #there is no word in the db. it might be because is not need of translating(mother language) , is not a word or is a word but there is not any translation saved
+            #check if it is a word, and use google api for translation
+            print("if len(words) is 0:")
+
+
+            pass
+        else:   # there are some operations concerning the correct existence of the word
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            print("check2")
+            if len(word_data) is 1:
+                print("check3")
+                # there should be a function to count every apparition of the word, instead of doing one by one
+                word_data=word_data[0]
+                #word_data.translation_active = True
+                word_data.aparitions += WordCountOrder[i][1]
+                word_data.save()
+
+
+
+
+
+
+                print("db update")
+                print(words[0])
+
+
+            else:   # there is a word translation, but not a especific word use for the user
+                print("check4")
+                print(len(word_data))
+                if len(word_data) is 0:
+
+                    print("db creation")
+                    print(words[0])
+                    #it crashes, because
+                    word_data = WordsUse(user = click_user, english_text = words[0], translation_active = True, aparitions = 1, click = 0) #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+                    word_data.save()
+
+
+                else: # there are more than one db objects
+
+                    print(" ERROR:there are more than one DB objects." )
+                    print(len(word_data))
+
+
+
+
+        return HttpResponse("I want")
+
+
+
+#it will update de db of WordUse after the click of a user
+
+class UpdateData(APIView):
+#IT ONLY WORKS WITH GET, WITH POST 403 ERROR
+    def UpdatedbSelectiono(self, selected_word):
+        print("function")
+
+
+
+        return HttpResponse("I want")
+
 
 
 
