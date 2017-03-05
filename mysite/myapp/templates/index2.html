@@ -93,7 +93,7 @@
                 book_config,
                 function(rdr) {
 
-
+                    window.reader2 = rdr;
                     alertIfComponentNotFound(rdr);
                     createStencil(rdr);
 
@@ -166,13 +166,32 @@
                     rdr.addControl(stencil);
                     // This line is useful mostly for testing:
                     // it highlights the stencil's link cutouts.
-                    stencil.toggleHighlights();
+                    //stencil.toggleHighlights();
 
-                    stencil.draw();
+                    //stencil.draw();
 
                     var pageDiv =rdr.visiblePages()[0];
+                    //stencil.addBehavior({maskTagName: "p"});
                     var boxes = stencil.boxesForComponent(pageDiv);
-                    console.log(boxes);
+                    console.log(boxes[10]);
+
+
+
+
+
+                    offset = stencil.getOffset(pageDiv);
+                    console.log(offset.l);
+                    console.log(offset.w);
+
+
+
+                    visibility = stencil.boxVisible(boxes[10] , offset.l, offset.l + offset.w);
+                    console.log(visibility);
+
+
+
+
+
 
 
 

@@ -848,7 +848,9 @@ Monocle.Controls.Stencil = function (reader, behaviorClasses) {
   API.update = update;
   API.draw = draw;
   API.toggleHighlights = toggleHighlights;
-  API.boxesForComponent = boxesForComponent;  //modified by acilveti92
+  API.boxesForComponent = boxesForComponent;    //modified by acilveti92
+  API.boxVisible = boxVisible;
+  API.getOffset = getOffset;
 
   return API;
 }
@@ -876,6 +878,10 @@ Monocle.Controls.Stencil.Links = function (stencil) {
   API.findElements = function (doc) {
     return doc.querySelectorAll('a[href]');
   }
+
+//created by acilveti
+
+
 
 
   // Return an element. It should usually be a child of the container element,
@@ -979,5 +985,127 @@ Monocle.Controls.Stencil.Links = function (stencil) {
   return API;
 }
 
+Monocle.Controls.Stencil.Pword = function (stencil) {
+  var API = { constructor: Monocle.Controls.Stencil.Pword }
 
-Monocle.Controls.Stencil.DEFAULT_BEHAVIORS = [Monocle.Controls.Stencil.Links];
+  // Optionally specify the HTML tagname of the mask.
+  API.maskTagName = 'p';
+
+  // Returns an array of all the elements in the given doc that should
+  // be covered with a stencil mask for interactivity.
+  //
+  // (Hint: doc.querySelectorAll() is your friend.)
+  //
+  API.findElements = function (doc) {
+    return doc.querySelectorAll('p');
+  }
+
+//created by acilveti
+
+
+
+
+  // Return an element. It should usually be a child of the container element,
+  // with a className of the given maskClass. You set up the interactivity of
+  // the mask element here.
+  //
+  API.fitMask = function (link, mask) {
+    //var hrefObject = deconstructHref(link);
+    var rdr = stencil.properties.reader;
+    var evtData = { link: link, mask: mask }
+    return true;
+
+    if (hrefObject.pass) {
+      mask.onclick = function (evt) { return link.click(); }
+    } else {
+      link.onclick = function (evt) {
+        evt.preventDefault();
+        return false;
+      }
+      if (hrefObject.internal) {
+        mask.setAttribute('href', 'javascript:"Skip to chapter"');
+        mask.onclick = function (evt) {
+          if (rdr.dispatchEvent('monocle:link:internal', evtData, true)) {
+            rdr.skipToChapter(hrefObject.internal);
+          }
+          evt.preventDefault();
+          return false;
+        }
+      } else {
+        mask.setAttribute('href', hrefObject.external);
+        mask.setAttribute('target', '_blank');
+        mask.onclick = function (evt) {
+          return rdr.dispatchEvent('monocle:link:external', evtData, true);
+        }
+      }
+    }
+  }
+
+
+  // Returns an object with either:
+  //
+  // - an 'external' property -- an absolute URL with a protocol,
+  // host & etc, which should be treated as an external resource (eg,
+  // open in new window)
+  //
+  //   OR
+  //
+  // - an 'internal' property -- a relative URL (with optional hash anchor),
+  //  that is treated as a link to component in the book
+  //
+  // A weird but useful property of <a> tags is that while
+  // link.getAttribute('href') will return the actual string value of the
+  // attribute (eg, 'foo.html'), link.href will return the absolute URL (eg,
+  // 'http://example.com/monocles/foo.html').
+  //
+  function deconstructHref(elem) {
+    var loc = document.location;
+    var origin = loc.protocol+'//'+loc.host;
+    var href = elem.href;
+    var path = href.substring(origin.length);
+    var ext = { external: href };
+
+    if (href.toLowerCase().match(/^javascript:/)) {
+      return { pass: true };
+    }
+
+    // Anchor tags with 'target' attributes are always external URLs.
+    if (elem.getAttribute('target')) {
+      return ext;
+    }
+    // URLs with a different protocol or domain are always external.
+    //console.log("Domain test: %s <=> %s", origin, href);
+    if (href.indexOf(origin) !== 0) {
+      return ext;
+    }
+
+    // If it is in a sub-path of the current path, it's internal.
+    var topPath = loc.pathname.replace(/[^\/]*\.[^\/]+$/,'');
+    if (topPath[topPath.length - 1] != '/') {
+      topPath += '/';
+    }
+    //console.log("Sub-path test: %s <=> %s", topPath, path);
+    if (path.indexOf(topPath) === 0) {
+      return { internal: path.substring(topPath.length) }
+    }
+
+    // If it's a root-relative URL and it's in our list of component ids,
+    // it's internal.
+    var cmptIds = stencil.properties.reader.getBook().properties.componentIds;
+    for (var i = 0, ii = cmptIds.length; i < ii; ++i) {
+      //console.log("Component test: %s <=> %s", cmptIds[i], path);
+      if (path.indexOf(cmptIds[i]) === 0) {
+        return { internal: path }
+      }
+    }
+
+    // Otherwise it's external.
+    return ext;
+  }
+
+
+  return API;
+}
+
+
+Monocle.Controls.Stencil.DEFAULT_BEHAVIORS = [Monocle.Controls.Stencil.Pword];
