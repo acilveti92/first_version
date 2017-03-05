@@ -848,6 +848,7 @@ Monocle.Controls.Stencil = function (reader, behaviorClasses) {
   API.update = update;
   API.draw = draw;
   API.toggleHighlights = toggleHighlights;
+  API.boxesForComponent = boxesForComponent;  //modified by acilveti92
 
   return API;
 }
