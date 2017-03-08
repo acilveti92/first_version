@@ -95,7 +95,9 @@
 
                     window.reader2 = rdr;
                     alertIfComponentNotFound(rdr);
-                    createStencil(rdr);
+
+
+
 
 
 
@@ -119,9 +121,82 @@
                         }
                     }
 
+                    /* box_scrapping */
+                    var box_scrapping = {
+
+
+                        createStencil: function (rdr) {
+                            var stencil = new Monocle.Controls.Stencil(rdr);
+                            rdr.addControl(stencil);
+                            // This line is useful mostly for testing:
+                            // it highlights the stencil's link cutouts.
+                            //stencil.toggleHighlights();
+
+                            //stencil.draw();
+
+                            return stencil;
+                        },
+                    getVisibleElem: function (rdr) {
+                        var pageDiv =rdr.visiblePages()[0];
+                        //stencil.addBehavior({maskTagName: "p"});
+                        var boxes = stencil.boxesForComponent(pageDiv);
+
+
+                        offset = stencil.getOffset(pageDiv);
+
+                        visibility = false; //to enter the loop
+
+                        n=0;
+                        while(visibility == false){
+                            visibility = stencil.boxVisible(boxes[n] , offset.l, offset.l + offset.w);
+                            n++;
+                            }
+                        console.log(boxes[n].element.innerHTML);
+
+                        while(visibility == true){
+                            visibility = stencil.boxVisible(boxes[n] , offset.l, offset.l + offset.w);
+                            n++;
+                            }
+                        console.log(boxes[n].element.innerHTML);
+
+                        return;
+                        }
+
+                    }
+
+
+                stencil = box_scrapping.createStencil(rdr);
+                box_scrapping.getVisibleElem(rdr);
+
+
 
 
                 reader2.addControl(pageNumber, 'page');
+
+                reader2.listen(
+                    'monocle:turn',
+                    function (evt) {
+
+
+                        box_scrapping.getVisibleElem(rdr);
+
+                        $.ajax({
+                            url: '/wordajax/' ,
+                            type: 'GET', // This is the default though, you don't actually need to always mention it
+                            data: datoajax,
+                            success: function(data) {
+                                console.log("success");
+                                },
+                            failure: function(data) {
+                                alert('Got an error dude');
+                                }
+                        });
+                    }
+                );
+
+
+
+
                 reader2.listen(
                     'monocle:pagechange',
                     function (evt) {
@@ -142,6 +217,8 @@
                         console.log("datoajax");
                         console.log(datoajax);
 
+                        //box_scrapping.getVisibleElem(rdr);
+
                         $.ajax({
                             url: '/wordajax/' ,
                             type: 'GET', // This is the default though, you don't actually need to always mention it
@@ -161,43 +238,7 @@
                     }
 
 
-                function createStencil(rdr) {
-                    var stencil = new Monocle.Controls.Stencil(rdr);
-                    rdr.addControl(stencil);
-                    // This line is useful mostly for testing:
-                    // it highlights the stencil's link cutouts.
-                    //stencil.toggleHighlights();
 
-                    //stencil.draw();
-
-                    var pageDiv =rdr.visiblePages()[0];
-                    //stencil.addBehavior({maskTagName: "p"});
-                    var boxes = stencil.boxesForComponent(pageDiv);
-                    console.log(boxes[10]);
-
-
-
-
-
-                    offset = stencil.getOffset(pageDiv);
-                    console.log(offset.l);
-                    console.log(offset.w);
-
-
-
-                    visibility = stencil.boxVisible(boxes[10] , offset.l, offset.l + offset.w);
-                    console.log(visibility);
-
-
-
-
-
-
-
-
-
-                    //stencil.draw()
-                    }
                 }
 
 
