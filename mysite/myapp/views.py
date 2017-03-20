@@ -26,8 +26,8 @@ from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse
-from .serializers import WordSerializer, WordAjaxSerializer
+from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse, WordAjaxModelStatus
+from .serializers import WordSerializer, WordAjaxSerializer, WordAjaxModelStatusSerializer
 
 from bs4 import BeautifulSoup   #for html handling
 from bs4 import NavigableString
@@ -43,6 +43,8 @@ import csv
 from collections import Counter
 
 from mysite.myapp.task import celerytest
+
+
 
 
 
@@ -898,6 +900,293 @@ class UpdateData(APIView):
 
 
         return HttpResponse("I want")
+
+
+
+
+
+
+
+class BookScrapping(APIView):
+#IT ONLY WORKS WITH GET, WITH POST 403 ERROR
+
+
+
+
+
+
+
+    #AJAX input
+    def get(self, request):
+        print("class BookScrapping(APIView):")
+
+        datos= request.query_params
+        datos=datos.copy()
+
+        text = datos['text']
+
+
+        words = self.getSectionWords(text)
+
+        user = self.getUser(request)#make a global function...
+
+        algo_words = self.wordSelectionAlgo(user, words)
+        print("Check7")
+        print(algo_words)
+        print("Check8")
+
+        serializer = WordAjaxModelStatusSerializer(algo_words, many=True)
+
+        print(serializer)
+        print(serializer.data)
+
+        return Response(serializer.data)
+
+
+
+
+
+
+
+    #it should be made a word pre-filter to clean of thins like attributes.
+    #given an string, it returns every word and its usage
+    def getSectionWords(self, text):
+
+
+        print("def getSectionWords(self, text_array):")
+
+        split_text = text.split()
+        print(split_text)
+        word_number = len(split_text)
+        word_count = Counter(split_text) #to count apparitions in the web
+        print("collections.Counter(simpletext)")
+        print(word_count)
+
+        word_count_order=word_count.most_common(word_number)
+        print("WordCountOrderWordCount")
+        print(word_count_order)
+
+
+        return word_count_order
+
+
+    def getWordsObjects(self, text, user):
+        n = 0
+        words_use_list = {}
+        print("def getWordsObjects(self, text):")
+        for i in range(0, len(text)):
+
+            words_object = Word.objects.filter(spanish_text = text[i][0])
+            words_use_object = self.checkWordvsDB(words_object, user)
+
+            if words_use_object[0] is 1 :
+                words_use_list[n] = words_use_object[1]
+                n = n + 1
+
+        print(words_use_list)
+        return words_use_list
+
+
+
+
+        return word_count_order
+
+    def getUser(self,request_data):
+        session_key = request_data.session._session_key
+        print("the session key is")
+        #print(request.session._session_key)
+
+        session = Session.objects.get(session_key=session_key)
+        uid = session.get_decoded().get('_auth_user_id')
+        click_user = User.objects.get(pk=uid)
+        print("the user is")
+        #print(click_user)
+
+        return click_user
+
+
+    # this will contain the algorithm in which will be based the selection of the words to send back to the client
+    # send every light-know word
+    # asign a percentage of translated words that are going to be in the text. translation_percentage
+    # at the moment, give a 50/50 priority to usage words and started words
+    def wordSelectionAlgo(self, user, words):
+
+
+        print("def wordSelectionAlgo(self, user, words):")
+
+        words_use_list = self.getWordsObjects(words, user)
+        light_words = self.findLightWords(user, words_use_list)
+        started_words = self.getStartedWords(user, words_use_list)
+        most_used_words = self.getMostUsedWord(user, words_use_list, words)
+
+
+
+
+        words_bundle = [ light_words, started_words, most_used_words]
+
+        words_list = self.makeOneList(words_bundle)
+        print("Check6")
+
+
+
+        return words_list
+
+    def makeOneList(self, words_bundle):
+        print("makeOneList")
+        n = 0
+        words_single_list = {}
+        WordAjaxModelStatus.objects.all().delete()
+
+        total_len = len(words_bundle[0]) + len(words_bundle[1]) + len(words_bundle[2])
+
+        print(words_bundle[2])
+        print(words_bundle[2][0])
+        print(words_bundle[2][0].english_text)
+
+        #print(WordAjaxModelStatus_object)
+
+        for i in range(0,len(words_bundle[0])):
+            print("check1:")
+            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[0][i].spanish_text, english_text = words_bundle[0][i].english_text, words_status = "LK")
+            WordAjaxModelStatus_object.save()
+
+        for i in range(0,len(words_bundle[1])):
+            print("check:2")
+            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[1][i].spanish_text, english_text = words_bundle[1][i].english_text, words_status = "ST")
+            WordAjaxModelStatus_object.save()
+
+
+        for i in range(0,len(words_bundle[2])):
+            print("check:3")
+            print(words_bundle[2][i].spanish_text)
+            print(words_bundle[2][i].english_text)
+
+            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[2][i].spanish_text, english_text = words_bundle[2][i].english_text, words_status = "UN")
+
+            WordAjaxModelStatus_object.save()
+            print("check:3")
+            print(type(WordAjaxModelStatus_object))
+            print(WordAjaxModelStatus_object)
+
+
+
+        print("check:4")
+
+        print("check:5")
+        return WordAjaxModelStatus.objects.all()
+
+
+
+
+
+
+    def findLightWords(self, user, words):
+        n=0
+        light_words_list = {}
+        print("def findLightWords(self, user, words):")
+
+        print(words)
+        for i in range(0,len(words)):
+            word_object = words[i][0]
+            word_status = word_object.word_status
+
+            if word_status == "LK":
+
+                light_words_list[n] = word_object.english_text
+                n = n + 1
+
+            #queda contar
+        print(light_words_list)
+        return light_words_list
+
+    def getStartedWords(self, user, words):
+        n=0
+        started_words_list = {}
+        print("getStartedWords")
+
+        print(words)
+        for i in range(0,len(words)):
+            word_object = words[i][0]
+            word_status = word_object.word_status
+
+            if word_status == "ST":
+                print("if in")
+                started_words_list[n] = word_object.english_text
+                n = n + 1
+
+            #queda contar
+
+        return started_words_list
+
+    def getMostUsedWord(self, user, words, words_list):
+        n=0
+        most_used_words_list = {}
+        print("ddef getMostUsedWord(self, user, words):")
+
+        print(words)
+        for i in range(0,len(words)):
+            word_object = words[i][0]
+            word_status = word_object.word_status
+
+
+            if word_status == "UN":
+
+                most_used_words_list[n] = word_object.english_text
+                n = n + 1
+                return most_used_words_list
+
+
+            #queda contar
+
+        #return most_used_words_list
+
+
+    # checkWordvsDB. Check the presence of the word for a user in the db
+    # DEFINITIONS:
+    #-NON-EXISTENT(NE). There is no word in the db. it might be because is not need of translating(mother language) , is not a word or is a word but there is not any translation saved
+    #                   check if it is a word, and use google api for translation
+    #-EVERYTHING CORRECT(EC). Return the word use object
+    #-NOT IN USER(NU).There is a word translation, but not specifically assigned to the user
+    #-DUPLICATED WORDSUSE(DU).there are more than one db objects for the same user and word
+
+    def checkWordvsDB(self, words, click_user):
+
+
+        NE = 0
+        EC = 1
+        NU = 2
+        DW = 3
+
+
+        if len(words) is 0:
+
+            word_presence = [NE]
+            return word_presence
+
+        else:
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            if len(word_data) is 1:
+                word_presence=[EC, word_data]
+                return word_presence
+
+            else:
+                if len(word_data) is 0:
+                    word_presence=[NU]
+                    return word_presence
+
+
+                else:
+                    word_presence=[DW]
+                    return word_presence
+
+
+
+
+
+
+
+
+
 
 
 

@@ -59,5 +59,6 @@ urlpatterns = patterns('',
     url(r'^register/$', myapp_views.UserFormView.as_view(), name='register'),
 
     url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword'),
+    url(r'^bookscrapping/$', myapp_views.BookScrapping.as_view(), name='bookscrapping'),
     url(r'^wordselectionajax/$', myapp_views.WordSelectionAjax.as_view(), name='wordselectionajax')
 )

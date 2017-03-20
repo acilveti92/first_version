@@ -24,6 +24,15 @@ class WordAjaxModel(models.Model):                    # model - class    - table
     def __str__(self):
         return '%s - %s' % (self.english_text, self.spanish_text)
 
+class WordAjaxModelStatus(models.Model):                    # model - class    - table
+    english_text = models.CharField(max_length=255)
+    spanish_text = models.CharField(max_length=255)
+    words_status = models.CharField(max_length=2)
+
+
+    def __str__(self):
+        return '%s - %s - %s' % (self.english_text, self.spanish_text, self.words_status)
+
 
 
 
