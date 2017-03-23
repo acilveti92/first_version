@@ -931,20 +931,43 @@ class BookScrapping(APIView):
         user = self.getUser(request)#make a global function...
 
         algo_words = self.wordSelectionAlgo(user, words)
-        print("Check7")
-        print(algo_words)
-        print("Check8")
+
+        self.updateDB(algo_words, user)
+
 
         serializer = WordAjaxModelStatusSerializer(algo_words, many=True)
 
-        print(serializer)
-        print(serializer.data)
+
 
         return Response(serializer.data)
 
 
 
+    def updateDB(self, sent_words, user):
+        print("updateDB")
 
+        for i in range(0, len(sent_words)):
+            print("check")
+            print( sent_words[i].spanish_text )
+            word = Word.objects.filter(spanish_text = sent_words[i].spanish_text)
+            print("check2")
+            print( word)
+            word_object = WordsUse.objects.get(user = user, english_text = word[0])
+            print(word_object)
+            if sent_words[i].words_status == "LK":
+                print("check lk")
+                pass
+            else:
+                if sent_words[i].words_status == "ST":
+                    print("check st")
+                    pass
+                else:
+                    if sent_words[i].words_status == "UN":
+                        print("check un")
+                        word_object.word_status = "ST"
+                        pass
+            word_object.save()
+        return
 
 
 
