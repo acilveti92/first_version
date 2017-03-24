@@ -209,11 +209,51 @@
                                 console.log("success");
                                 console.log(data);
 
+                                var iframe = document.getElementsByClassName("monelem_component");
+                                var innerDoc = iframe[0].contentDocument.body;
+
+                                console.log(innerDoc);
+
+
+
+                                for(i = 1; i < data.length; i++){
+
+                                    if(data[i].words_status =="LK"){
+                                        replacement = data[i].english_text;
+                                        htmlreplace(data[i].spanish_text, replacement, innerDoc)
+                                    }
+                                    if(data[i].words_status =="ST"){
+                                        replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        htmlreplace(data[i].spanish_text, replacement, innerDoc)
+
+
+                                    }
+                                    if(data[i].words_status =="UN"){
+                                        replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        htmlreplace(data[i].spanish_text, replacement, innerDoc)
+
+                                    }
+                                }
+
                                 },
                             failure: function(data) {
                                 alert('Got an error dude');
                                 }
                         });
+
+                        function htmlreplace(a, b, element) {
+                            if (!element) element = document.body;
+                            var nodes = element.childNodes;
+
+                            for (var n=0; n<nodes.length; n++) {
+                                if (nodes[n].nodeType == Node.TEXT_NODE) {
+                                    var r = new RegExp('\\b' + a + '\\b', 'gi');
+                                    nodes[n].textContent = nodes[n].textContent.replace(r , b);
+                                    } else {
+                                        htmlreplace(a, b, nodes[n]);
+                                        }
+                                }
+                            }
 
                         return;
                         }
