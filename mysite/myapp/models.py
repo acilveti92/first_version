@@ -42,7 +42,9 @@ class WordsUse(models.Model):                    # model - class    - table
     translation_active = models.BooleanField(default=False)
     aparitions = models.IntegerField(default=0)
     click = models.IntegerField(default=0)
-    translation_launch = models.IntegerField(default=0)
+    translation_launch_st = models.IntegerField(default=0)
+    translation_launch_lk = models.IntegerField(default=0)
+    translation_launch_hk = models.IntegerField(default=0)
 
 
     UNKNOWN = 'UN'
@@ -62,7 +64,7 @@ class WordsUse(models.Model):                    # model - class    - table
 
 
     def __str__(self):
-        return '%s - %s- %s- %s- %s- %s- %s' % ( self.user, self.english_text, self.word_status, self.translation_active, self.aparitions, self.click, self.translation_launch)
+        return '%s - %s- %s- %s- %s- %s- %s- %s- %s' % ( self.user, self.english_text, self.word_status, self.translation_active, self.aparitions, self.click, self.translation_launch_st, self.translation_launch_lk, self.translation_launch_hk)
 
 
 class PruebaExcel(models.Model):                    # model - class    - table

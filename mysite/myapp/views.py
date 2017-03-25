@@ -599,15 +599,15 @@ class wordajax(APIView):
             print("check")
             if len(words) is 0:
             #if it is really a word, add to the database and translate it
-                print("if len(words) is 0:")
+
 
 
                 pass
             else:   # there are some operations concerning the correct existence of the word
                 word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-                print("check2")
+
                 if len(word_data) is 1:
-                    print("check3")
+
                 # there should be a function to count every apparition of the word, instead of doing one by one
                     word_data=word_data[0]
                     #word_data.translation_active = True
@@ -848,9 +848,9 @@ class WordSelectionAjax(APIView):
             pass
         else:   # there are some operations concerning the correct existence of the word
             word_data = WordsUse.objects.filter(user = click_user, english_text = words)
-            print("check2")
+
             if len(word_data) is 1:
-                print("check3")
+
                 # there should be a function to count every apparition of the word, instead of doing one by one
                 word_data=word_data[0]
                 #word_data.translation_active = True
@@ -947,23 +947,32 @@ class BookScrapping(APIView):
         print("updateDB")
 
         for i in range(0, len(sent_words)):
-            print("check")
-            print( sent_words[i].spanish_text )
+
             word = Word.objects.filter(spanish_text = sent_words[i].spanish_text)
-            print("check2")
-            print( word)
+
+
             word_object = WordsUse.objects.get(user = user, english_text = word[0])
-            print(word_object)
+
             if sent_words[i].words_status == "LK":
-                print("check lk")
+                word_object.translation_launch_lk += 1
                 pass
             else:
                 if sent_words[i].words_status == "ST":
-                    print("check st")
+                    word_object.translation_launch_st += 1
+                    print("ST")
+                    print(word_object)
+
+                    if word_object.translation_launch_st is 7:
+                        word_object.word_status = "LK"
+                        word_object.translation_launch_st = 0
+                        print(sent_words[i])
+
+                        print("upgraded")
                     pass
                 else:
                     if sent_words[i].words_status == "UN":
-                        print("check un")
+
+                        word_object.translation_launch_st += 1
                         word_object.word_status = "ST"
                         pass
             word_object.save()
@@ -977,6 +986,8 @@ class BookScrapping(APIView):
 
 
         print("def getSectionWords(self, text_array):")
+        print(text)
+
 
         split_text = text.split()
         print(split_text)
@@ -1058,13 +1069,16 @@ class BookScrapping(APIView):
         print("makeOneList")
         n = 0
         words_single_list = {}
+        if words_bundle[2] is None :
+            words_bundle[2]=[]
+        print("makeOneList")
         WordAjaxModelStatus.objects.all().delete()
-
-        total_len = len(words_bundle[0]) + len(words_bundle[1]) + len(words_bundle[2])
-
+        print("makeOneList")
+        print(words_bundle)
         print(words_bundle[2])
-        print(words_bundle[2][0])
-        print(words_bundle[2][0].english_text)
+
+
+
 
         #print(WordAjaxModelStatus_object)
 
