@@ -46,7 +46,39 @@
 
     Monocle.DEBUG = true;
 
-    var book_config = { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant };
+
+    function textSelected(evt) {
+          console.log("Selection: "+evt.m.string);
+          var st = document.getElementById('statusSelect');
+          var sel = evt.m.string;
+          //st.innerHTML = sel;
+          //st.style.visibility = 'visible';
+          //copypaste
+          var datoajax = {palabra:sel.toLowerCase()};
+          console.log(datoajax);
+          $.ajax({
+            url: '/wordselectionajax/' ,
+            type: 'GET', // This is the default though, you don't actually need to always mention it
+            data: datoajax,
+            success: function(data) {
+                    console.log(data);
+                    console.log(data.spanish_text);
+                    var replacement = data.spanish_text;
+                    clicked.html(clicked.html().replace(str, replacement));
+                    console.log(replacement);
+            },
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });
+        }
+        function textDeselected(evt) {
+          console.log("Deselection.");
+          var st = document.getElementById('statusSelect');
+          st.style.visibility = 'hidden';
+        }
+
+    var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant };
     var bookData = {
         getComponents: function () {
         return [
@@ -95,6 +127,12 @@
 
                     window.reader2 = rdr;
                     alertIfComponentNotFound(rdr);
+
+
+
+                    rdr.listen('monocle:selection', textSelected);
+                    rdr.listen('monocle:deselection', textDeselected);
+
 
 
 
