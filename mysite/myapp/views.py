@@ -742,7 +742,7 @@ class WordSelectionAjax(APIView):
 
         print(user)
 
-        #self.updatedbSelection(words, user)
+        self.updatedbSelection(words, user)
 
         return Response(serializer.data)
 
@@ -840,6 +840,7 @@ class WordSelectionAjax(APIView):
         self.swcUpdatedbSelection(word_presence, words, click_user)
 
         print("def updatedbSelection(self, words):")
+        print(len(words))
         if len(words) is 0:
             #there is no word in the db. it might be because is not need of translating(mother language) , is not a word or is a word but there is not any translation saved
             #check if it is a word, and use google api for translation
@@ -848,14 +849,24 @@ class WordSelectionAjax(APIView):
 
             pass
         else:   # there are some operations concerning the correct existence of the word
-            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
 
+            print("check len")
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            print("check len")
+            print(word_data)
             if len(word_data) is 1:
+                print("checkl")
 
                 # there should be a function to count every apparition of the word, instead of doing one by one
                 word_data=word_data[0]
+                print("checkl")
+                print(word_data.word_status)
+
                 #word_data.translation_active = True
-                word_data.aparitions += WordCountOrder[i][1]
+                if word_data.word_status == "LK" :
+                    word_data.word_status = "ST"
+
+                print("checkl")
                 word_data.save()
 
 
