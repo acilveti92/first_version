@@ -730,8 +730,9 @@ class WordSelectionAjax(APIView):
         datos= request.query_params
         datos=datos.copy()
         print(datos['palabra'])
-        words = Word.objects.filter(spanish_text=datos['palabra'])
-        print(Word.objects.filter(spanish_text=datos['palabra']))
+        words = Word.objects.filter(english_text=datos['palabra'])
+
+        print(words)
         serializer = WordSerializer(words, many = True)
 
 
@@ -741,7 +742,7 @@ class WordSelectionAjax(APIView):
 
         print(user)
 
-        self.updatedbSelection(words, user)
+        #self.updatedbSelection(words, user)
 
         return Response(serializer.data)
 

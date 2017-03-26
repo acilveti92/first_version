@@ -46,15 +46,49 @@
 
     Monocle.DEBUG = true;
 
+    function htmlreplace(a, b, element, last_node, first_node) {
+                            if (!element) element = document.body;
+                            var nodes = element.childNodes;
+
+                            for (var n= first_node; n<last_node; n++) {
+                                if (nodes[n].nodeType == Node.TEXT_NODE) {
+                                    var r = new RegExp('\\b' + a + '\\b', 'gi');
+                                    nodes[n].textContent = nodes[n].textContent.replace(r , b);
+                                    } else {
+                                        htmlreplaceelement(a, b, nodes[n], last_node, first_node);
+                                        }
+                                }
+                            }
+
+    function htmlreplaceelement(a, b, element, last_node, first_node) {
+                            if (!element) element = document.body;
+                            var nodes = element.childNodes;
+
+                            for (var n= 0; n<nodes.length; n++) {
+                                if (nodes[n].nodeType == Node.TEXT_NODE) {
+                                    var r = new RegExp('\\b' + a + '\\b', 'gi');
+                                    nodes[n].textContent = nodes[n].textContent.replace(r , b);
+                                    } else {
+                                        htmlreplaceelement(a, b, nodes[n], last_node, first_node);
+                                        }
+                                }
+                            }
+
 
     function textSelected(evt) {
           console.log("Selection: "+evt.m.string);
+          console.log(evt.m);
           var st = document.getElementById('statusSelect');
           var sel = evt.m.string;
           //st.innerHTML = sel;
           //st.style.visibility = 'visible';
           //copypaste
+          sel = sel.replace(/ /g,'')
           var datoajax = {palabra:sel.toLowerCase()};
+
+          console.log(first_child);
+	                   console.log(last_child);
+
           console.log(datoajax);
           $.ajax({
             url: '/wordselectionajax/' ,
@@ -63,9 +97,22 @@
             success: function(data) {
                     console.log(data);
                     console.log(data.spanish_text);
-                    var replacement = data.spanish_text;
-                    clicked.html(clicked.html().replace(str, replacement));
-                    console.log(replacement);
+                    if(data.length > 0 ){
+
+                    var replacement = data[0].spanish_text;
+
+                    var iframe = document.getElementsByClassName("monelem_component");
+                        var innerDoc = iframe[0].contentDocument.body;
+
+
+
+
+
+
+                    htmlreplace(sel, replacement, innerDoc, last_child, first_child);
+                    }
+
+
             },
             failure: function(data) {
                 alert('Got an error dude');
@@ -288,6 +335,16 @@
                                 var innerDoc = iframe[0].contentDocument.body;
 
                                 console.log(innerDoc);
+
+                                //!!CAUTION!! ELEMENT DELETED
+
+                                var monelem_controls_stencil_container = document.getElementsByClassName("monelem_controls_stencil_container");
+                                while (monelem_controls_stencil_container[0].hasChildNodes()) {
+                                    monelem_controls_stencil_container[0].removeChild(monelem_controls_stencil_container[0].firstChild);
+                                    }
+                                    console.log("cleaned");
+
+
 
 
 
