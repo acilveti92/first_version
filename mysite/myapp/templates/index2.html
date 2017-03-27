@@ -75,6 +75,9 @@
                             }
 
 
+
+
+
     function textSelected(evt) {
           console.log("Selection: "+evt.m.string);
           console.log(evt.m);
@@ -125,7 +128,7 @@
           st.style.visibility = 'hidden';
         }
 
-    var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant };
+    var book_config = { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant };
     var bookData = {
         getComponents: function () {
         return [
@@ -437,6 +440,73 @@
                     }
                 );
 
+                 var iframe = document.getElementsByClassName("monelem_component");
+    var innerDoc = iframe[0].contentDocument.body.children;
+
+    $(innerDoc).mouseup(function(e){
+        console.log('click');
+        var clicked = $(e.currentTarget);
+        console.log(window.frames.length);
+
+         s = window.frames[0].getSelection();
+         var range = s.getRangeAt(0);
+         var node = s.anchorNode;
+         while(range.toString().indexOf(' ') != 0) {
+            range.setStart(node,(range.startOffset -1));
+         }
+         range.setStart(node, range.startOffset +1);
+         do{
+           range.setEnd(node,range.endOffset + 1);
+
+        }while(range.toString().indexOf(' ') == -1 && range.toString().trim() != '');
+        var str = range.toString().trim();
+
+        console.log(str);
+
+        sel =str
+
+
+        sel = sel.replace(/ /g,'')
+          var datoajax = {palabra:sel.toLowerCase()};
+
+          console.log(first_child);
+	                   console.log(last_child);
+
+          console.log(datoajax);
+          $.ajax({
+            url: '/wordselectionajax/' ,
+            type: 'GET', // This is the default though, you don't actually need to always mention it
+            data: datoajax,
+            success: function(data) {
+                    console.log(data);
+                    console.log(data.spanish_text);
+                    if(data.length > 0 ){
+
+                    var replacement = data[0].english_text + "·" + data[0].spanish_text ;
+
+                    var iframe = document.getElementsByClassName("monelem_component");
+                        var innerDoc = iframe[0].contentDocument.body;
+
+
+
+
+
+
+                    htmlreplace(sel, replacement, innerDoc, last_child, first_child);
+                    }
+
+
+            },
+            failure: function(data) {
+                alert('Got an error dude');
+            }
+        });
+
+
+
+
+
+        });
 
 
 
