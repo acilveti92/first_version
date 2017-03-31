@@ -128,10 +128,15 @@
           st.style.visibility = 'hidden';
         }
 
-    var book_config = { panels: Monocle.Panels.IMode, flipper: Monocle.Flippers.Instant };
+    var placeSaver = new Monocle.Controls.PlaceSaver('placesaver');
+    place_book = placeSaver.savedPlace()
+    if(isNaN(place_book.percent)){place_book.percent=0}
+    var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant, place: place_book };
+    console.log(book_config);
     var bookData = {
         getComponents: function () {
         return [
+
             '/static/components/1.html',
             '/static/components/2.html',
             '/static/components/3.html'
@@ -146,7 +151,6 @@
         {
           title: "The Haunted House",
           src: "/static/components/2.html",
-
         },
         {
           title: "The Trial for Murder",
@@ -164,6 +168,8 @@
       }[key];
     }
   }
+
+
       // Initialize the reader element.
         Monocle.Events.listen(
             window,
@@ -182,6 +188,7 @@
 
                     rdr.listen('monocle:selection', textSelected);
                     rdr.listen('monocle:deselection', textDeselected);
+                    rdr.addControl(placeSaver, 'invisible');
 
 
 
@@ -513,6 +520,7 @@
                 reader2.listen(
                     'monocle:pagechange',
                     function (evt) {
+                        if (isNaN (evt.m.pageNumber)){evt.m.pageNumber = 0}
                         pageNumber.update(evt.m.page, evt.m.pageNumber);
                         var info = evt.m;
                         var page_place = reader2.getPlace();
@@ -520,6 +528,7 @@
 
 
                         var position_percentage = page_place.percentAtTopOfPage();
+                        if (isNaN (position_percentage)){position_percentage =0}
                         console.log(position_percentage);
 
                         var page_percentage = page_place.pageSizePercentage();

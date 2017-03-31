@@ -838,7 +838,7 @@ class WordSelectionAjax(APIView):
 
         word_presence = self.checkWordvsDB(words,click_user)
         self.swcUpdatedbSelection(word_presence, words, click_user)
-
+        print(words)
         print("def updatedbSelection(self, words):")
         print(len(words))
         if len(words) is 0:
@@ -1019,15 +1019,26 @@ class BookScrapping(APIView):
     def getWordsObjects(self, text, user):
         n = 0
         words_use_list = {}
+        words_object = {}
+        words_use_object = {}
         print("def getWordsObjects(self, text):")
         for i in range(0, len(text)):
 
-            words_object = Word.objects.filter(spanish_text = text[i][0])
-            words_use_object = self.checkWordvsDB(words_object, user)
 
-            if words_use_object[0] is 1 :
-                words_use_list[n] = words_use_object[1]
-                n = n + 1
+            words_object_var = Word.objects.filter(spanish_text = text[i][0])
+
+            if len(words_object_var) is 1 :
+                words_object[n] = words_object_var[0]
+                n=n+1
+
+        n= 0
+        for i in range(0, len(words_object)):
+
+            words_use_list_var = WordsUse.objects.filter(english_text = words_object[i], user = user)
+            if len(words_use_list_var) is 1 :
+                words_use_list[n] = words_use_list_var[0]
+                n=n+1
+
 
         print(words_use_list)
         return words_use_list
@@ -1062,6 +1073,7 @@ class BookScrapping(APIView):
 
         words_use_list = self.getWordsObjects(words, user)
         light_words = self.findLightWords(user, words_use_list)
+        print("next")
         started_words = self.getStartedWords(user, words_use_list)
         most_used_words = self.getMostUsedWord(user, words_use_list, words)
 
@@ -1134,18 +1146,16 @@ class BookScrapping(APIView):
         light_words_list = {}
         print("def findLightWords(self, user, words):")
 
-        print(words)
-        for i in range(0,len(words)):
-            word_object = words[i][0]
-            word_status = word_object.word_status
 
+        for i in range(0,len(words)):
+            word_object = words[i]
+            word_status = word_object.word_status
             if word_status == "LK":
 
                 light_words_list[n] = word_object.english_text
                 n = n + 1
 
             #queda contar
-        print(light_words_list)
         return light_words_list
 
     def getStartedWords(self, user, words):
@@ -1155,7 +1165,7 @@ class BookScrapping(APIView):
 
         print(words)
         for i in range(0,len(words)):
-            word_object = words[i][0]
+            word_object = words[i]
             word_status = word_object.word_status
 
             if word_status == "ST":
@@ -1171,18 +1181,42 @@ class BookScrapping(APIView):
         n=0
         most_used_words_list = {}
         print("ddef getMostUsedWord(self, user, words):")
-
         print(words)
-        for i in range(0,len(words)):
-            word_object = words[i][0]
-            word_status = word_object.word_status
+        print(len(words_list))
+
+        for i in range(0, len(words_list)):
+
+            print(i)
+            words_object_var = Word.objects.filter(spanish_text = words_list[i][0])
+            print(words_object_var)
+            if len(words_object_var) is 1 :
 
 
-            if word_status == "UN":
+                words_use_list_var = WordsUse.objects.filter(english_text = words_object_var[0], user = user)
+                print("check2")
 
-                most_used_words_list[n] = word_object.english_text
-                n = n + 1
-                return most_used_words_list
+
+
+
+                if len(words_use_list_var) is 0 :
+                    print("check3")
+
+
+                    word_data = WordsUse(user = user, english_text = words_object_var[0], word_status = "ST") #increment of clicked, and switch translatio_active on ((user=click_user, english_text=words, translation_active = True,
+                    print("check4")
+                    print(word_data)
+                    word_data.save()
+                    print("check5")
+                    most_used_words_list[0] = word_data.english_text
+                    n = n + 1
+                    print("the new word is")
+                    print(most_used_words_list)
+                    return most_used_words_list
+
+
+        return
+
+
 
 
             #queda contar
@@ -1206,6 +1240,11 @@ class BookScrapping(APIView):
         NU = 2
         DW = 3
 
+        print("def checkWordvsDB(self, words, click_user):")
+        print(len(words))
+
+
+
 
         if len(words) is 0:
 
@@ -1213,7 +1252,7 @@ class BookScrapping(APIView):
             return word_presence
 
         else:
-            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            word_data = WordsUse.objects.filter(english_text = words, user = click_user)
             if len(word_data) is 1:
                 word_presence=[EC, word_data]
                 return word_presence

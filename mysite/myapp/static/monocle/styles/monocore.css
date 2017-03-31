@@ -28,9 +28,9 @@ div.monelem_page {
 /* The div within the page that determines page margins. */
 div.monelem_sheaf {
   top: 1em;
-  left: 1em;
+  left: 3em;
   bottom: 1em;
-  right: 1em;
+  right: 3em;
 }
 
 
