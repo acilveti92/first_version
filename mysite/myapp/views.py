@@ -967,7 +967,10 @@ class BookScrapping(APIView):
 
             if sent_words[i].words_status == "LK":
                 word_object.translation_launch_lk += 1
-                pass
+                if word_object.translation_launch_lk >30:
+                    word_object.word_status = "HK"
+                    word_object.translation_launch_lk = 1
+
             else:
                 if sent_words[i].words_status == "ST":
                     word_object.translation_launch_st += 1
@@ -1032,7 +1035,9 @@ class BookScrapping(APIView):
                 n=n+1
 
         n= 0
+        print("def getWordsObjects(self, text):--2")
         for i in range(0, len(words_object)):
+
 
             words_use_list_var = WordsUse.objects.filter(english_text = words_object[i], user = user)
             if len(words_use_list_var) is 1 :
@@ -1040,13 +1045,13 @@ class BookScrapping(APIView):
                 n=n+1
 
 
-        print(words_use_list)
+
         return words_use_list
 
 
 
 
-        return word_count_order
+
 
     def getUser(self,request_data):
         session_key = request_data.session._session_key
@@ -1068,22 +1073,27 @@ class BookScrapping(APIView):
     # at the moment, give a 50/50 priority to usage words and started words
     def wordSelectionAlgo(self, user, words):
 
-
+        general_words = [{}, {}, {}, {}]
         print("def wordSelectionAlgo(self, user, words):")
 
         words_use_list = self.getWordsObjects(words, user)
-        light_words = self.findLightWords(user, words_use_list)
-        print("next")
-        started_words = self.getStartedWords(user, words_use_list)
+        #light_words = self.findLightWords(user, words_use_list)
+
+        #started_words = self.getStartedWords(user, words_use_list)
         most_used_words = self.getMostUsedWord(user, words_use_list, words)
+        general_words = self.findGeneralWords(user, words_use_list)
 
 
 
 
-        words_bundle = [ light_words, started_words, most_used_words]
+        #words_bundle = [ light_words, started_words, most_used_words]
 
-        words_list = self.makeOneList(words_bundle)
-        print("Check6")
+        general_words_bundle= [general_words[0], general_words[1], general_words[2], most_used_words]
+
+
+
+        words_list = self.makeOneList(general_words_bundle)
+
 
 
 
@@ -1097,9 +1107,6 @@ class BookScrapping(APIView):
             words_bundle[2]=[]
         print("makeOneList")
         WordAjaxModelStatus.objects.all().delete()
-        print("makeOneList")
-        print(words_bundle)
-        print(words_bundle[2])
 
 
 
@@ -1107,36 +1114,96 @@ class BookScrapping(APIView):
         #print(WordAjaxModelStatus_object)
 
         for i in range(0,len(words_bundle[0])):
-            print("check1:")
+
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[0][i].spanish_text, english_text = words_bundle[0][i].english_text, words_status = "LK")
             WordAjaxModelStatus_object.save()
 
         for i in range(0,len(words_bundle[1])):
-            print("check:2")
+
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[1][i].spanish_text, english_text = words_bundle[1][i].english_text, words_status = "ST")
             WordAjaxModelStatus_object.save()
 
 
         for i in range(0,len(words_bundle[2])):
-            print("check:3")
-            print(words_bundle[2][i].spanish_text)
-            print(words_bundle[2][i].english_text)
-
-            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[2][i].spanish_text, english_text = words_bundle[2][i].english_text, words_status = "UN")
-
+            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[2][i].spanish_text, english_text = words_bundle[2][i].english_text, words_status = "HK")
             WordAjaxModelStatus_object.save()
-            print("check:3")
-            print(type(WordAjaxModelStatus_object))
-            print(WordAjaxModelStatus_object)
+
+        for i in range(0,len(words_bundle[3])):
+            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[3][i].spanish_text, english_text = words_bundle[3][i].english_text, words_status = "UN")
+            WordAjaxModelStatus_object.save()
 
 
 
-        print("check:4")
+
+
 
         print("check:5")
         return WordAjaxModelStatus.objects.all()
 
 
+    def findGeneralWords(self, user, words):
+        n=0
+        l=0
+        k=0
+        heavy_words_list = {}
+        light_words_list = {}
+        started_words_list = {}
+        print("def findLightWords(self, user, words):")
+
+
+        for i in range(0,len(words)):
+            word_object = words[i]
+            word_status = word_object.word_status
+            print(word_object)
+            if word_status == "HK":
+                print("if word_status == HK:")
+
+                word_object.aparitions_hk = word_object.aparitions_hk + 1
+                word_object.save()
+
+                if word_object.aparitions_hk > 10:
+                    word_object.aparitions_hk = 0
+                    word_object.save()
+                    heavy_words_list[n] = word_object.english_text
+                    n = n + 1
+                    print("hklaunched")
+
+            if word_status == "LK":
+
+                print("if word_status == lk:")
+
+                light_words_list[l] = word_object.english_text
+                l = l + 1
+
+            if word_status == "ST":
+                print("if word_status == st:")
+                started_words_list[k] = word_object.english_text
+                k = k + 1
+
+            #queda contar
+
+        print("finish")
+        words_list_bundle = [light_words_list, started_words_list, heavy_words_list]
+        print("finish")
+        return words_list_bundle
+
+    def findHeavytWords(self, user, words):
+        n=0
+        heavy_words_list = {}
+        print("def findLightWords(self, user, words):")
+
+
+        for i in range(0,len(words)):
+            word_object = words[i]
+            word_status = word_object.word_status
+            if word_status == "HK":
+                if word_object.aparitions_hk > 10:
+
+                    words_list[n] = word_object.english_text
+                    n = n + 1
+
+            #queda contar
+        return light_words_list
 
 
 

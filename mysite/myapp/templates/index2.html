@@ -105,7 +105,8 @@
                     var replacement = data[0].spanish_text;
 
                     var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc = iframe[0].contentDocument.body;
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc = innerDoc1[0];
 
 
 
@@ -129,7 +130,7 @@
         }
 
     var placeSaver = new Monocle.Controls.PlaceSaver('placesaver');
-    place_book = placeSaver.savedPlace()
+    place_book = placeSaver.savedPlace()    //to fixed problems with the placesaver
     if(isNaN(place_book.percent)){place_book.percent=0}
     var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant, place: place_book };
     console.log(book_config);
@@ -137,24 +138,41 @@
         getComponents: function () {
         return [
 
-            '/static/components/1.html',
-            '/static/components/2.html',
-            '/static/components/3.html'
+            //'/static/components/part0009.html',
+            //'/static/components/part0010.html',
+            //'/static/components/part0012.html',
+            //'/static/components/part0014.html',
+            '/static/components/part0015.html',
+            '/static/components/part0014.html'
             ];
         },
         getContents: function () {
         return [
-        {
+        /*{
           title: "The Signal Man",
-          src: "/static/components/1.html"
+          src: "/static/components/part0009.html"
         },
         {
           title: "The Haunted House",
-          src: "/static/components/2.html",
+          src: "/static/components/part0010.html",
+        },
+
+         {
+          title: "The Hau3nted Hou8se",
+          src: "/static/components/part0012.html",
         },
         {
-          title: "The Trial for Murder",
-          src: "/static/components/3.html"
+          title: "The Hau3neeted Hou8se",
+          src: "/static/components/part0013.html",
+        },*/
+        {
+          title: "The Hau3nte1d Hou8se",
+          src: "/static/components/part0014.html",
+        },
+
+         {
+          title: "The Haunted Ho5use",
+          src: "/static/components/part0015.html",
         }
       ]
     },
@@ -296,9 +314,9 @@
 
 
 	                    var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc = iframe[0].contentDocument.body;
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc = innerDoc1[0];
                         childNo = innerDoc.childNodes;
-
 
                         console.log("location of text");
 
@@ -342,7 +360,8 @@
                                 console.log(data);
 
                                 var iframe = document.getElementsByClassName("monelem_component");
-                                var innerDoc = iframe[0].contentDocument.body;
+                                var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                                var innerDoc = innerDoc1[0];
 
                                 console.log(innerDoc);
 
@@ -448,7 +467,11 @@
                 );
 
                  var iframe = document.getElementsByClassName("monelem_component");
-    var innerDoc = iframe[0].contentDocument.body.children;
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc = innerDoc1[0].children;;
+
+                 //var iframe = document.getElementsByClassName("monelem_component");
+    //var innerDoc = iframe[0].contentDocument.body.children;
 
     $(innerDoc).mouseup(function(e){
         console.log('click');
