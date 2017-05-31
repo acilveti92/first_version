@@ -105,7 +105,7 @@
                     var replacement = data[0].spanish_text;
 
                     var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("CalibreEbookContent");
                         var innerDoc = innerDoc1[0];
 
 
@@ -131,49 +131,385 @@
 
     var placeSaver = new Monocle.Controls.PlaceSaver('placesaver');
     place_book = placeSaver.savedPlace()    //to fixed problems with the placesaver
+
+    if(isNaN(place_book)==1){
+
+    if(place_book.percent==null){place_book.percent=0}
     if(isNaN(place_book.percent)){place_book.percent=0}
-    var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant, place: place_book };
+    }
+    var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant , place: place_book};
     console.log(book_config);
     var bookData = {
         getComponents: function () {
         return [
-
-            //'/static/components/part0009.html',
-            //'/static/components/part0010.html',
-            //'/static/components/part0012.html',
-            //'/static/components/part0014.html',
+            '/static/components/part0000.html',
+            '/static/components/part0001.html',
+            '/static/components/part0002.html',
+            '/static/components/part0003.html',
+            '/static/components/part0004.html',
+            '/static/components/part0005.html',
+            '/static/components/part0006.html',
+            '/static/components/part0007.html',
+            '/static/components/part0008.html',
+            '/static/components/part0009.html',
+            '/static/components/part0010.html',
+            '/static/components/part0011.html',
+            '/static/components/part0012.html',
+            '/static/components/part0013.html',
+            '/static/components/part0014.html',
             '/static/components/part0015.html',
-            '/static/components/part0014.html'
+            '/static/components/part0016.html',
+            '/static/components/part0017.html',
+            '/static/components/part0018.html',
+            '/static/components/part0019.html',
+            '/static/components/part0020.html',
+            '/static/components/part0021.html',
+            '/static/components/part0022.html',
+            '/static/components/part0023.html',
+            '/static/components/part0024.html',
+            '/static/components/part0025.html',
+            '/static/components/part0026.html',
+            '/static/components/part0027.html',
+            '/static/components/part0028.html',
+            '/static/components/part0029.html',
+            '/static/components/part0030.html',
+            '/static/components/part0031.html',
+            '/static/components/part0032.html',
+            '/static/components/part0033.html',
+            '/static/components/part0034.html',
+            '/static/components/part0035.html',
+            '/static/components/part0036.html',
+            '/static/components/part0037.html',
+            '/static/components/part0038.html',
+            '/static/components/part0039.html',
+            '/static/components/part0040.html',
+            '/static/components/part0041.html',
+            '/static/components/part0042.html',
+            '/static/components/part0043.html',
+            '/static/components/part0044.html',
+            '/static/components/part0045.html',
+            '/static/components/part0046.html',
+            '/static/components/part0047.html',
+            '/static/components/part0048.html',
+            '/static/components/part0049.html',
+            '/static/components/part0050.html',
+            '/static/components/part0051.html',
+            '/static/components/part0052.html',
+            '/static/components/part0053.html',
+            '/static/components/part0054.html',
+            '/static/components/part0055.html',
+            '/static/components/part0056.html',
+            '/static/components/part0057.html',
+            '/static/components/part0058.html',
+            '/static/components/part0059.html',
+            '/static/components/part0060.html',
+            '/static/components/part0061.html',
+            '/static/components/part0062.html',
+            '/static/components/part0063.html',
+            '/static/components/part0064.html',
+            '/static/components/part0065.html',
+            '/static/components/part0066.html',
+            '/static/components/part0067.html',
+            '/static/components/part0068.html',
+            '/static/components/part0069.html',
+            '/static/components/part0070.html',
+            '/static/components/part0071.html'
             ];
         },
         getContents: function () {
         return [
-        /*{
-          title: "The Signal Man",
-          src: "/static/components/part0009.html"
-        },
-        {
-          title: "The Haunted House",
-          src: "/static/components/part0010.html",
-        },
 
-         {
-          title: "The Hau3nted Hou8se",
-          src: "/static/components/part0012.html",
-        },
-        {
-          title: "The Hau3neeted Hou8se",
-          src: "/static/components/part0013.html",
-        },*/
-        {
-          title: "The Hau3nte1d Hou8se",
-          src: "/static/components/part0014.html",
-        },
+            {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0000.html",
+                },
+            {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0001.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0002.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0003.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0004.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0005.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0006.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0007.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0008.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0009.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0010.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0011.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0012.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0013.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0014.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0015.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0016.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0017.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0018.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0019.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0020.html",
+                },
 
-         {
-          title: "The Haunted Ho5use",
-          src: "/static/components/part0015.html",
-        }
+            {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0021.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0022.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0023.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0024.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0025.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0026.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0027.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0028.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0029.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0030.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0031.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0032.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0033.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0034.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0035.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0036.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0037.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0038.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0039.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0040.html",
+                },
+            {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0041.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0042.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0043.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part00044.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0045.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0046.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0047.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0048.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0049.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0050.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0051.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0052.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0053.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0054.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0055.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0056.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0057.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0058.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0059.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0060.html",
+                },
+            {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0061.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0062.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0063.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0064.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0065.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0066.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0067.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0068.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0069.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0070.html",
+                },
+                 {
+            title: "The Hau3nte1d Hou8se",
+            src: "/static/components/part0071.html",
+                }
+
+
       ]
     },
     getComponent: function (componentId) {
@@ -314,7 +650,7 @@
 
 
 	                    var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                         var innerDoc = innerDoc1[0];
                         childNo = innerDoc.childNodes;
 
@@ -360,7 +696,7 @@
                                 console.log(data);
 
                                 var iframe = document.getElementsByClassName("monelem_component");
-                                var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                                var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 var innerDoc = innerDoc1[0];
 
                                 console.log(innerDoc);
@@ -380,6 +716,10 @@
                                 for(i = 1; i < data.length; i++){
 
                                     if(data[i].words_status =="LK"){
+                                        replacement = data[i].english_text;
+                                        htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
+                                    }
+                                    if(data[i].words_status =="HK"){
                                         replacement = data[i].english_text;
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
@@ -467,7 +807,7 @@
                 );
 
                  var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("basic-text-frame");
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                         var innerDoc = innerDoc1[0].children;;
 
                  //var iframe = document.getElementsByClassName("monelem_component");
@@ -515,7 +855,8 @@
                     var replacement = data[0].english_text + "·" + data[0].spanish_text ;
 
                     var iframe = document.getElementsByClassName("monelem_component");
-                        var innerDoc = iframe[0].contentDocument.body;
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
+                                var innerDoc = innerDoc1[0];
 
 
 

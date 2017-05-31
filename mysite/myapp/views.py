@@ -247,6 +247,33 @@ def example2(request):
     return render(request, 'index2.html')
 
 
+
+def getListForExam(request):
+
+
+    session_key = request.session._session_key
+    print("the session key is")
+    #print(request.session._session_key)
+
+    session = Session.objects.get(session_key=session_key)
+    uid = session.get_decoded().get('_auth_user_id')
+    click_user = User.objects.get(pk=uid)
+    print("the user is")
+    #print(click_user)
+
+    word_data = WordsUse.objects.filter(user = click_user, word_status = 'HK')
+    for i in range(0,len(word_data)):
+        print(word_data[i])
+
+    return HttpResponse("getListForExam")
+
+
+
+
+
+
+
+
 def hello(request):
 
     WordsUse.objects.all().delete()
@@ -1105,9 +1132,9 @@ class BookScrapping(APIView):
         words_single_list = {}
         if words_bundle[2] is None :
             words_bundle[2]=[]
-        print("makeOneList")
-        WordAjaxModelStatus.objects.all().delete()
 
+        WordAjaxModelStatus.objects.all().delete()
+        print("makeOneList1")
 
 
 
@@ -1117,20 +1144,25 @@ class BookScrapping(APIView):
 
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[0][i].spanish_text, english_text = words_bundle[0][i].english_text, words_status = "LK")
             WordAjaxModelStatus_object.save()
-
+        print("makeOneList2")
+        print(len(words_bundle[1]))
         for i in range(0,len(words_bundle[1])):
 
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[1][i].spanish_text, english_text = words_bundle[1][i].english_text, words_status = "ST")
             WordAjaxModelStatus_object.save()
 
-
+        print("makeOneList3")
         for i in range(0,len(words_bundle[2])):
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[2][i].spanish_text, english_text = words_bundle[2][i].english_text, words_status = "HK")
             WordAjaxModelStatus_object.save()
 
-        for i in range(0,len(words_bundle[3])):
-            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[3][i].spanish_text, english_text = words_bundle[3][i].english_text, words_status = "UN")
-            WordAjaxModelStatus_object.save()
+        print("makeOneList4")
+        print(words_bundle[3])
+        if words_bundle[3] is not None:
+            for i in range(0,len(words_bundle[3])):
+                WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[3][i].spanish_text, english_text = words_bundle[3][i].english_text, words_status = "UN")
+                WordAjaxModelStatus_object.save()
+
 
 
 
@@ -1148,7 +1180,7 @@ class BookScrapping(APIView):
         heavy_words_list = {}
         light_words_list = {}
         started_words_list = {}
-        print("def findLightWords(self, user, words):")
+        print("def findGeneralWords(self, user, words):")
 
 
         for i in range(0,len(words)):
@@ -1184,13 +1216,14 @@ class BookScrapping(APIView):
 
         print("finish")
         words_list_bundle = [light_words_list, started_words_list, heavy_words_list]
-        print("finish")
+        print("def findGeneralWords(self, user, words):")
+        print(words_list_bundle)
         return words_list_bundle
 
     def findHeavytWords(self, user, words):
         n=0
         heavy_words_list = {}
-        print("def findLightWords(self, user, words):")
+        print("def findHeavyWords(self, user, words):")
 
 
         for i in range(0,len(words)):
