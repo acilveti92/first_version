@@ -261,11 +261,11 @@ def getListForExam(request):
     print("the user is")
     #print(click_user)
 
-<<<<<<< HEAD
+
     word_data = WordsUse.objects.filter(user = click_user)
-=======
+
     word_data = WordsUse.objects.filter(user = click_user, word_status = 'HK')
->>>>>>> origin/master
+
     for i in range(0,len(word_data)):
         print(word_data[i])
 

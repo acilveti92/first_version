@@ -113,13 +113,12 @@
         }
     var placeSaver = new Monocle.Controls.PlaceSaver('placesaver');
     place_book = placeSaver.savedPlace()    //to fixed problems with the placesaver
-<<<<<<< HEAD
+
     if(isNaN(place_book)==1){
     if(place_book.percent==null){place_book.percent=0}
     if(isNaN(place_book.percent)){place_book.percent=0}
     }
     var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant, place: place_book }; // , place: place_book
-=======
 
     if(isNaN(place_book)==1){
 
@@ -127,12 +126,12 @@
     if(isNaN(place_book.percent)){place_book.percent=0}
     }
     var book_config = { panels: Monocle.Panels.Marginal, flipper: Monocle.Flippers.Instant , place: place_book};
->>>>>>> origin/master
+
     console.log(book_config);
     var bookData = {
         getComponents: function () {
         return [
-<<<<<<< HEAD
+
             '{% static '/static/components/part0000.html' %}',
             '{% static '/static/components/part0001.html' %}',
             '{% static '/static/components/part0002.html' %}',
@@ -214,7 +213,7 @@
             '{% static '/static/components/part0078.html' %}',
             '{% static '/static/components/part0079.html' %}',
             '{% static '/static/components/part0080.html' %}'
-=======
+
             '/static/components/part0000.html',
             '/static/components/part0001.html',
             '/static/components/part0002.html',
@@ -287,12 +286,12 @@
             '/static/components/part0069.html',
             '/static/components/part0070.html',
             '/static/components/part0071.html'
->>>>>>> origin/master
+
             ];
         },
         getContents: function () {
         return [
-<<<<<<< HEAD
+
             {
             title: "The Hau3nte1d Hou8se",
             src: "{% static '/letlassen_app/static/components/part0000.html' %}",
@@ -577,7 +576,7 @@
             title: "The Hau3nte1d Hou8se",
             src: "{% static '/letlassen_app/static/components/part0070.html' %}",
                 }
-=======
+
 
             {
             title: "The Hau3nte1d Hou8se",
@@ -869,7 +868,7 @@
             src: "/static/components/part0071.html",
                 }
 
->>>>>>> origin/master
+
 
       ]
     },
