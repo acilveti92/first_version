@@ -1,0 +1,15 @@
+# [START runtime]
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT mysite.wsgi
+manual_scaling:
+  instances: 1
+
+beta_settings:
+    cloud_sql_instances: letlassen:europe-west1:djangomodelspos
+
+runtime_config:
+  python_version: 3
+
+
+# [END runtime]

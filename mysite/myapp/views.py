@@ -21,8 +21,8 @@ from .forms import UserForm  #from tutorial  Beginner
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
-import ebooklib
-from ebooklib import epub
+#import ebooklib
+#from ebooklib import epub
 
 
 # Imports must either be relative, like this, or have the full path
@@ -42,7 +42,7 @@ import csv
 
 from collections import Counter
 
-from mysite.myapp.task import celerytest
+#from mysite.myapp.task import celerytest
 
 
 
@@ -247,6 +247,33 @@ def example2(request):
     return render(request, 'index2.html')
 
 
+
+def getListForExam(request):
+
+
+    session_key = request.session._session_key
+    print("the session key is")
+    #print(request.session._session_key)
+
+    session = Session.objects.get(session_key=session_key)
+    uid = session.get_decoded().get('_auth_user_id')
+    click_user = User.objects.get(pk=uid)
+    print("the user is")
+    #print(click_user)
+
+    word_data = WordsUse.objects.filter(user = click_user)
+    for i in range(0,len(word_data)):
+        print(word_data[i])
+
+    return HttpResponse("getListForExam")
+
+
+
+
+
+
+
+
 def hello(request):
 
     WordsUse.objects.all().delete()
@@ -256,7 +283,7 @@ def hello(request):
     print("deleted words")
 
     # Full path and name to your csv file
-    csv_filepathname="/home/acilveti92/mysite/mysite/myapp/ingles1000csv.csv"
+    csv_filepathname="/Users/Ander/Desktop/Project/cloud/local/first_version/mysite/myapp/static/ingles1000csv.csv"
     # Full path to your django project directory
     your_djangoproject_home="/home/acilveti92/mysite/mysite/myapp/"
 
@@ -775,6 +802,8 @@ class WordSelectionAjax(APIView):
     def checkWordvsDB(self, words, click_user):
 
         print("def checkWordvsDB(self, words, click_user):")
+        print("checkpos2")
+        print(len(words))
 
         if len(words) is 0:
 
@@ -782,19 +811,26 @@ class WordSelectionAjax(APIView):
             return word_presence
 
         else:
-            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            print("checkpos7")
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words[0])# this nid to be fixed, more than one words makes a bad output. acilveti
+            print("checkpos7")
+            print(word_data)
+            print("checkpos7")
             if len(word_data) is 1:
                 word_presence="EC"
+                print("checkpos3")
                 return word_presence
 
             else:
                 if len(word_data) is 0:
                     word_presence="NU"
+                    print("checkpos4")
                     return word_presence
 
 
                 else:
                     word_presence="DW"
+                    print("checkpos5")
                     return word_presence
 
 
@@ -851,7 +887,8 @@ class WordSelectionAjax(APIView):
         else:   # there are some operations concerning the correct existence of the word
 
             print("check len")
-            word_data = WordsUse.objects.filter(user = click_user, english_text = words)
+            word_data = WordsUse.objects.filter(user = click_user, english_text = words[0])# this nid to be fixed, more than one words makes a bad output. acilveti
+            print("checkpos7")
             print("check len")
             print(word_data)
             if len(word_data) is 1:
@@ -875,7 +912,10 @@ class WordSelectionAjax(APIView):
 
 
                 print("db update")
+                print(words)
+
                 print(words[0])
+
 
 
             else:   # there is a word translation, but not a especific word use for the user
@@ -895,9 +935,7 @@ class WordSelectionAjax(APIView):
                     print(" ERROR:there are more than one DB objects." )
                     print(len(word_data))
 
-
-
-
+        print("check")
         return HttpResponse("I want")
 
 
@@ -1105,9 +1143,9 @@ class BookScrapping(APIView):
         words_single_list = {}
         if words_bundle[2] is None :
             words_bundle[2]=[]
-        print("makeOneList")
-        WordAjaxModelStatus.objects.all().delete()
 
+        WordAjaxModelStatus.objects.all().delete()
+        print("makeOneList1")
 
 
 
@@ -1117,20 +1155,25 @@ class BookScrapping(APIView):
 
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[0][i].spanish_text, english_text = words_bundle[0][i].english_text, words_status = "LK")
             WordAjaxModelStatus_object.save()
-
+        print("makeOneList2")
+        print(len(words_bundle[1]))
         for i in range(0,len(words_bundle[1])):
 
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[1][i].spanish_text, english_text = words_bundle[1][i].english_text, words_status = "ST")
             WordAjaxModelStatus_object.save()
 
-
+        print("makeOneList3")
         for i in range(0,len(words_bundle[2])):
             WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[2][i].spanish_text, english_text = words_bundle[2][i].english_text, words_status = "HK")
             WordAjaxModelStatus_object.save()
 
-        for i in range(0,len(words_bundle[3])):
-            WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[3][i].spanish_text, english_text = words_bundle[3][i].english_text, words_status = "UN")
-            WordAjaxModelStatus_object.save()
+        print("makeOneList4")
+        print(words_bundle[3])
+        if words_bundle[3] is not None:
+            for i in range(0,len(words_bundle[3])):
+                WordAjaxModelStatus_object = WordAjaxModelStatus(spanish_text = words_bundle[3][i].spanish_text, english_text = words_bundle[3][i].english_text, words_status = "UN")
+                WordAjaxModelStatus_object.save()
+
 
 
 
@@ -1148,7 +1191,7 @@ class BookScrapping(APIView):
         heavy_words_list = {}
         light_words_list = {}
         started_words_list = {}
-        print("def findLightWords(self, user, words):")
+        print("def findGeneralWords(self, user, words):")
 
 
         for i in range(0,len(words)):
@@ -1184,13 +1227,14 @@ class BookScrapping(APIView):
 
         print("finish")
         words_list_bundle = [light_words_list, started_words_list, heavy_words_list]
-        print("finish")
+        print("def findGeneralWords(self, user, words):")
+        print(words_list_bundle)
         return words_list_bundle
 
     def findHeavytWords(self, user, words):
         n=0
         heavy_words_list = {}
-        print("def findLightWords(self, user, words):")
+        print("def findHeavyWords(self, user, words):")
 
 
         for i in range(0,len(words)):
@@ -1308,7 +1352,9 @@ class BookScrapping(APIView):
         DW = 3
 
         print("def checkWordvsDB(self, words, click_user):")
+        print("checkpos")
         print(len(words))
+
 
 
 
@@ -1333,8 +1379,6 @@ class BookScrapping(APIView):
                 else:
                     word_presence=[DW]
                     return word_presence
-
-
 
 
 

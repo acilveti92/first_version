@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import djcelery
+#import djcelery
 
-
+import os
 
 
 
@@ -28,9 +28,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5*z1@3n3iu8s1aq%(((spw%=77c2_r-uq9tzwe92c&_sk5&00*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,13 +49,14 @@ INSTALLED_APPS = [
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'rest_framework',
+
     'mysite.myapp',
-    'djcelery',
-    'kombu.transport.django', #for celery development broker
+ #   'djcelery',
+  #  'kombu.transport.django', #for celery development broker
 ]
 
-djcelery.setup_loader()
-BROKER_URL = 'django://'
+#djcelery.setup_loader()
+#BROKER_URL = 'django://'
 
 
 
@@ -65,6 +68,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -92,17 +96,29 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+#import subprocess
+
+#cmdCommand = "SET PGCLIENTENCODING=utf-8"   #specify your cmd command
+#subprocess.call(cmdCommand, shell = True)
+
+
+#cmdCommand = "chcp 65001"   #specify your cmd command
+#subprocess.call(cmdCommand, shell = True)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'polls',
+        'USER': 'postgres',
+        'PASSWORD': 'dedomediano',
     }
 }
 
+DATABASES['default']['HOST'] = '/cloudsql/letlassen:europe-west1:djangomodelspos'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -138,16 +154,25 @@ USE_L10N = True
 
 USE_TZ = True
 
-SECURE_SSL_REDIRECT = True  #HTTPS acilveti
+#SECURE_SSL_REDIRECT = True  #HTTPS acilveti quitado para local
+
+
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+#STATIC_URL = 'https://storage.googleapis.com/letlassen_app/static/'
+#STATIC_URL = '/Users/Ander/Desktop/Project/cloud/local/first_version/static/'
+
+#STATIC_URL = 'https://letlassen.appspot.com/static/'
 STATIC_URL = '/static/'
 
+
 # Tell Django where to serve static content (css, javascript, etc)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'static/'
+#STATIC_ROOT = '/Users/Ander/Desktop/Project/cloud/local/first_version/static'
 
 STATICFILES_DIRS = (
     )
