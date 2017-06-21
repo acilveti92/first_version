@@ -54,6 +54,10 @@ urlpatterns = patterns('',
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
     url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
     url(r'^getlistforexam/', 'mysite.myapp.views.getListForExam'),
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -65,6 +69,7 @@ urlpatterns = patterns('',
     url(r'^register/$', myapp_views.UserFormView.as_view(), name='register'),
 
     url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword'),
+
     url(r'^bookscrapping/$', myapp_views.BookScrapping.as_view(), name='bookscrapping'),
 
 
