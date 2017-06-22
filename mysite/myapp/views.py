@@ -364,7 +364,7 @@ class UserFormView(View):
 
                 if user.is_active:
                     login(request, user)
-                    return redirect('http://acilveti92.pythonanywhere.com/')
+                    return redirect('https://letlassen.appspot.com/demo/')
 
             return render(request,self.template_name,{'form':form})
 
