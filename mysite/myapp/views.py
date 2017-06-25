@@ -246,6 +246,9 @@ def example(request):
 def example2(request):
     return render(request, 'index2.html')
 
+def demo(request):
+    return render(request, 'demo.html')
+
 
 
 def getListForExam(request):
@@ -280,14 +283,14 @@ def getListForExam(request):
 
 def hello(request):
 
-    WordsUse.objects.all().delete()
+    #WordsUse.objects.all().delete()
     print("deleted wordsuse")
 
-    Word.objects.all().delete()
+    #Word.objects.all().delete()
     print("deleted words")
 
     # Full path and name to your csv file
-    csv_filepathname="/Users/Ander/Desktop/Project/cloud/local/first_version/mysite/myapp/static/ingles1000csv.csv"
+    csv_filepathname="/Users/Ander/Desktop/Project/cloud/local/first_version/mysite/myapp/static/spanish500.csv"
     # Full path to your django project directory
     your_djangoproject_home="/home/acilveti92/mysite/mysite/myapp/"
 
@@ -295,7 +298,7 @@ def hello(request):
     with open(csv_filepathname, encoding = "ISO-8859-1") as f:
         reader = csv.reader(f)
         for row in reader:
-            pruebaexcel = Word(english_text = row[1], spanish_text = row[0])
+            pruebaexcel = Word(english_text = row[1], spanish_text = row[0], translation = row[2])
             #pruebaexcel=pruebaexcel[0]
             #pruebaexcel.name = row[0]
             #pruebaexcel.number = row[1]

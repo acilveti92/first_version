@@ -12,9 +12,10 @@ class Line(models.Model):                    # model - class    - table
 class Word(models.Model):                    # model - class    - table
     english_text = models.CharField(max_length=255)
     spanish_text = models.CharField(max_length=255)
+    translation = models.CharField(max_length=255, default="EN-GE")
 
     def __str__(self):
-        return '%s - %s' % (self.english_text, self.spanish_text)
+        return '%s- %s - %s' % (self.english_text, self.spanish_text, self.translation)
 
 
 class WordAjaxModel(models.Model):                    # model - class    - table
