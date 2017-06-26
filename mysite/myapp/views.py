@@ -363,11 +363,22 @@ class UserFormView(View):
             #returns User object if credentials are correct
             user = authenticate(username=username, password=password)
 
+            #include in the translation model
+            print("register process-1")
+            user_object = User.objects.filter(username = username)
+            print("register process-2")
+            user_language_object = UserLanguage(user = user_object[0], translation = "SP-EN")
+            print("register process-3")
+            user_language_object.save()
+            print("register process-4")
+
+
+
             if user is not None:
 
                 if user.is_active:
                     login(request, user)
-                    return redirect('https://letlassen.appspot.com/demo/')
+                    return redirect('http://localhost:8000/demo/')
 
             return render(request,self.template_name,{'form':form})
 
@@ -985,9 +996,13 @@ class BookScrapping(APIView):
 
         words = self.getSectionWords(text)
 
-        user = self.getUser(request)#make a global function...
+        print("here are words")
+        print(words)
 
-        algo_words = self.wordSelectionAlgo(user, words)
+        user = self.getUser(request)#make a global function...
+        user_language = self.getUserLanguage(user)
+
+        algo_words = self.wordSelectionAlgo(user, words, user_language)
 
         self.updateDB(algo_words, user)
 
@@ -1064,7 +1079,7 @@ class BookScrapping(APIView):
         return word_count_order
 
 
-    def getWordsObjects(self, text, user):
+    def getWordsObjects(self, text, user, user_language):
         n = 0
         words_use_list = {}
         words_object = {}
@@ -1072,10 +1087,9 @@ class BookScrapping(APIView):
 
         print("def getWordsObjects(self, text):")
 
-        #FIND USER LANGUAGE SETTING
 
-        user_language_object = UserLanguage.objects.filter(user=user)
-        user_language = user_language_object[0].translation
+
+
 
 
         for i in range(0, len(text)):
@@ -1104,18 +1118,27 @@ class BookScrapping(APIView):
 
 
 
+    def getUserLanguage(self,user):
+
+        user_language_object = UserLanguage.objects.filter(user=user)
+        user_language = user_language_object[0].translation
+
+
+        return user_language
+
 
 
     def getUser(self,request_data):
         session_key = request_data.session._session_key
         print("the session key is")
-        #print(request.session._session_key)
+        print("find this here")
+
 
         session = Session.objects.get(session_key=session_key)
         uid = session.get_decoded().get('_auth_user_id')
         click_user = User.objects.get(pk=uid)
         print("the user is")
-        #print(click_user)
+        print(click_user)
 
         return click_user
 
@@ -1124,16 +1147,19 @@ class BookScrapping(APIView):
     # send every light-know word
     # asign a percentage of translated words that are going to be in the text. translation_percentage
     # at the moment, give a 50/50 priority to usage words and started words
-    def wordSelectionAlgo(self, user, words):
+    def wordSelectionAlgo(self, user, words, user_language):
 
         general_words = [{}, {}, {}, {}]
         print("def wordSelectionAlgo(self, user, words):")
 
-        words_use_list = self.getWordsObjects(words, user)
+        print("Checkinggg")
+        words_use_list = self.getWordsObjects(words, user, user_language)
         #light_words = self.findLightWords(user, words_use_list)
 
         #started_words = self.getStartedWords(user, words_use_list)
-        most_used_words = self.getMostUsedWord(user, words_use_list, words)
+        print("Checkinggg")
+
+        most_used_words = self.getMostUsedWord(user, words_use_list, words, user_language)
         general_words = self.findGeneralWords(user, words_use_list)
 
 
@@ -1303,7 +1329,7 @@ class BookScrapping(APIView):
 
         return started_words_list
 
-    def getMostUsedWord(self, user, words, words_list):
+    def getMostUsedWord(self, user, words, words_list, user_language):
         n=0
         most_used_words_list = {}
         print("ddef getMostUsedWord(self, user, words):")
@@ -1313,12 +1339,14 @@ class BookScrapping(APIView):
         for i in range(0, len(words_list)):
 
             print(i)
-            words_object_var = Word.objects.filter(spanish_text = words_list[i][0])
+            print("position_check2")
+            words_object_var = Word.objects.filter(spanish_text = words_list[i][0], translation = user_language)
+            print("position_check2")
             print(words_object_var)
             if len(words_object_var) is 1 :
 
 
-                words_use_list_var = WordsUse.objects.filter(english_text = words_object_var[0], user = user)
+                words_use_list_var = WordsUse.objects.filter(english_text = words_object_var[0], user = user,)
                 print("check2")
 
 
