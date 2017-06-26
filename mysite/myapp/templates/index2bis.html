@@ -49,38 +49,9 @@
 
     {% load static %}
     Monocle.DEBUG = true;
-    var global_data;
     function htmlreplace(a, b, element, last_node, first_node) {
                             if (!element) element = document.body;
-                            //var nodes = element.childNodes;
-
-                            var innerDocFinal = element;    //with maxChildNumber look for the max child number, which will be in fact the nex innerDoc
-                            var innerDoc = element;
-                        for (i=0; i < innerDoc.childNodes.length; i++){
-                            var innerDocSub = innerDoc.childNodes[i]
-                            console.log(innerDoc.childNodes[i]);
-                            if (innerDocFinal.childNodes.length < innerDocSub.childNodes.length){
-                                innerDocFinal = innerDocSub;
-                                }
-
-                            for (j=0; j < innerDocSub.childNodes.length; j++){
-                                var innerDocSubSub = innerDocSub.childNodes[j]
-                                console.log(innerDocSubSub.childNodes[j]);
-                                if (innerDocFinal.childNodes.length < innerDocSubSub.childNodes.length){
-                                    innerDocFinal = innerDocSubSub;
-                                    }
-                                console.log(innerDocFinal.childNodes.length)
-                                }
-                            console.log(innerDocFinal.childNodes.length)
-                            }
-
-
-
-
-
-
-
-                            var nodes = innerDocFinal.childNodes;
+                            var nodes = element.childNodes;
                             for (var n= first_node; n<last_node; n++) {
                                 if (nodes[n].nodeType == Node.TEXT_NODE) {
                                     var r = new RegExp('\\b' + a + '\\b', 'gi');
@@ -115,9 +86,6 @@
           console.log(first_child);
 	                   console.log(last_child);
           console.log(datoajax);
-
-          console.log("here comes global_data in selection");
-          console.log(global_data);
           $.ajax({
             url: '/wordselectionajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
@@ -125,9 +93,6 @@
             success: function(data) {
                     console.log(data);
                     console.log(data.spanish_text);
-
-
-
                     if(data.length > 0 ){
                     var replacement = data[0].spanish_text;
                     var iframe = document.getElementsByClassName("monelem_component");
@@ -732,7 +697,6 @@
                             success: function(data) {
                                 console.log("success");
                                 console.log(data);
-                                global_data = data;
                                 //var iframe = document.getElementsByClassName("monelem_component");
                                 //var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 //var innerDoc = innerDoc1[0];
@@ -796,9 +760,6 @@
                 stencil = box_scrapping.createStencil(rdr);
                 box_scrapping.getVisibleElem(rdr);
                 reader2.addControl(pageNumber, 'page');
-                console.log("here comes global_data");
-                console.log(global_data);
-
                 reader2.listen(
                     'monocle:turn',
                     function (evt) {
@@ -850,29 +811,8 @@
             success: function(data) {
                     console.log(data);
                     console.log(data.spanish_text);
-
-                    //LET'S TAKE THE VALUE FROM THE GLOBAL DATA INSTEAD FROM AJAX
-                    var translation_found = false;
-                    for(i = 0; i < global_data.length; i++){
-                      if ( data[0].english_text == global_data[i].english_text){
-                        data[0].spanish_text = global_data[i].spanish_text;
-                        full_string = global_data[i].english_text;
-                        translation_found = true;
-                        }
-                      }
-                    if ( translation_found == false ){
-                      for(i = 0; i < global_data.length; i++){
-                        if ( global_data[i].english_text.indexOf(data[0].english_text) !== -1){
-                          data[0].spanish_text = global_data[i].spanish_text;
-                          full_string = global_data[i].english_text;
-                          }
-                        }
-                      }
-
-
-
                     if(data.length > 0 ){
-                    var replacement = full_string + "·" + data[0].spanish_text ;
+                    var replacement = data[0].english_text + "·" + data[0].spanish_text ;
                     var iframe = document.getElementsByClassName("monelem_component");
                         var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 var innerDoc = innerDoc1[0];
@@ -883,7 +823,7 @@
 
 
 
-                    htmlreplace(full_string, replacement, innerDoc, last_child, first_child);
+                    htmlreplace(sel, replacement, innerDoc, last_child, first_child);
                     }
             },
             failure: function(data) {
