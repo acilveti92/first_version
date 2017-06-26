@@ -493,16 +493,27 @@
                     console.log(data.spanish_text);
 
                     //LET'S TAKE THE VALUE FROM THE GLOBAL DATA INSTEAD FROM AJAX
-
+                    var translation_found = false;
                     for(i = 0; i < global_data.length; i++){
                       if ( data[0].english_text == global_data[i].english_text){
                         data[0].spanish_text = global_data[i].spanish_text;
+                        full_string = global_data[i].english_text;
+                        translation_found = true;
+                        }
+                      }
+                    if ( translation_found == false ){
+                      for(i = 0; i < global_data.length; i++){
+                        if ( global_data[i].english_text.indexOf(data[0].english_text) !== -1){
+                          data[0].spanish_text = global_data[i].spanish_text;
+                          full_string = global_data[i].english_text;
+                          }
                         }
                       }
 
 
+
                     if(data.length > 0 ){
-                    var replacement = data[0].english_text + "·" + data[0].spanish_text ;
+                    var replacement = full_string + "·" + data[0].spanish_text ;
                     var iframe = document.getElementsByClassName("monelem_component");
                         var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 var innerDoc = innerDoc1[0];
@@ -513,7 +524,7 @@
 
 
 
-                    htmlreplace(sel, replacement, innerDoc, last_child, first_child);
+                    htmlreplace(full_string, replacement, innerDoc, last_child, first_child);
                     }
             },
             failure: function(data) {
