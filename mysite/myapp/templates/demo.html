@@ -49,6 +49,7 @@
 
     {% load static %}
     Monocle.DEBUG = true;
+    var global_data;
     function htmlreplace(a, b, element, last_node, first_node) {
                             if (!element) element = document.body;
                             //var nodes = element.childNodes;
@@ -114,6 +115,9 @@
           console.log(first_child);
 	                   console.log(last_child);
           console.log(datoajax);
+
+          console.log("here comes global_data in selection");
+          console.log(global_data);
           $.ajax({
             url: '/wordselectionajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
@@ -121,6 +125,9 @@
             success: function(data) {
                     console.log(data);
                     console.log(data.spanish_text);
+
+
+
                     if(data.length > 0 ){
                     var replacement = data[0].spanish_text;
                     var iframe = document.getElementsByClassName("monelem_component");
@@ -366,6 +373,7 @@
                             success: function(data) {
                                 console.log("success");
                                 console.log(data);
+                                global_data = data;
                                 //var iframe = document.getElementsByClassName("monelem_component");
                                 //var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 //var innerDoc = innerDoc1[0];
@@ -429,6 +437,9 @@
                 stencil = box_scrapping.createStencil(rdr);
                 box_scrapping.getVisibleElem(rdr);
                 reader2.addControl(pageNumber, 'page');
+                console.log("here comes global_data");
+                console.log(global_data);
+
                 reader2.listen(
                     'monocle:turn',
                     function (evt) {
@@ -480,6 +491,16 @@
             success: function(data) {
                     console.log(data);
                     console.log(data.spanish_text);
+
+                    //LET'S TAKE THE VALUE FROM THE GLOBAL DATA INSTEAD FROM AJAX
+
+                    for(i = 0; i < global_data.length; i++){
+                      if ( data[0].english_text == global_data[i].english_text){
+                        data[0].spanish_text = global_data[i].spanish_text;
+                        }
+                      }
+
+
                     if(data.length > 0 ){
                     var replacement = data[0].english_text + "·" + data[0].spanish_text ;
                     var iframe = document.getElementsByClassName("monelem_component");
