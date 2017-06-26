@@ -35,6 +35,16 @@ class WordAjaxModelStatus(models.Model):                    # model - class    -
         return '%s - %s - %s' % (self.english_text, self.spanish_text, self.words_status)
 
 
+class UserLanguage(models.Model):                    # model - class    - table
+    user = models.ForeignKey(User, null=True)
+    translation = models.CharField(max_length=6, default="EN-GE")
+
+
+
+    def __str__(self):
+        return '%s - %s' % (self.user, self.translation)
+
+
 
 
 class WordsUse(models.Model):                    # model - class    - table

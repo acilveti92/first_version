@@ -26,7 +26,7 @@ from django.contrib.auth.models import User
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse, WordAjaxModelStatus
+from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse, WordAjaxModelStatus,UserLanguage
 from .serializers import WordSerializer, WordAjaxSerializer, WordAjaxModelStatusSerializer
 
 from bs4 import BeautifulSoup   #for html handling
@@ -1069,11 +1069,19 @@ class BookScrapping(APIView):
         words_use_list = {}
         words_object = {}
         words_use_object = {}
+
         print("def getWordsObjects(self, text):")
+
+        #FIND USER LANGUAGE SETTING
+
+        user_language_object = UserLanguage.objects.filter(user=user)
+        user_language = user_language_object[0].translation
+
+
         for i in range(0, len(text)):
 
 
-            words_object_var = Word.objects.filter(spanish_text = text[i][0])
+            words_object_var = Word.objects.filter(spanish_text = text[i][0], translation = user_language)
 
             if len(words_object_var) is 1 :
                 words_object[n] = words_object_var[0]
