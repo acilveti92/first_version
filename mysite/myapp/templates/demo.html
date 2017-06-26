@@ -51,7 +51,35 @@
     Monocle.DEBUG = true;
     function htmlreplace(a, b, element, last_node, first_node) {
                             if (!element) element = document.body;
-                            var nodes = element.childNodes;
+                            //var nodes = element.childNodes;
+
+                            var innerDocFinal = element;    //with maxChildNumber look for the max child number, which will be in fact the nex innerDoc
+                            var innerDoc = element;
+                        for (i=0; i < innerDoc.childNodes.length; i++){
+                            var innerDocSub = innerDoc.childNodes[i]
+                            console.log(innerDoc.childNodes[i]);
+                            if (innerDocFinal.childNodes.length < innerDocSub.childNodes.length){
+                                innerDocFinal = innerDocSub;
+                                }
+
+                            for (j=0; j < innerDocSub.childNodes.length; j++){
+                                var innerDocSubSub = innerDocSub.childNodes[j]
+                                console.log(innerDocSubSub.childNodes[j]);
+                                if (innerDocFinal.childNodes.length < innerDocSubSub.childNodes.length){
+                                    innerDocFinal = innerDocSubSub;
+                                    }
+                                console.log(innerDocFinal.childNodes.length)
+                                }
+                            console.log(innerDocFinal.childNodes.length)
+                            }
+
+
+
+
+
+
+
+                            var nodes = innerDocFinal.childNodes;
                             for (var n= first_node; n<last_node; n++) {
                                 if (nodes[n].nodeType == Node.TEXT_NODE) {
                                     var r = new RegExp('\\b' + a + '\\b', 'gi');
