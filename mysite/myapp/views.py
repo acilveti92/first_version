@@ -26,7 +26,7 @@ from django.contrib.auth.models import User
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse, WordAjaxModelStatus,UserLanguage
+from .models import Line, Word,  WordAjaxModel, PruebaExcel ,WordsUse, WordAjaxModelStatus,UserLanguage, UserRegister
 from .serializers import WordSerializer, WordAjaxSerializer, WordAjaxModelStatusSerializer
 
 from bs4 import BeautifulSoup   #for html handling
@@ -43,6 +43,9 @@ import csv
 from collections import Counter
 
 #from mysite.myapp.task import celerytest
+
+from django.core.mail import send_mail  #mail
+
 
 
 
@@ -248,6 +251,28 @@ def example2(request):
 
 def demo(request):
     return render(request, 'demo.html')
+
+def registrado(request):
+
+    print("registrado writing")
+    session_key = request.session._session_key
+    print("the session key is")
+    print(session_key)
+
+    session = Session.objects.get(session_key=session_key)
+    uid = session.get_decoded().get('_auth_user_id')
+    click_user = User.objects.get(pk=uid)
+    print("the user is")
+    print(click_user)
+
+
+    user_registration_object = UserRegister(user= click_user)
+    print("register process-3")
+    user_registration_object.save()
+    print("register process-4")
+
+    return HttpResponse("hemos recivido tu petición. Contactaremos contigo lo antes posible")
+
 
 def saioa(request):
     return render(request, 'saioa.html')

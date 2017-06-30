@@ -45,6 +45,16 @@ class UserLanguage(models.Model):                    # model - class    - table
         return '%s - %s' % (self.user, self.translation)
 
 
+class UserRegister(models.Model):                    # model - class    - table
+    user = models.ForeignKey(User, null=True)
+
+
+
+
+    def __str__(self):
+        return '%s' % (self.user)
+
+
 
 
 class WordsUse(models.Model):                    # model - class    - table
