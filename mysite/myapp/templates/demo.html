@@ -26,6 +26,17 @@
         float: left;
         padding-right: 20px;
       }
+
+      .button1 {
+  cursor: pointer;
+  color: #555;
+  position: absolute;
+  top: 2px;
+  right: 50%;
+  padding: 0 2px;
+   z-index: 10;
+}
+
       .reader {
         position: absolute;
         top: 0;
@@ -613,8 +624,14 @@
     </script>
 
   </head>
+<input type="button" class="button1" value="Suscribete!" onclick="myFunction()" />
 
-  <body>
+<script>
+function myFunction() {
+
+    window.location.href = "http://stackoverflow.com";
+}
+</script>
 
 
 

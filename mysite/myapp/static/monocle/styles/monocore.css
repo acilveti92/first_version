@@ -13,6 +13,8 @@ div.monelem_container {
   background-color: black;
 }
 
+.button2 {position:absolute;bottom:0;right:0;}
+
 
 /* The div that mimics a leaf of paper in a book. */
 div.monelem_page {
@@ -27,7 +29,7 @@ div.monelem_page {
 
 /* The div within the page that determines page margins. */
 div.monelem_sheaf {
-  top: 1em;
+  top: 2em;
   left: 3em;
   bottom: 1em;
   right: 3em;

@@ -50,6 +50,7 @@ urlpatterns = patterns('',
     url(r'^example/', 'mysite.myapp.views.example'),
     url(r'^example2/', 'mysite.myapp.views.example2'),
     url(r'^demo/', 'mysite.myapp.views.demo'),
+    url(r'^saioa/', 'mysite.myapp.views.saioa'),
 
 
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),

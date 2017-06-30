@@ -249,6 +249,9 @@ def example2(request):
 def demo(request):
     return render(request, 'demo.html')
 
+def saioa(request):
+    return render(request, 'saioa.html')
+
 
 
 def getListForExam(request):
