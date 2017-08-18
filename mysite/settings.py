@@ -105,20 +105,43 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #cmdCommand = "chcp 65001"   #specify your cmd command
 #subprocess.call(cmdCommand, shell = True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'polls',
-        'USER': 'postgres',
-        'PASSWORD': 'dedomediano',
-    }
-}
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES['default']['HOST'] = '/cloudsql/letlassen:europe-west1:djangomodelspos'
-if os.getenv('GAE_INSTANCE'):
-    pass
+# [START db_setup]
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/letlassen:europe-west1:djangomodelspos',
+            'NAME': 'polls',
+            'USER': 'postgres',
+            'PASSWORD': 'dedomediano',
+        }
+    }
 else:
-    DATABASES['default']['HOST'] = '127.0.0.1'
+    # Running locally so connect to either a local MySQL instance or connect to
+    # Cloud SQL via the proxy. To start the proxy via command line:
+    #
+    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+    #
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'polls',
+            'USER': 'postgres',
+            'PASSWORD': 'dedomediano',
+        }
+    }
+# [END db_setup]
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

@@ -134,7 +134,7 @@
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: datoajax,
             success: function(data) {
-                    console.log(data);
+                    /*console.log(data);
                     console.log(data.spanish_text);
 
 
@@ -145,7 +145,7 @@
                         var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("CalibreEbookContent");
                         var innerDoc = innerDoc1[0];
                     htmlreplace(sel, replacement, innerDoc, last_child, first_child);
-                    }
+                    }*/
             },
             failure: function(data) {
                 alert('Got an error dude');
@@ -179,7 +179,7 @@
         return [
 
 
-            '{% static '/static/components/demo.xhtml' %}'
+            '{% static '/static/components/demo.html' %}'
 
 
             ];
@@ -189,7 +189,7 @@
 
                  {
             title: "The Hau3nte1d Hou8se",
-            src: "{% static '/letlassen_app/static/components/demo.xhtml' %}",
+            src: "{% static '/letlassen_app/static/components/demo.html' %}",
                 }
 
 
@@ -219,6 +219,9 @@
                     alertIfComponentNotFound(rdr);
                     rdr.listen('monocle:selection', textSelected);
                     rdr.listen('monocle:deselection', textDeselected);
+                    //var scrubber = new Monocle.Controls.Scrubber(rdr);
+                    //rdr.addControl(scrubber);
+
                     rdr.addControl(placeSaver, 'invisible');
                     /* PAGE NUMBER RUNNING HEAD */
                     var pageNumber = {
@@ -398,6 +401,7 @@
                                 for(i = 1; i < data.length; i++){
                                     if(data[i].words_status =="LK"){
                                         replacement = data[i].english_text;
+
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
                                     if(data[i].words_status =="HK"){
@@ -406,10 +410,12 @@
                                     }
                                     if(data[i].words_status =="ST"){
                                         replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        replacement = replacement.replace(" ","-"); //fixed problem with more than a single word
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
                                     if(data[i].words_status =="UN"){
                                         replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        replacement = replacement.replace(" ","-"); //fixed problem with more than a single word
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
                                 }
@@ -492,16 +498,73 @@
         sel =str
         sel = sel.replace(/ /g,'')
           var datoajax = {palabra:sel.toLowerCase()};
+          var word_ajax = sel.toLowerCase();
           console.log(first_child);
 	                   console.log(last_child);
           console.log(datoajax);
+
+
+
+          //OUT OF AJAX
+
+          //LET'S TAKE THE VALUE FROM THE GLOBAL DATA INSTEAD FROM AJAX
+                    var translation_found = false;
+                    for(i = 0; i < global_data.length; i++){
+                      if ( word_ajax == global_data[i].english_text){
+                        word_ajax_spanish = global_data[i].spanish_text;
+                        full_string = global_data[i].english_text;
+                        translation_found = true;
+                        }
+                      }
+                    if ( translation_found == false ){
+                      for(i = 0; i < global_data.length; i++){
+                        if ( global_data[i].english_text.indexOf(word_ajax) !== -1){
+                          word_ajax_spanish = global_data[i].spanish_text;
+                          full_string = global_data[i].english_text;
+                          }
+                        }
+                      }
+
+
+
+                    //if(data.length > 0 ){
+
+
+
+                    full_string_replaced = full_string.replace(/ /g,"-"); //fixed problem with more than a single word
+                    var replacement = full_string_replaced + "·" + word_ajax_spanish ;
+
+
+
+
+                    var iframe = document.getElementsByClassName("monelem_component");
+                        var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
+                                var innerDoc = innerDoc1[0];
+
+
+
+
+
+
+
+                    htmlreplace(full_string, replacement, innerDoc, last_child, first_child);
+                   // }
+
+
+
+
+
           $.ajax({
             url: '/wordselectionajax/' ,
             type: 'GET', // This is the default though, you don't actually need to always mention it
             data: datoajax,
-            success: function(data) {
-                    console.log(data);
+            success: function(data, word_ajax) {
+                    /*console.log(data);
                     console.log(data.spanish_text);
+
+
+
+
 
                     //LET'S TAKE THE VALUE FROM THE GLOBAL DATA INSTEAD FROM AJAX
                     var translation_found = false;
@@ -524,7 +587,14 @@
 
 
                     if(data.length > 0 ){
-                    var replacement = full_string + "·" + data[0].spanish_text ;
+
+
+
+                    full_string_replaced = full_string.replace(" ","-"); //fixed problem with more than a single word
+                    var replacement = full_string_replaced + "·" + data[0].spanish_text ;
+
+
+
                     var iframe = document.getElementsByClassName("monelem_component");
                         var innerDoc1 = iframe[0].contentDocument.getElementsByClassName("calibreEbookContent");
                                 var innerDoc = innerDoc1[0];
@@ -536,7 +606,7 @@
 
 
                     htmlreplace(full_string, replacement, innerDoc, last_child, first_child);
-                    }
+                    }*/
             },
             failure: function(data) {
                 alert('Got an error dude');
@@ -624,12 +694,12 @@
     </script>
 
   </head>
-<input type="button" class="button1" value="Suscribete!" onclick="myFunction()" />
+<input type="button" class="button1" value="Suscríbete!" onclick="myFunction()" />
 
 <script>
 function myFunction() {
 
-    window.location.href = "http://localhost:8000/registrado/"; //cambiar antes de deployment
+    window.location.href = "https://letlassen.appspot.com/registrado/"; //cambiar antes de deployment
 }
 </script>
 

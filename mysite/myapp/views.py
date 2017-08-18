@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Create your views here.
 from datetime import datetime
 
@@ -34,7 +37,7 @@ from bs4 import NavigableString
 
 import re
 
-import urllib.request
+import urllib
 
 
 
@@ -108,7 +111,7 @@ def home(request):
         if matches:
             unique_words.append(word)
 
-    print("--------- únique words ---------")
+    print("--------- unique words ---------")
     print(unique_words)
 
     soupstring = soup.string
@@ -190,9 +193,9 @@ def home(request):
 def example(request):
     url="https://es.wikipedia.org/wiki/Parten%C3%B3n"
 
-    req = urllib.request.Request(url)
+    req = urllib.Request(url)
     print("check ")
-    response = urllib.request.urlopen(req)
+    response = urllib.urlopen(req)
     print("check ")
     the_page = response.read()
 
@@ -271,7 +274,7 @@ def registrado(request):
     user_registration_object.save()
     print("register process-4")
 
-    return HttpResponse("hemos recivido tu petición. Contactaremos contigo lo antes posible")
+    return HttpResponse("hemos recivido tu peticion. Contactaremos contigo lo antes posible")
 
 
 def saioa(request):
@@ -288,14 +291,15 @@ def getListForExam(request):
 
     session = Session.objects.get(session_key=session_key)
     uid = session.get_decoded().get('_auth_user_id')
-    click_user = User.objects.get(pk=uid)
+    #click_user = User.objects.get(pk=uid)
     print("the user is")
     #print(click_user)
 
-
+    click_user = User.objects.get(username = "Antonio")
+    print(click_user)
     word_data = WordsUse.objects.filter(user = click_user)
 
-    word_data = WordsUse.objects.filter(user = click_user, word_status = 'HK')
+    word_data = WordsUse.objects.filter(user = click_user)
 
     for i in range(0,len(word_data)):
         print(word_data[i])
@@ -406,7 +410,7 @@ class UserFormView(View):
 
                 if user.is_active:
                     login(request, user)
-                    return redirect('http://localhost:8000/demo/')
+                    return redirect('https://letlassen.appspot.com/demo/')
 
             return render(request,self.template_name,{'form':form})
 
@@ -441,9 +445,9 @@ class wordajax(APIView):
 
 
 
-        req = urllib.request.Request(url)
+        req = urllib.Request(url)
         print("check ")
-        response = urllib.request.urlopen(req)  # there are some problems and there should be fixed in the future
+        response = urllib.urlopen(req)  # there are some problems and there should be fixed in the future
         print("check ")
         the_page = response.read()
 
@@ -507,7 +511,7 @@ class wordajax(APIView):
             if matches:
                 unique_words.append(word)
 
-        print("--------- únique words ---------")
+        print("--------- unique words ---------")
         print(unique_words)
 
         soupstring = soup.string
@@ -1020,7 +1024,7 @@ class BookScrapping(APIView):
         datos=datos.copy()
 
         text = datos['text']
-
+        print("hola")
 
         words = self.getSectionWords(text)
 
@@ -1047,11 +1051,13 @@ class BookScrapping(APIView):
         print("updateDB")
 
         for i in range(0, len(sent_words)):
-
+            print i
             word = Word.objects.filter(spanish_text = sent_words[i].spanish_text)
-
-
+            #print user
+            #print word[0]
+            #print("updateDB")
             word_object = WordsUse.objects.get(user = user, english_text = word[0])
+            #print("updateDB")
 
             if sent_words[i].words_status == "LK":
                 word_object.translation_launch_lk += 1
@@ -1062,15 +1068,15 @@ class BookScrapping(APIView):
             else:
                 if sent_words[i].words_status == "ST":
                     word_object.translation_launch_st += 1
-                    print("ST")
-                    print(word_object)
+                    #print("ST")
+                    #print(word_object)
 
                     if word_object.translation_launch_st is 7:
                         word_object.word_status = "LK"
                         word_object.translation_launch_st = 0
-                        print(sent_words[i])
+                        #print(sent_words[i])
 
-                        print("upgraded")
+                        #print("upgraded")
                     pass
                 else:
                     if sent_words[i].words_status == "UN":
@@ -1089,7 +1095,9 @@ class BookScrapping(APIView):
 
 
         print("def getSectionWords(self, text_array):")
-        print(text)
+        print("here")
+
+
 
 
         split_text = text.split()
@@ -1261,19 +1269,27 @@ class BookScrapping(APIView):
         light_words_list = {}
         started_words_list = {}
         print("def findGeneralWords(self, user, words):")
+        print words
 
 
         for i in range(0,len(words)):
             word_object = words[i]
             word_status = word_object.word_status
-            print(word_object)
+            #print("check")
+            #print type(word_object.english_)
+            #print word_object
+            #print(word_object)
+            #print("check2")
             if word_status == "HK":
                 print("if word_status == HK:")
 
                 word_object.aparitions_hk = word_object.aparitions_hk + 1
+                print("ok")
                 word_object.save()
+                print("ok1")
 
                 if word_object.aparitions_hk > 10:
+                    print("ok2")
                     word_object.aparitions_hk = 0
                     word_object.save()
                     heavy_words_list[n] = word_object.english_text
