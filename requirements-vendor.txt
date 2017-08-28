@@ -1,1 +1,8 @@
-Django==1.11.4
+Django==1.9.1
+djangorestframework==3.4.4
+wheel==0.29.0
+gunicorn==19.7.1
+psycopg2==2.7.1
+bs4
+urllib
+django-filter==0.14.0

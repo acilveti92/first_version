@@ -115,10 +115,10 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/letlassen:europe-west1:djangomodelspos',
+            'HOST': '/cloudsql/letlassen:letlassendb2',
             'NAME': 'polls',
-            'USER': 'postgres',
-            'PASSWORD': 'dedomediano',
+            'USER': 'root',
+            'PASSWORD': 'dedogrande',
         }
     }
 else:
@@ -131,11 +131,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
+            'HOST': '173.194.106.218',
             'PORT': '3306',
             'NAME': 'polls',
-            'USER': 'postgres',
-            'PASSWORD': 'dedomediano',
+            'USER': 'ander',
+            'PASSWORD': 'dbpassword',
         }
     }
 # [END db_setup]
