@@ -970,15 +970,28 @@ class BookScrapping(APIView):
 
     def updateDB(self, sent_words, user):
         print("updateDB")
+        print sent_words
+        #user translation selection to use it to retreive the meaning of the wordsfrom db. Maybe it should be a different function??
+        user_translation_object = UserLanguage.objects.filter(user=user)
+        user_translation = user_translation_object[0].translation
+        print "this is the user translation selection"
+        print user_translation
 
+        word = Word.objects.filter(spanish_text=sent_words[0].spanish_text)
         for i in range(0, len(sent_words)):
             print i
-            word = Word.objects.filter(spanish_text=sent_words[i].spanish_text)
+
+            print word[0]
+            word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
+            print "check-1"
+
+            print word[0]
             # print user
             # print word[0]
             # print("updateDB")
             word_object = WordsUse.objects.get(user=user, english_text=word[0])
             # print("updateDB")
+            print "check-2"
 
             if sent_words[i].words_status == "LK":
                 word_object.translation_launch_lk += 1
@@ -1013,6 +1026,7 @@ class BookScrapping(APIView):
 
         print("def getSectionWords(self, text_array):")
         print("here")
+        text = text.lower()    #to make the text lowercase to avoid making different words because of the case
 
         split_text = text.split()
         print(split_text)
@@ -1034,6 +1048,7 @@ class BookScrapping(APIView):
         words_use_object = {}
 
         print("def getWordsObjects(self, text):")
+        print text
 
         for i in range(0, len(text)):
 
@@ -1098,6 +1113,15 @@ class BookScrapping(APIView):
         general_words_bundle = [general_words[0], general_words[1], general_words[2], most_used_words]
 
         words_list = self.makeOneList(general_words_bundle)
+
+        print "general_words[0]"
+        print general_words[0]
+        print "general_words[1]"
+        print general_words[1]
+        print "general_words[2]"
+        print general_words[2]
+        print "most_used_words"
+        print most_used_words
 
         return words_list
 
@@ -1194,7 +1218,7 @@ class BookScrapping(APIView):
 
         print("finish")
         words_list_bundle = [light_words_list, started_words_list, heavy_words_list]
-        print("def findGeneralWords(self, user, words):")
+        print("def findGeneralWords(self, user, words):-2")
         print(words_list_bundle)
         return words_list_bundle
 

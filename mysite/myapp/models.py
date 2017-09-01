@@ -15,7 +15,7 @@ class Word(models.Model):                    # model - class    - table
     translation = models.CharField(max_length=255, default="EN-GE")
 
     def __unicode__(self):
-        return '%s- %s - %s' % (self.english_text, self.spanish_text, self.translation)
+        return u'%s- %s - %s' % (self.english_text, self.spanish_text, self.translation)
 
 
 class WordAjaxModel(models.Model):                    # model - class    - table
@@ -85,8 +85,8 @@ class WordsUse(models.Model):                    # model - class    - table
 
 
 
-    def __str__(self):
-        return '%s - %s- %s- %s- %s- %s- %s- %s- %s- %s' % ( self.user, self.english_text, self.word_status, self.translation_active, self.aparitions, self.click, self.translation_launch_st, self.translation_launch_lk, self.translation_launch_hk, self.aparitions_hk)
+    def __unicode__(self):
+        return u'%s - %s- %s- %s- %s- %s- %s- %s- %s- %s' % ( self.user, self.english_text, self.word_status, self.translation_active, self.aparitions, self.click, self.translation_launch_st, self.translation_launch_lk, self.translation_launch_hk, self.aparitions_hk)
 
 
 class PruebaExcel(models.Model):                    # model - class    - table
