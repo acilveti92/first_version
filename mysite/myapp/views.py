@@ -980,20 +980,16 @@ class BookScrapping(APIView):
         word = Word.objects.filter(spanish_text=sent_words[0].spanish_text)
         for i in range(0, len(sent_words)):
             print i
-
-            print word[0]
             word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
-            print "check-1"
 
-            print word[0]
             # print user
             # print word[0]
             # print("updateDB")
             word_object = WordsUse.objects.get(user=user, english_text=word[0])
             # print("updateDB")
-            print "check-2"
 
             if sent_words[i].words_status == "LK":
+                print "if sent_words[i].words_status == LK:"
                 word_object.translation_launch_lk += 1
                 if word_object.translation_launch_lk > 30:
                     word_object.word_status = "HK"
@@ -1001,13 +997,16 @@ class BookScrapping(APIView):
 
             else:
                 if sent_words[i].words_status == "ST":
+                    print word_object.translation_launch_st
                     word_object.translation_launch_st += 1
+                    print word_object.translation_launch_st
                     # print("ST")
                     # print(word_object)
 
-                    if word_object.translation_launch_st is 7:
+                    if word_object.translation_launch_st > 7:
                         word_object.word_status = "LK"
                         word_object.translation_launch_st = 0
+                        print "if word_object.translation_launch_st is 7"
                         # print(sent_words[i])
 
                         # print("upgraded")

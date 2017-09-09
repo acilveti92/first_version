@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -39,7 +40,12 @@ class UserLanguage(models.Model):                    # model - class    - table
     user = models.ForeignKey(User, null=True)
     translation = models.CharField(max_length=6, default="EN-GE")
 
-
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return '%s - %s' % (self.user, self.translation)
@@ -81,6 +87,16 @@ class WordsUse(models.Model):                    # model - class    - table
         )
 
     word_status = models.CharField(max_length=2, choices=STATE_WORD_LEARNING, default = 'UN')
+
+    #created = models.DateTimeField(editable=False)
+    #modified = models.DateTimeField()
+
+    #def save(self, *args, **kwargs):
+    #    ''' On save, update timestamps '''
+    #    if not self.id:
+    #        self.created = timezone.now()
+    #    self.modified = timezone.now()
+    #    return super(User, self).save(*args, **kwargs)
 
 
 

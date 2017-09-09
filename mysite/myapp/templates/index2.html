@@ -757,10 +757,12 @@
                                     }
                                     if(data[i].words_status =="ST"){
                                         replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        htmlreplace(replacement, data[i].spanish_text, innerDoc, last_child, first_child)
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
                                     if(data[i].words_status =="UN"){
                                         replacement = data[i].spanish_text + "·" + data[i].english_text;
+                                        htmlreplace(replacement, data[i].spanish_text, innerDoc, last_child, first_child)
                                         htmlreplace(data[i].spanish_text, replacement, innerDoc, last_child, first_child)
                                     }
                                 console.log(replacement);}
@@ -775,6 +777,7 @@
                             for (var n= first_node; n<last_node; n++) {
                                 if (nodes[n].nodeType == Node.TEXT_NODE) {
                                     var r = new RegExp('\\b' + a + '\\b', 'gi');
+                                    var r_repeat = new RegExp('\\b' + a + "·" + b + '\\b', 'gi');
                                     nodes[n].textContent = nodes[n].textContent.replace(r , b);
                                     } else {
                                         htmlreplaceelement(a, b, nodes[n], last_node, first_node);
