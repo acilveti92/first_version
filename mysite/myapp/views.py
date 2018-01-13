@@ -997,9 +997,9 @@ class BookScrapping(APIView):
 
             else:
                 if sent_words[i].words_status == "ST":
-                    print word_object.translation_launch_st
+                    
                     word_object.translation_launch_st += 1
-                    print word_object.translation_launch_st
+
                     # print("ST")
                     # print(word_object)
 
