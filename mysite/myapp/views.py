@@ -17,7 +17,7 @@ from django.contrib.auth import authenticate, login  # from tutorial  Beginner
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View  # from tutorial  Beginner
-from .forms import UserForm  # from tutorial  Beginner
+from .forms import UserForm, DocumentForm  # from tutorial  Beginner
 
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
@@ -27,7 +27,7 @@ from django.contrib.auth.models import User
 
 
 # Imports must either be relative, like this, or have the full path
-from .models import Line, Word, WordAjaxModel, PruebaExcel, WordsUse, WordAjaxModelStatus, UserLanguage, UserRegister
+from .models import Line, Word, WordAjaxModel, PruebaExcel, WordsUse, WordAjaxModelStatus, UserLanguage, UserRegister, Document
 from .serializers import WordSerializer, WordAjaxSerializer, WordAjaxModelStatusSerializer
 
 from bs4 import BeautifulSoup  # for html handling
@@ -45,6 +45,15 @@ import shutil  # for python 2.7 excel words
 from collections import Counter
 
 import sys
+
+#for uploadiong the file
+from django.shortcuts import render, redirect
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+
+
+
 
 
 # from mysite.myapp.task import celerytest
@@ -241,6 +250,18 @@ def example(request):
 
 def example2(request):
     return render(request, 'index2.html')
+
+def model_form_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index.html')
+    else:
+        form = DocumentForm()
+    return render(request, 'model_form_upload.html', {
+        'form': form
+    })
 
 
 def demo(request):

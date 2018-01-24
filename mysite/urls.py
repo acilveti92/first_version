@@ -49,6 +49,7 @@ urlpatterns = patterns('',
     url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
     url(r'^example/', 'mysite.myapp.views.example'),
     url(r'^example2/', 'mysite.myapp.views.example2'),
+    url(r'^loadfile/', 'mysite.myapp.views.model_form_upload'),
 
 
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
