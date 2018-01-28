@@ -29,6 +29,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.conf import settings
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 #from . import views
 
 admin.autodiscover()
@@ -55,6 +58,7 @@ urlpatterns = patterns('',
     url(r'^newpagewords/', 'mysite.myapp.views.newpagewords'),
     url(r'^loadwords/', 'mysite.myapp.views.loadwords'),
     url(r'^getlistforexam/', 'mysite.myapp.views.getListForExam'),
+    url(r'^saioa/', 'mysite.myapp.views.saioa'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -74,3 +78,4 @@ urlpatterns = patterns('',
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

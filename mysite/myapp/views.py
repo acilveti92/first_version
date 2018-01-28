@@ -52,6 +52,13 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 
+#to add the command of collectstatic
+from django.core.management import call_command
+
+import shutil
+
+
+
 
 
 
@@ -256,6 +263,16 @@ def model_form_upload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            print("description")
+            print(form['description'])
+            print("document")
+            print(form['document'])
+            print("request.FILES['filename'].name")
+            print(request.FILES['document'].name)
+            #src = "media/documents/"
+            #dst = "C:\\steve_test\\Test_xp\\moved"
+            #shutil.copyfile(src, dst)
+
             return redirect('index.html')
     else:
         form = DocumentForm()
@@ -303,7 +320,7 @@ def getListForExam(request):
     print("the user is")
     # print(click_user)
 
-    click_user = User.objects.get(username="Antonio")
+    click_user = User.objects.get(username="Ander")
     print(click_user)
     word_data = WordsUse.objects.filter(user=click_user)
 

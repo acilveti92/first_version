@@ -1,0 +1,436 @@
+2017-06-21 19:48:10.6737|WARN|thread: 1|StandardUserErrors|Showing user error Failed to create a new commit.
+System.ArgumentNullException: Failed Null Check on 'commitModel'
+Nombre del parámetro: commitModel
+   en GitHub.Helpers.Ensure.ArgumentNotNull(Object value, String name)
+   en GitHub.ViewModels.CommitViewModel..ctor(IRepositoryModel repository, ICommitModel commitModel, ICommittedFileForklift committedFileForklift, IAvatarProvider avatarProvider, IInlineTextProvider inlineTextProvider)
+   en GitHub.Helpers.CommitCreator.<>c__DisplayClass2.<CreateCommit>b__1(<>f__AnonymousType0`2 x)
+   en System.Reactive.Linq.ObservableImpl.Select`2._.OnNext(TSource value)
+2017-06-21 19:46:31.6831|INFO|thread: 1|CommandLineHandler|Parsing command line arguments:
+2017-06-21 19:46:31.6971|INFO|thread: 1|CommandLineHandler|Unprocessed args: 
+2017-06-21 19:46:31.6971|INFO|thread: 1|AppInstance|Starting up as master instance of GitHub Desktop
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| #########################################
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| GitHub Desktop started. VERSION: 3.3.4.0
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| Build version: 50415dfc92210fcda6c1e5a82b0e4aec7c60bec6
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***************************************
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***                                 ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***                                 ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***        Have a problem?          ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***    Email support@github.com     ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***      and include this file      ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***                                 ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***                                 ***
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ***************************************
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| OS Version: Windows 10 10.0.10240.0 amd64
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| CLR Version: 4.0.30319.42000
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| Current culture: es-MX
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| Environment.CurrentDirectory: C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| currentProcess.StartInfo.WorkingDirectory: 
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| Terminal Services session: no
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| Location: C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\GitHub.exe
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| ActivationUri: https://github-windows.s3.amazonaws.com/GitHub.application
+2017-06-21 19:46:31.7101|INFO|thread: 5|StartupLogging| System.Environment.CommandLine: C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\GitHub.exe
+2017-06-21 19:46:31.7352|INFO|thread: 1|HardwareRenderingHelper|Your video card appears to support hardware rendering. If this isn't the case and you see glitches
+2017-06-21 19:46:31.7352|INFO|thread: 1|HardwareRenderingHelper|set the GH_FORCE_SW_RENDERING environment variable to 1
+2017-06-21 19:46:31.7442|INFO|thread: 1|App|Checking whether application is network deployed: True
+2017-06-21 19:46:31.7442|INFO|thread: 1|App|Shortcut C:\Users\Ander\AppData\Local\GitHub\GitHub.appref-ms exists? True
+2017-06-21 19:46:31.7442|INFO|thread: 5|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:31.7442|INFO|thread: 5|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Calibre2\;C:\PostgreSQL\pg96\bin;C:\Users\Ander\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Ander\AppData\Local\Programs\Python\Python36\;C:\Users\Ander\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:31.7442|INFO|thread: 5|StartupLogging| =====================================================
+2017-06-21 19:46:31.7442|INFO|thread: 5|StartupLogging|  DIAGNOSTICS                                        |
+2017-06-21 19:46:31.7442|INFO|thread: 5|StartupLogging| =====================================================
+2017-06-21 19:46:31.7442|INFO|thread: 5|StartupLogging| Git Extracted: 'True:
+2017-06-21 19:46:31.7442|INFO|thread: 5|StartupLogging| PortableGit Dir Exists: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db'
+2017-06-21 19:46:31.7572|INFO|thread: 5|StartupLogging| Git Executable Exists: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe'
+2017-06-21 19:46:31.7572|INFO|thread: 5|StartupLogging| ----------------------------------------------------
+2017-06-21 19:46:31.7572|INFO|thread: 5|StartupLogging| PATH: C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Calibre2\;C:\PostgreSQL\pg96\bin;C:\Users\Ander\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Ander\AppData\Local\Programs\Python\Python36\;C:\Users\Ander\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin
+2017-06-21 19:46:31.7572|INFO|thread: 5|StartupLogger|Proxy information: (None)
+2017-06-21 19:46:31.7572|INFO|thread: 5|StartupLogger|Couldn't fetch creds for proxy
+2017-06-21 19:46:31.7763|INFO|thread: 1|ClickOnceAppIconHelper|Updating registry with our application icon 'C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14\Images\App.ico'
+2017-06-21 19:46:32.2676|INFO|thread: 5|PortablePackageManager|Already extracted PortableGit.7z, returning 100%
+2017-06-21 19:46:32.3178|INFO|thread: 5|MsysGitCertificateInstaller|Found certificate cache, loaded 156 certificates
+2017-06-21 19:46:32.3278|INFO|thread: 5|MsysGitCertificateInstaller|Created certificate bundle with 172 entries
+2017-06-21 19:46:32.3568|INFO|thread: 5|StartupSequence|Took 99ms to Update certificate bundle from system store
+2017-06-21 19:46:32.8281|INFO|thread: 1|CommandLineToolsExtractor|Portable Git and Git LFS are already extracted
+2017-06-21 19:46:32.8281|INFO|thread: 1|GitClient|Installing git lfs filters
+2017-06-21 19:46:32.8391|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:32.8391|INFO|thread: 1|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:32.8391|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'lfs install --force ', Working Directory: C:\Users\Ander\AppData\Local\Temp\
+2017-06-21 19:46:32.8391|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.ShellViewModel.
+2017-06-21 19:46:32.8391|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.DashboardViewModel.
+2017-06-21 19:46:33.4798|INFO|thread: 1|PortablePackageManager|Already extracted gitignore.7z, returning 100%
+2017-06-21 19:46:33.8645|WARN|thread:17|LoginCache|Could not get login for host 'GitHub.HostAddress'
+System.Collections.Generic.KeyNotFoundException: The given key 'login:null' was not present in the cache.
+2017-06-21 19:46:35.0011|INFO|thread: 1|RepositoryHost|Log in from cache for login 'acilveti92' to host 'https://api.github.com/' SUCCEEDED
+2017-06-21 19:46:35.0251|INFO|thread:27|ApplicationShellInitializer|Running post login tasks. ~/.gitconfig is set up with user.name = 'acilveti92' and user.email = 'cilveti.ander.92@gmail.com'
+2017-06-21 19:46:35.0251|INFO|thread:27|SshKeyHelper|Found existing SSH key pair
+2017-06-21 19:46:35.4623|INFO|thread: 4|SshKeyHelper|ssh-agent already running
+2017-06-21 19:46:35.4623|INFO|thread: 4|PortablePackageManager|Already extracted lfs-amd64.7z, returning 100%
+2017-06-21 19:46:35.4623|INFO|thread: 4|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:35.4623|INFO|thread: 4|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:35.4794|INFO|thread: 4|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin\ssh-add.exe', Args: '"C:\Users\Ander\.ssh\github_rsa"', Working Directory: C:\Users\Ander\AppData\Local\Temp\
+2017-06-21 19:46:35.4794|INFO|thread:14|DashboardViewModel|Selected repository ''
+2017-06-21 19:46:35.5034|INFO|thread:14|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 1 at GitClient.cs:605
+2017-06-21 19:46:35.5034|INFO|thread:15|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 1 at GitClient.cs:605 after waiting 0.0017453s
+2017-06-21 19:46:35.5084|INFO|thread:14|AsyncReaderWriterLock|Acquiring exclusive scheduler for operation 2 at GitClient.cs:583
+2017-06-21 19:46:35.5305|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 1 at GitClient.cs:605 after blocking 0.0247028s
+2017-06-21 19:46:35.5305|INFO|thread:15|AsyncReaderWriterLock|Acquired exclusive scheduler for operation: 2 at GitClient.cs:583 after waiting 0.0223229s
+2017-06-21 19:46:36.0158|INFO|thread:15|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 3 at GitClient.cs:600
+2017-06-21 19:46:36.1371|INFO|thread:15|DashboardViewModel|Took 639ms to Create RepositoryViewModel for location C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:46:36.1371|INFO|thread:15|AsyncReaderWriterLock|Released exclusive scheduler for operation: 2 at GitClient.cs:583 after blocking 0.6059855s
+2017-06-21 19:46:36.1371|INFO|thread:15|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 3 at GitClient.cs:600 after waiting 0.122436s
+2017-06-21 19:46:36.1582|INFO|thread:15|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 4 at RepositoryViewModel.cs:319
+2017-06-21 19:46:36.1582|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 4 at RepositoryViewModel.cs:319 after waiting 0.0008734s
+2017-06-21 19:46:36.1582|INFO|thread:15|AsyncReaderWriterLock|Released concurrent scheduler for operation: 3 at GitClient.cs:600 after blocking 0.0217379s
+2017-06-21 19:46:36.2304|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 4 at RepositoryViewModel.cs:319 after blocking 0.0714292s
+2017-06-21 19:46:36.3035|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 5 at GitClient.cs:195
+2017-06-21 19:46:36.3035|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 5 at GitClient.cs:195 after waiting 5.29E-05s
+2017-06-21 19:46:36.3035|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 6 at RepositoryModel.cs:596
+2017-06-21 19:46:36.3035|INFO|thread: 5|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 6 at RepositoryModel.cs:596 after waiting 5.41E-05s
+2017-06-21 19:46:36.3035|INFO|thread: 4|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 7 at RepositoryModel.cs:596
+2017-06-21 19:46:36.3035|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 7 at RepositoryModel.cs:596 after waiting 9.71E-05s
+2017-06-21 19:46:36.3186|INFO|thread:15|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 8 at NewPullRequestViewModel.cs:245
+2017-06-21 19:46:36.3186|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 8 at NewPullRequestViewModel.cs:245 after waiting 0.0011713s
+2017-06-21 19:46:36.3186|INFO|thread:16|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 9 at GitClient.cs:267
+2017-06-21 19:46:36.3186|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 7 at RepositoryModel.cs:596 after blocking 0.0123002s
+2017-06-21 19:46:36.3186|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 9 at GitClient.cs:267 after waiting 0.0003772s
+2017-06-21 19:46:36.3186|INFO|thread:15|AsyncReaderWriterLock|Released concurrent scheduler for operation: 6 at RepositoryModel.cs:596 after blocking 0.0169687s
+2017-06-21 19:46:36.3186|INFO|thread:16|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:36.3186|INFO|thread:16|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:36.3186|INFO|thread:16|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:46:36.3396|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 5 at GitClient.cs:195 after blocking 0.0356883s
+2017-06-21 19:46:36.3627|INFO|thread:33|AsyncReaderWriterLock|Released concurrent scheduler for operation: 8 at NewPullRequestViewModel.cs:245 after blocking 0.0421811s
+2017-06-21 19:46:36.3657|INFO|thread:17|ConcurrentRepositoryConnection|Took 29ms to git status
+2017-06-21 19:46:36.3657|INFO|thread:17|ConcurrentRepositoryConnection|Took 29ms to git status and parse output
+2017-06-21 19:46:36.3657|INFO|thread:17|NewCommitViewModel|Took 50ms to load files for C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:46:36.3657|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 9 at GitClient.cs:267 after blocking 0.0498797s
+2017-06-21 19:46:36.6535|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 10 at GitClient.cs:588
+2017-06-21 19:46:36.6535|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 10 at GitClient.cs:588 after waiting 2.29E-05s
+2017-06-21 19:46:36.6535|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 10 at GitClient.cs:588 after blocking 0.0027243s
+2017-06-21 19:46:37.1408|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 11 at BranchesViewModel.cs:356
+2017-06-21 19:46:37.1408|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 11 at BranchesViewModel.cs:356 after waiting 7.54E-05s
+2017-06-21 19:46:37.1408|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 12 at RepositoryViewModel.cs:319
+2017-06-21 19:46:37.1408|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 12 at RepositoryViewModel.cs:319 after waiting 2.29E-05s
+2017-06-21 19:46:37.1488|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 11 at BranchesViewModel.cs:356 after blocking 0.0085289s
+2017-06-21 19:46:37.1879|INFO|thread:33|AsyncReaderWriterLock|Released concurrent scheduler for operation: 12 at RepositoryViewModel.cs:319 after blocking 0.0448383s
+2017-06-21 19:46:37.2130|INFO|thread: 1|NewCommitViewModel|Took 841ms to render file list for C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:46:37.2130|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 13 at RepositoryViewModel.cs:319
+2017-06-21 19:46:37.2130|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 13 at RepositoryViewModel.cs:319 after waiting 6.2E-05s
+2017-06-21 19:46:37.2130|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 13 at RepositoryViewModel.cs:319 after blocking 3.9E-06s
+2017-06-21 19:46:37.2130|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 14 at RepositoryViewModel.cs:319
+2017-06-21 19:46:37.2130|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 14 at RepositoryViewModel.cs:319 after waiting 6.3E-06s
+2017-06-21 19:46:37.2130|INFO|thread: 5|AsyncReaderWriterLock|Released concurrent scheduler for operation: 14 at RepositoryViewModel.cs:319 after blocking 0.0047739s
+2017-06-21 19:46:37.8015|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 15 at GitClient.cs:381
+2017-06-21 19:46:37.8015|INFO|thread: 5|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 15 at GitClient.cs:381 after waiting 7.98E-05s
+2017-06-21 19:46:37.8126|INFO|thread:17|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:37.8126|INFO|thread:17|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:37.8126|INFO|thread:17|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'diff-tree -r -z --no-renames --name-status 4b825dc642cb6eb9a060e54bf8d69288fbee4904 4e007610d905bd04d2779c5eed42baf4882da8d9 ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:46:37.8687|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 15 at GitClient.cs:381 after blocking 0.0669839s
+2017-06-21 19:46:37.8928|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 16 at ICommittedFileForklift.cs:95
+2017-06-21 19:46:37.8928|INFO|thread: 5|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 16 at ICommittedFileForklift.cs:95 after waiting 0.0010157s
+2017-06-21 19:46:37.9199|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 16 at ICommittedFileForklift.cs:95 after blocking 0.0258252s
+2017-06-21 19:46:38.5639|INFO|thread: 1|SelectedCommitViewModel|Took 769ms to load files for commit e2ee882 in repo C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:46:41.8357|INFO|thread:13|SoftwareUpdateViewModel|Checking for new version
+2017-06-21 19:46:42.0698|INFO|thread: 5|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 17 at BranchSelectionViewModel.cs:191
+2017-06-21 19:46:42.0698|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 17 at BranchSelectionViewModel.cs:191 after waiting 9.75E-05s
+2017-06-21 19:46:42.0848|INFO|thread:15|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:42.0848|INFO|thread:15|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:42.0848|INFO|thread:15|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'log -g --abbrev-commit --pretty=oneline HEAD -n 2500 ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:46:42.1259|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 17 at BranchSelectionViewModel.cs:191 after blocking 0.0559656s
+2017-06-21 19:46:48.8410|INFO|thread:15|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 18 at BranchSelectionViewModel.cs:191
+2017-06-21 19:46:48.8410|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 18 at BranchSelectionViewModel.cs:191 after waiting 1.97E-05s
+2017-06-21 19:46:48.8410|INFO|thread:16|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:48.8410|INFO|thread:16|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:48.8410|INFO|thread:16|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'log -g --abbrev-commit --pretty=oneline HEAD -n 2500 ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:46:48.8840|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 18 at BranchSelectionViewModel.cs:191 after blocking 0.0429242s
+2017-06-21 19:46:52.4095|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 19 at GitClient.cs:201
+2017-06-21 19:46:52.4095|INFO|thread:33|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 19 at GitClient.cs:201 after waiting 9.99E-05s
+2017-06-21 19:46:52.4196|WARN|thread: 4|CreateBranchPopupViewModel|Could not load branch for validation
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GitHub.ConcurrentRepositoryConnection.<GetDefaultRemote>b__4c()
+   en System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   en System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+2017-06-21 19:46:52.4196|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 19 at GitClient.cs:201 after blocking 0.0118028s
+2017-06-21 19:46:52.5617|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 20 at GitClient.cs:201
+2017-06-21 19:46:52.5617|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 20 at GitClient.cs:201 after waiting 7.11E-05s
+2017-06-21 19:46:52.5617|WARN|thread: 8|CreateBranchPopupViewModel|Could not load branch for validation
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GitHub.ConcurrentRepositoryConnection.<GetDefaultRemote>b__4c()
+   en System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   en System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+2017-06-21 19:46:52.5617|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 20 at GitClient.cs:201 after blocking 0.0026966s
+2017-06-21 19:46:52.6329|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 21 at GitClient.cs:201
+2017-06-21 19:46:52.6329|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 21 at GitClient.cs:201 after waiting 8.41E-05s
+2017-06-21 19:46:52.6329|WARN|thread:32|CreateBranchPopupViewModel|Could not load branch for validation
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GitHub.ConcurrentRepositoryConnection.<GetDefaultRemote>b__4c()
+   en System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   en System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+2017-06-21 19:46:52.6329|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 21 at GitClient.cs:201 after blocking 0.0024675s
+2017-06-21 19:46:52.7291|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 22 at GitClient.cs:201
+2017-06-21 19:46:52.7291|INFO|thread:33|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 22 at GitClient.cs:201 after waiting 4.26E-05s
+2017-06-21 19:46:52.7291|WARN|thread:15|CreateBranchPopupViewModel|Could not load branch for validation
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GitHub.ConcurrentRepositoryConnection.<GetDefaultRemote>b__4c()
+   en System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   en System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+2017-06-21 19:46:52.7291|INFO|thread:15|AsyncReaderWriterLock|Released concurrent scheduler for operation: 22 at GitClient.cs:201 after blocking 0.0043559s
+2017-06-21 19:46:52.7937|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 23 at GitClient.cs:201
+2017-06-21 19:46:52.7937|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 23 at GitClient.cs:201 after waiting 7.11E-05s
+2017-06-21 19:46:52.7937|WARN|thread:17|CreateBranchPopupViewModel|Could not load branch for validation
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en GitHub.ConcurrentRepositoryConnection.<GetDefaultRemote>b__4c()
+   en System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   en System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+2017-06-21 19:46:52.7937|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 23 at GitClient.cs:201 after blocking 0.0027346s
+2017-06-21 19:46:54.0978|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 24 at CreateBranchPopupViewModel.cs:181
+2017-06-21 19:46:54.0978|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 24 at CreateBranchPopupViewModel.cs:181 after waiting 0.0001295s
+2017-06-21 19:46:54.1159|INFO|thread: 8|AsyncReaderWriterLock|Acquiring exclusive scheduler for operation 25 at RepositoryModel.cs:664
+2017-06-21 19:46:54.1159|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 24 at CreateBranchPopupViewModel.cs:181 after blocking 0.0183289s
+2017-06-21 19:46:54.1159|INFO|thread:17|AsyncReaderWriterLock|Acquired exclusive scheduler for operation: 25 at RepositoryModel.cs:664 after waiting 0.0003757s
+2017-06-21 19:46:54.1159|INFO|thread:32|ExclusiveRepositoryConnection|Checking out treeish: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\@local
+2017-06-21 19:46:54.1159|INFO|thread:32|GitLfsSmudgeTail|Setting Git LFS smudge progress environment variable
+2017-06-21 19:46:54.1395|INFO|thread:32|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:46:54.1395|INFO|thread:32|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:46:54.1395|INFO|thread:32|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'checkout local ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:46:54.1901|INFO|thread:16|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 26 at RepositoryModel.cs:596
+2017-06-21 19:46:54.1901|INFO|thread:16|AsyncReaderWriterLock|Released exclusive scheduler for operation: 25 at RepositoryModel.cs:664 after blocking 0.0734673s
+2017-06-21 19:46:54.1901|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 26 at RepositoryModel.cs:596 after waiting 7.58E-05s
+2017-06-21 19:46:54.1901|INFO|thread:23|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 27 at RepositoryModel.cs:596
+2017-06-21 19:46:54.1901|INFO|thread:15|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 27 at RepositoryModel.cs:596 after waiting 1.61E-05s
+2017-06-21 19:46:54.1901|INFO|thread:16|GitLfsSmudgeTail|Cleaning up Git LFS smudge progress environment variable
+2017-06-21 19:46:54.1936|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 27 at RepositoryModel.cs:596 after blocking 0.0032276s
+2017-06-21 19:46:54.1936|INFO|thread:33|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 28 at NewPullRequestViewModel.cs:245
+2017-06-21 19:46:54.1936|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 28 at NewPullRequestViewModel.cs:245 after waiting 4.46E-05s
+2017-06-21 19:46:54.1936|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 29 at BranchesViewModel.cs:356
+2017-06-21 19:46:54.1936|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 29 at BranchesViewModel.cs:356 after waiting 7.5E-06s
+2017-06-21 19:46:54.1936|INFO|thread:33|AsyncReaderWriterLock|Released concurrent scheduler for operation: 26 at RepositoryModel.cs:596 after blocking 0.0039348s
+2017-06-21 19:46:54.1936|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 30 at RepositoryViewModel.cs:319
+2017-06-21 19:46:54.1936|INFO|thread:33|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 30 at RepositoryViewModel.cs:319 after waiting 1.38E-05s
+2017-06-21 19:46:54.1936|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 28 at NewPullRequestViewModel.cs:245 after blocking 0.004576s
+2017-06-21 19:46:54.1936|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 29 at BranchesViewModel.cs:356 after blocking 0.006592s
+2017-06-21 19:46:54.2111|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 30 at RepositoryViewModel.cs:319 after blocking 0.0166404s
+2017-06-21 19:47:18.3407|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 31 at GitClient.cs:195
+2017-06-21 19:47:18.3407|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 31 at GitClient.cs:195 after waiting 2.17E-05s
+2017-06-21 19:47:18.3407|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 32 at RepositoryModel.cs:596
+2017-06-21 19:47:18.3407|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 32 at RepositoryModel.cs:596 after waiting 1.42E-05s
+2017-06-21 19:47:18.3407|INFO|thread:17|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 33 at GitClient.cs:267
+2017-06-21 19:47:18.3407|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 33 at GitClient.cs:267 after waiting 2.76E-05s
+2017-06-21 19:47:18.3407|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 32 at RepositoryModel.cs:596 after blocking 0.004559s
+2017-06-21 19:47:18.3538|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 31 at GitClient.cs:195 after blocking 0.0132432s
+2017-06-21 19:47:18.3538|INFO|thread:15|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:47:18.3538|INFO|thread:15|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:47:18.3538|INFO|thread:15|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let\
+2017-06-21 19:47:18.3869|INFO|thread:33|ConcurrentRepositoryConnection|Took 29ms to git status
+2017-06-21 19:47:18.3869|INFO|thread:33|ConcurrentRepositoryConnection|Took 29ms to git status and parse output
+2017-06-21 19:47:18.3869|INFO|thread:33|NewCommitViewModel|Took 41ms to load files for C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:47:18.3869|INFO|thread:33|AsyncReaderWriterLock|Released concurrent scheduler for operation: 33 at GitClient.cs:267 after blocking 0.0418042s
+2017-06-21 19:47:18.3869|INFO|thread: 1|NewCommitViewModel|Took 0ms to render file list for C:\Users\Ander\Desktop\Project\cloud\local\first_version\local_proj_let
+2017-06-21 19:47:18.3869|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 34 at RepositoryViewModel.cs:319
+2017-06-21 19:47:18.3869|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 34 at RepositoryViewModel.cs:319 after waiting 4.54E-05s
+2017-06-21 19:47:18.3869|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 34 at RepositoryViewModel.cs:319 after blocking 0.0053206s
+2017-06-21 19:47:20.3623|INFO|thread:14|DashboardViewModel|Selected repository 'acilveti92/first_version'
+2017-06-21 19:47:20.3623|INFO|thread:14|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 35 at GitClient.cs:605
+2017-06-21 19:47:20.3623|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 35 at GitClient.cs:605 after waiting 2.48E-05s
+2017-06-21 19:47:20.3674|INFO|thread:14|AsyncReaderWriterLock|Acquiring exclusive scheduler for operation 36 at GitClient.cs:583
+2017-06-21 19:47:20.3674|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 35 at GitClient.cs:605 after blocking 0.002255s
+2017-06-21 19:47:20.3674|INFO|thread:13|AsyncReaderWriterLock|Acquired exclusive scheduler for operation: 36 at GitClient.cs:583 after waiting 0.0022712s
+2017-06-21 19:47:20.4446|INFO|thread:13|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 37 at GitClient.cs:600
+2017-06-21 19:47:20.4656|INFO|thread:13|DashboardViewModel|Took 103ms to Create RepositoryViewModel for location C:\Users\Ander\Desktop\Project\cloud\local\first_version
+2017-06-21 19:47:20.4656|INFO|thread:13|AsyncReaderWriterLock|Released exclusive scheduler for operation: 36 at GitClient.cs:583 after blocking 0.0954067s
+2017-06-21 19:47:20.4656|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 37 at GitClient.cs:600 after waiting 0.021165s
+2017-06-21 19:47:20.4817|INFO|thread:13|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 38 at RepositoryViewModel.cs:319
+2017-06-21 19:47:20.4817|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 38 at RepositoryViewModel.cs:319 after waiting 1.97E-05s
+2017-06-21 19:47:20.4817|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 37 at GitClient.cs:600 after blocking 0.0158052s
+2017-06-21 19:47:20.4917|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 38 at RepositoryViewModel.cs:319 after blocking 0.0106058s
+2017-06-21 19:47:20.5278|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 39 at GitClient.cs:195
+2017-06-21 19:47:20.5278|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 39 at GitClient.cs:195 after waiting 1.3E-05s
+2017-06-21 19:47:20.5278|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 40 at RepositoryModel.cs:596
+2017-06-21 19:47:20.5278|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 40 at RepositoryModel.cs:596 after waiting 1.26E-05s
+2017-06-21 19:47:20.5278|INFO|thread:17|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 41 at NewPullRequestViewModel.cs:245
+2017-06-21 19:47:20.5278|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 41 at NewPullRequestViewModel.cs:245 after waiting 2.44E-05s
+2017-06-21 19:47:20.5278|INFO|thread:17|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 42 at GitClient.cs:267
+2017-06-21 19:47:20.5278|INFO|thread:38|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 42 at GitClient.cs:267 after waiting 1.3E-05s
+2017-06-21 19:47:20.5278|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 40 at RepositoryModel.cs:596 after blocking 0.0040308s
+2017-06-21 19:47:20.5278|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 39 at GitClient.cs:195 after blocking 0.0079087s
+2017-06-21 19:47:20.5378|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 41 at NewPullRequestViewModel.cs:245 after blocking 0.0060444s
+2017-06-21 19:47:20.5378|INFO|thread:33|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:47:20.5378|INFO|thread:33|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:47:20.5378|INFO|thread:15|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 43 at RepositoryModel.cs:596
+2017-06-21 19:47:20.5378|INFO|thread:33|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\
+2017-06-21 19:47:20.5378|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 43 at RepositoryModel.cs:596 after waiting 1.61E-05s
+2017-06-21 19:47:20.5378|INFO|thread:39|AsyncReaderWriterLock|Released concurrent scheduler for operation: 43 at RepositoryModel.cs:596 after blocking 0.0038494s
+2017-06-21 19:47:20.5378|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 44 at BranchesViewModel.cs:356
+2017-06-21 19:47:20.5378|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 44 at BranchesViewModel.cs:356 after waiting 9.4E-06s
+2017-06-21 19:47:20.5378|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 45 at RepositoryViewModel.cs:319
+2017-06-21 19:47:20.5378|INFO|thread:15|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 45 at RepositoryViewModel.cs:319 after waiting 1.46E-05s
+2017-06-21 19:47:20.5378|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 44 at BranchesViewModel.cs:356 after blocking 0.0075034s
+2017-06-21 19:47:20.5569|INFO|thread:33|AsyncReaderWriterLock|Released concurrent scheduler for operation: 45 at RepositoryViewModel.cs:319 after blocking 0.0140152s
+2017-06-21 19:47:20.5809|INFO|thread:16|ConcurrentRepositoryConnection|Took 41ms to git status
+2017-06-21 19:47:20.5809|INFO|thread:16|ConcurrentRepositoryConnection|Took 41ms to git status and parse output
+2017-06-21 19:47:20.6381|INFO|thread:16|NewCommitViewModel|Took 105ms to load files for C:\Users\Ander\Desktop\Project\cloud\local\first_version
+2017-06-21 19:47:20.6381|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 42 at GitClient.cs:267 after blocking 0.1058419s
+2017-06-21 19:47:20.6672|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 46 at GitClient.cs:588
+2017-06-21 19:47:20.6672|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 46 at GitClient.cs:588 after waiting 2.01E-05s
+2017-06-21 19:47:20.6672|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 46 at GitClient.cs:588 after blocking 0.0020499s
+2017-06-21 19:47:20.8366|INFO|thread: 1|NewCommitViewModel|Took 198ms to render file list for C:\Users\Ander\Desktop\Project\cloud\local\first_version
+2017-06-21 19:47:20.8366|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 47 at RepositoryViewModel.cs:319
+2017-06-21 19:47:20.8366|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 47 at RepositoryViewModel.cs:319 after waiting 6.87E-05s
+2017-06-21 19:47:20.8637|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 47 at RepositoryViewModel.cs:319 after blocking 0.0259836s
+2017-06-21 19:47:20.9058|INFO|thread:13|BackgroundFetcher|Got a refresh period for C:\Users\Ander\Desktop\Project\cloud\local\first_version\.git of 300 seconds
+2017-06-21 19:47:20.9058|INFO|thread:13|BackgroundFetcher|Added a delay for C:\Users\Ander\Desktop\Project\cloud\local\first_version\.git of 26739 milliseconds
+2017-06-21 19:47:21.0261|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 48 at GitClient.cs:600
+2017-06-21 19:47:21.0261|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 48 at GitClient.cs:600 after waiting 6.95E-05s
+2017-06-21 19:47:21.0261|INFO|thread: 1|NewPullRequestViewModel|No matching pull request found, clearing selection...
+2017-06-21 19:47:21.0371|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 48 at GitClient.cs:600 after blocking 0.0108879s
+2017-06-21 19:47:21.1299|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 49 at RepositoryViewModel.cs:319
+2017-06-21 19:47:21.1299|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 49 at RepositoryViewModel.cs:319 after waiting 1.77E-05s
+2017-06-21 19:47:21.1389|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 49 at RepositoryViewModel.cs:319 after blocking 0.0091338s
+2017-06-21 19:47:21.1389|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 50 at GitClient.cs:381
+2017-06-21 19:47:21.1389|INFO|thread:33|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 50 at GitClient.cs:381 after waiting 3.55E-05s
+2017-06-21 19:47:21.1520|INFO|thread:17|GitEnvironment|Process set up with this SSH Agent info: 728:/tmp/ssh-X6fEAwbyQhiI/agent.7264
+2017-06-21 19:47:21.1520|INFO|thread:17|GitEnvironment|PATH is C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\bin;C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\usr\share\git-tfs;C:\Users\Ander\AppData\Local\Apps\2.0\HNVWG9WT.KV4\GJ61L1NN.K03\gith..tion_317444273a93ac29_0003.0003_5794af8169eeff14;C:\Users\Ander\AppData\Local\GitHub\lfs-amd64_1.5.5;C:\Windows\System32;C:\Windows\Microsoft.NET\Framework\v4.0.30319\
+2017-06-21 19:47:21.1520|INFO|thread:17|ProcessWrapper|Starting: Process - FileName: 'C:\Users\Ander\AppData\Local\GitHub\PortableGit_f02737a78695063deace08e96d5042710d3e32db\cmd\git.exe', Args: 'diff-tree -r -z --no-renames --name-status 4332a100fd6565a3631d99218f4d01d9f8711888 0bbee69421c02b6faa5a23ecf59c1e411021996d ', Working Directory: C:\Users\Ander\Desktop\Project\cloud\local\first_version\
+2017-06-21 19:47:21.5124|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 51 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5124|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 51 at ICommittedFileForklift.cs:95 after waiting 3.04E-05s
+2017-06-21 19:47:21.5124|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 52 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5124|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 52 at ICommittedFileForklift.cs:95 after waiting 1.73E-05s
+2017-06-21 19:47:21.5124|INFO|thread:39|AsyncReaderWriterLock|Released concurrent scheduler for operation: 52 at ICommittedFileForklift.cs:95 after blocking 0.0031462s
+2017-06-21 19:47:21.5124|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 53 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5124|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 53 at ICommittedFileForklift.cs:95 after waiting 1.85E-05s
+2017-06-21 19:47:21.5214|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 51 at ICommittedFileForklift.cs:95 after blocking 0.008941s
+2017-06-21 19:47:21.5214|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 53 at ICommittedFileForklift.cs:95 after blocking 0.0036081s
+2017-06-21 19:47:21.5214|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 54 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5214|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 54 at ICommittedFileForklift.cs:95 after waiting 0.0002409s
+2017-06-21 19:47:21.5214|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 54 at ICommittedFileForklift.cs:95 after blocking 0.0030222s
+2017-06-21 19:47:21.5214|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 55 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5214|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 55 at ICommittedFileForklift.cs:95 after waiting 2.52E-05s
+2017-06-21 19:47:21.5214|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 55 at ICommittedFileForklift.cs:95 after blocking 0.0032549s
+2017-06-21 19:47:21.5214|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 56 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5214|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 56 at ICommittedFileForklift.cs:95 after waiting 1.58E-05s
+2017-06-21 19:47:21.5214|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 56 at ICommittedFileForklift.cs:95 after blocking 0.0031707s
+2017-06-21 19:47:21.5375|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 57 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5375|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 57 at ICommittedFileForklift.cs:95 after waiting 1.18E-05s
+2017-06-21 19:47:21.5375|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 57 at ICommittedFileForklift.cs:95 after blocking 0.0031166s
+2017-06-21 19:47:21.5375|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 58 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5375|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 58 at ICommittedFileForklift.cs:95 after waiting 1.3E-05s
+2017-06-21 19:47:21.5375|INFO|thread:39|AsyncReaderWriterLock|Released concurrent scheduler for operation: 58 at ICommittedFileForklift.cs:95 after blocking 0.0032774s
+2017-06-21 19:47:21.5375|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 59 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5375|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 59 at ICommittedFileForklift.cs:95 after waiting 2.09E-05s
+2017-06-21 19:47:21.5375|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 59 at ICommittedFileForklift.cs:95 after blocking 0.0033204s
+2017-06-21 19:47:21.5375|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 60 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5375|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 60 at ICommittedFileForklift.cs:95 after waiting 1.65E-05s
+2017-06-21 19:47:21.5545|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 60 at ICommittedFileForklift.cs:95 after blocking 0.0028977s
+2017-06-21 19:47:21.5545|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 61 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5545|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 61 at ICommittedFileForklift.cs:95 after waiting 2.6E-05s
+2017-06-21 19:47:21.5545|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 61 at ICommittedFileForklift.cs:95 after blocking 0.0034358s
+2017-06-21 19:47:21.5545|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 62 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.5545|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 62 at ICommittedFileForklift.cs:95 after waiting 2.17E-05s
+2017-06-21 19:47:21.5545|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 62 at ICommittedFileForklift.cs:95 after blocking 0.0025848s
+2017-06-21 19:47:21.6022|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 63 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6022|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 63 at ICommittedFileForklift.cs:95 after waiting 2.21E-05s
+2017-06-21 19:47:21.6022|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 63 at ICommittedFileForklift.cs:95 after blocking 0.0035587s
+2017-06-21 19:47:21.6022|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 64 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6022|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 64 at ICommittedFileForklift.cs:95 after waiting 1.93E-05s
+2017-06-21 19:47:21.6022|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 64 at ICommittedFileForklift.cs:95 after blocking 0.0033307s
+2017-06-21 19:47:21.6022|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 65 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6022|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 65 at ICommittedFileForklift.cs:95 after waiting 2.05E-05s
+2017-06-21 19:47:21.6022|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 65 at ICommittedFileForklift.cs:95 after blocking 0.0029803s
+2017-06-21 19:47:21.6157|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 66 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6157|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 66 at ICommittedFileForklift.cs:95 after waiting 5.45E-05s
+2017-06-21 19:47:21.6157|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 66 at ICommittedFileForklift.cs:95 after blocking 0.0024545s
+2017-06-21 19:47:21.6157|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 67 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6157|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 67 at ICommittedFileForklift.cs:95 after waiting 1.65E-05s
+2017-06-21 19:47:21.6157|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 67 at ICommittedFileForklift.cs:95 after blocking 0.0033335s
+2017-06-21 19:47:21.6157|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 68 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6157|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 68 at ICommittedFileForklift.cs:95 after waiting 3.67E-05s
+2017-06-21 19:47:21.6157|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 68 at ICommittedFileForklift.cs:95 after blocking 0.002895s
+2017-06-21 19:47:21.6157|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 69 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6157|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 69 at ICommittedFileForklift.cs:95 after waiting 1.85E-05s
+2017-06-21 19:47:21.6157|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 69 at ICommittedFileForklift.cs:95 after blocking 0.0033418s
+2017-06-21 19:47:21.6157|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 70 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6157|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 70 at ICommittedFileForklift.cs:95 after waiting 1.46E-05s
+2017-06-21 19:47:21.6342|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 70 at ICommittedFileForklift.cs:95 after blocking 0.0031845s
+2017-06-21 19:47:21.6342|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 71 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6342|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 71 at ICommittedFileForklift.cs:95 after waiting 1.26E-05s
+2017-06-21 19:47:21.6342|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 71 at ICommittedFileForklift.cs:95 after blocking 0.0025169s
+2017-06-21 19:47:21.6342|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 72 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6342|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 72 at ICommittedFileForklift.cs:95 after waiting 1.54E-05s
+2017-06-21 19:47:21.6342|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 72 at ICommittedFileForklift.cs:95 after blocking 0.0022569s
+2017-06-21 19:47:21.6342|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 73 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6342|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 73 at ICommittedFileForklift.cs:95 after waiting 1.97E-05s
+2017-06-21 19:47:21.6478|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 73 at ICommittedFileForklift.cs:95 after blocking 0.0033125s
+2017-06-21 19:47:21.6478|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 74 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6478|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 74 at ICommittedFileForklift.cs:95 after waiting 1.46E-05s
+2017-06-21 19:47:21.6648|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 74 at ICommittedFileForklift.cs:95 after blocking 0.00345s
+2017-06-21 19:47:21.6648|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 75 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6648|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 75 at ICommittedFileForklift.cs:95 after waiting 2.17E-05s
+2017-06-21 19:47:21.6648|INFO|thread:39|AsyncReaderWriterLock|Released concurrent scheduler for operation: 75 at ICommittedFileForklift.cs:95 after blocking 0.0031968s
+2017-06-21 19:47:21.6648|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 76 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6648|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 76 at ICommittedFileForklift.cs:95 after waiting 1.46E-05s
+2017-06-21 19:47:21.6648|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 76 at ICommittedFileForklift.cs:95 after blocking 0.0024209s
+2017-06-21 19:47:21.6648|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 77 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6648|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 77 at ICommittedFileForklift.cs:95 after waiting 1.61E-05s
+2017-06-21 19:47:21.6779|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 78 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6779|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 78 at ICommittedFileForklift.cs:95 after waiting 2.72E-05s
+2017-06-21 19:47:21.6779|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 77 at ICommittedFileForklift.cs:95 after blocking 0.0052191s
+2017-06-21 19:47:21.6779|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 78 at ICommittedFileForklift.cs:95 after blocking 0.0031332s
+2017-06-21 19:47:21.6779|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 79 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6779|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 79 at ICommittedFileForklift.cs:95 after waiting 1.58E-05s
+2017-06-21 19:47:21.6779|INFO|thread: 4|AsyncReaderWriterLock|Released concurrent scheduler for operation: 79 at ICommittedFileForklift.cs:95 after blocking 0.0025789s
+2017-06-21 19:47:21.6779|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 80 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6779|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 80 at ICommittedFileForklift.cs:95 after waiting 1.65E-05s
+2017-06-21 19:47:21.6779|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 80 at ICommittedFileForklift.cs:95 after blocking 0.0038475s
+2017-06-21 19:47:21.6779|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 81 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6779|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 81 at ICommittedFileForklift.cs:95 after waiting 2.21E-05s
+2017-06-21 19:47:21.6964|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 81 at ICommittedFileForklift.cs:95 after blocking 0.003819s
+2017-06-21 19:47:21.6964|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 82 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6964|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 82 at ICommittedFileForklift.cs:95 after waiting 1.65E-05s
+2017-06-21 19:47:21.6964|INFO|thread:32|AsyncReaderWriterLock|Released concurrent scheduler for operation: 82 at ICommittedFileForklift.cs:95 after blocking 0.0036152s
+2017-06-21 19:47:21.6964|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 83 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6964|INFO|thread:17|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 83 at ICommittedFileForklift.cs:95 after waiting 1.38E-05s
+2017-06-21 19:47:21.6964|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 83 at ICommittedFileForklift.cs:95 after blocking 0.0032019s
+2017-06-21 19:47:21.6964|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 84 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.6964|INFO|thread:16|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 84 at ICommittedFileForklift.cs:95 after waiting 1.77E-05s
+2017-06-21 19:47:21.7089|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 84 at ICommittedFileForklift.cs:95 after blocking 0.0030265s
+2017-06-21 19:47:21.7089|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 85 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7089|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 85 at ICommittedFileForklift.cs:95 after waiting 2.4E-05s
+2017-06-21 19:47:21.7089|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 85 at ICommittedFileForklift.cs:95 after blocking 0.0125001s
+2017-06-21 19:47:21.7089|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 86 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7089|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 86 at ICommittedFileForklift.cs:95 after waiting 2.56E-05s
+2017-06-21 19:47:21.7280|INFO|thread:16|AsyncReaderWriterLock|Released concurrent scheduler for operation: 86 at ICommittedFileForklift.cs:95 after blocking 0.0038806s
+2017-06-21 19:47:21.7280|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 87 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7280|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 87 at ICommittedFileForklift.cs:95 after waiting 2.96E-05s
+2017-06-21 19:47:21.7280|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 87 at ICommittedFileForklift.cs:95 after blocking 0.0023604s
+2017-06-21 19:47:21.7280|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 88 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7280|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 88 at ICommittedFileForklift.cs:95 after waiting 2.01E-05s
+2017-06-21 19:47:21.7280|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 88 at ICommittedFileForklift.cs:95 after blocking 0.0031217s
+2017-06-21 19:47:21.7280|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 89 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7280|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 89 at ICommittedFileForklift.cs:95 after waiting 1.5E-05s
+2017-06-21 19:47:21.7410|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 89 at ICommittedFileForklift.cs:95 after blocking 0.0029309s
+2017-06-21 19:47:21.7410|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 90 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7410|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 90 at ICommittedFileForklift.cs:95 after waiting 1.77E-05s
+2017-06-21 19:47:21.7410|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 90 at ICommittedFileForklift.cs:95 after blocking 0.0029941s
+2017-06-21 19:47:21.7410|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 91 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7410|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 91 at ICommittedFileForklift.cs:95 after waiting 1.58E-05s
+2017-06-21 19:47:21.7410|INFO|thread:13|AsyncReaderWriterLock|Released concurrent scheduler for operation: 91 at ICommittedFileForklift.cs:95 after blocking 0.0032687s
+2017-06-21 19:47:21.7410|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 92 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7410|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 92 at ICommittedFileForklift.cs:95 after waiting 1.5E-05s
+2017-06-21 19:47:21.7410|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 92 at ICommittedFileForklift.cs:95 after blocking 0.0030779s
+2017-06-21 19:47:21.7410|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 93 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7410|INFO|thread:39|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 93 at ICommittedFileForklift.cs:95 after waiting 1.34E-05s
+2017-06-21 19:47:21.7581|INFO|thread:17|AsyncReaderWriterLock|Released concurrent scheduler for operation: 93 at ICommittedFileForklift.cs:95 after blocking 0.0029297s
+2017-06-21 19:47:21.7581|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 94 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7581|INFO|thread: 4|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 94 at ICommittedFileForklift.cs:95 after waiting 2.37E-05s
+2017-06-21 19:47:21.7581|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent scheduler for operation: 94 at ICommittedFileForklift.cs:95 after blocking 0.0028436s
+2017-06-21 19:47:21.7581|INFO|thread: 1|AsyncReaderWriterLock|Acquiring concurrent scheduler for operation 95 at ICommittedFileForklift.cs:95
+2017-06-21 19:47:21.7581|INFO|thread:13|AsyncReaderWriterLock|Acquired concurrent scheduler for operation: 95 at ICommittedFileForklift.cs:95 after waiting 1.85E-05s
+2017-06-21 19:47:21.7581|INFO|thread:39|AsyncReaderWriterLock|Released concurrent scheduler for operation: 95 at ICommittedFileForklift.cs:95 after blocking 0.0022392s
+2017-06-21 19:47:22.0804|INFO|thread:15|AsyncReaderWriterLock|Released concurrent scheduler for operation: 50 at GitClient.cs:381 after blocking 0.937157s
+2017-06-21 19:47:50.5969|WARN|thread: 1|StandardUserErrors|Showing user error Failed to create a new commit.
+System.ArgumentNullException: Failed Null Check on 'commitModel'
+Nombre del parámetro: commitModel
+   en GitHub.Helpers.Ensure.ArgumentNotNull(Object value, String name)
+   en GitHub.ViewModels.CommitViewModel..ctor(IRepositoryModel repository, ICommitModel commitModel, ICommittedFileForklift committedFileForklift, IAvatarProvider avatarProvider, IInlineTextProvider inlineTextProvider)
+   en GitHub.Helpers.CommitCreator.<>c__DisplayClass2.<CreateCommit>b__1(<>f__AnonymousType0`2 x)
+   en System.Reactive.Linq.ObservableImpl.Select`2._.OnNext(TSource value)
+2017-06-21 19:47:52.4470|INFO|thread: 1|SelectedCommitViewModel|Took 31304ms to load files for commit 5225aba in repo C:\Users\Ander\Desktop\Project\cloud\local\first_version
