@@ -4,5 +4,5 @@ wheel==0.29.0
 gunicorn==19.7.1
 psycopg2==2.7.1
 bs4
-urllib
+
 django-filter==0.14.0

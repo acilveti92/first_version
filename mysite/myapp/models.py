@@ -39,17 +39,18 @@ class WordAjaxModelStatus(models.Model):                    # model - class    -
 class UserLanguage(models.Model):                    # model - class    - table
     user = models.ForeignKey(User, null=True)
     translation = models.CharField(max_length=6, default="EN-GE")
-
-    def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
-        if not self.id:
-            self.created = timezone.now()
-        self.modified = timezone.now()
-        return super(User, self).save(*args, **kwargs)
+    translation_launch_hk = models.IntegerField(default=0)
 
     def __str__(self):
         return '%s - %s' % (self.user, self.translation)
 
+class UserLanguage2(models.Model):                    # model - class    - table
+    user = models.ForeignKey(User, null=True)
+    translation = models.CharField(max_length=6, default="EN-GE")
+    translation_launch_hk = models.IntegerField(default=0)
+
+    def __str__(self):
+        return '%s - %s' % (self.user, self.translation)
 
 class UserRegister(models.Model):                    # model - class    - table
     user = models.ForeignKey(User, null=True)
@@ -115,9 +116,12 @@ class PruebaExcel(models.Model):                    # model - class    - table
 
 #model upload file
 class Document(models.Model):
+    user = models.ForeignKey(User, null=True)
     description = models.CharField(max_length=255, blank=True)
+    description2 = models.CharField(max_length=255, blank=True)
+
     document = models.FileField(upload_to='documents/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '%s - %s' % (self.description, self.uploaded_at)
+        return '%s - %s - %s' % (self.user, self.description, self.uploaded_at)

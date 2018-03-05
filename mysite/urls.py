@@ -71,6 +71,7 @@ urlpatterns = patterns('',
 
     url(r'^wordajax/$', myapp_views.wordajax.as_view(), name='ajaxword'),
     url(r'^bookscrapping/$', myapp_views.BookScrapping.as_view(), name='bookscrapping'),
+    url(r'^demo/', 'mysite.myapp.views.demo'),
 
 
     url(r'^wordselectionajax/$', myapp_views.WordSelectionAjax.as_view(), name='wordselectionajax')

@@ -57,6 +57,8 @@ from django.core.management import call_command
 
 import shutil
 
+import os
+
 
 
 
@@ -258,27 +260,66 @@ def example(request):
 def example2(request):
     return render(request, 'index2.html')
 
+
+
 def model_form_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
+
         if form.is_valid():
+
+
+            print("the user upload is ")
+            aux_model_form_upload_class = aux_model_form_upload()  # get an instance of the class
+            print("check")
+            user = aux_model_form_upload_class.getUser(request)
+            print("check user")
+            print(user)
+            form.user = user
+            print("check form")
+            print(form)
+            print(form.files['document'])
             form.save()
-            print("description")
-            print(form['description'])
-            print("document")
-            print(form['document'])
-            print("request.FILES['filename'].name")
-            print(request.FILES['document'].name)
+            #print("user = self.getUser(request)")
+            #user = self.getUser(request)
+            #print(user)
+            #dst_folder = self.getDstFolder(user)
+
+            #doc_name = request.FILES['document'].name
             #src = "media/documents/"
-            #dst = "C:\\steve_test\\Test_xp\\moved"
+            #src = src + doc_name
+
+            #dst = "media/moved/"
+            #dst = dst + doc_name
             #shutil.copyfile(src, dst)
 
             return redirect('index.html')
-    else:
+    else :
         form = DocumentForm()
+
     return render(request, 'model_form_upload.html', {
         'form': form
     })
+
+class aux_model_form_upload ( View):
+    def getUser(self, request_data):
+        session_key = request_data.session._session_key
+        print(request)
+        print("the session key is")
+        # print(request.session._session_key)
+
+        session = Session.objects.get(session_key=session_key)
+        uid = session.get_decoded().get('_auth_user_id')
+        click_user = User.objects.get(pk=uid)
+        print("the user is")
+        print(click_user)
+
+        return click_user
+
+    def getDstFolder (self, user):
+        print(os.path.isdir("/home/el"))
+
+
 
 
 def demo(request):
@@ -1018,7 +1059,7 @@ class BookScrapping(APIView):
         word = Word.objects.filter(spanish_text=sent_words[0].spanish_text)
         for i in range(0, len(sent_words)):
             print i
-            word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
+            word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "SP-EN")  #this must be changed to work with the demo word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
 
             # print user
             # print word[0]
