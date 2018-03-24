@@ -59,6 +59,8 @@ import shutil
 
 import os
 
+from google.cloud import translate
+
 
 
 
@@ -1047,6 +1049,33 @@ class BookScrapping(APIView):
 
         return Response(serializer.data)
 
+    def translate_text(self, text, target):
+
+        print(" google translate function")
+        """
+        Target must be an ISO 639-1 language code.
+        https://cloud.google.com/translate/docs/languages
+        """
+        translate_client = translate.Client()
+        print(" google translate function-1")
+        print(text)
+        #text = "ich habe hunger"
+        #target = 'es'
+        result = translate_client.translate(
+            text,
+            target_language=target)
+
+        print("check1")
+        print(u'Text: {}'.format(result['input']))
+        print("check2")
+        print(u'Translation: {}'.format(result['translatedText']))
+        print("check3")
+        print(u'Detected source language: {}'.format(
+            result['detectedSourceLanguage']))
+
+        return result
+
+
     def updateDB(self, sent_words, user):
         print("updateDB")
         print sent_words
@@ -1059,7 +1088,17 @@ class BookScrapping(APIView):
         word = Word.objects.filter(spanish_text=sent_words[0].spanish_text)
         for i in range(0, len(sent_words)):
             print i
-            word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "SP-EN")  #this must be changed to work with the demo word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
+            #here must go the google translate api
+            print(" launch  the translation function")
+            word_trans = self.translate_text(sent_words[i].spanish_text, 'es')
+
+
+            # word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")  #this must be changed to work with the demo word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
+            
+
+
+
+            #word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")  #this must be changed to work with the demo word = Word.objects.filter(spanish_text=sent_words[i].spanish_text, translation = "EN-GE")
 
             # print user
             # print word[0]
@@ -1432,3 +1471,10 @@ class BookScrapping(APIView):
                 else:
                     word_presence = [DW]
                     return word_presence
+
+
+
+
+
+
+
